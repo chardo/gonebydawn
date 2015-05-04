@@ -34,6 +34,8 @@ GameObject:
   - 114: {fileID: 11454148}
   - 114: {fileID: 11499442}
   - 114: {fileID: 11467474}
+  - 114: {fileID: 11410802}
+  - 114: {fileID: 11498608}
   m_Layer: 0
   m_Name: Digger
   m_TagString: Player
@@ -140,6 +142,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153704}
   m_Enabled: 1
+--- !u!114 &11410802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f072d46eeb7944bf8d5a3f5bfd395e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  digSpeed: .0299999993
 --- !u!114 &11454148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,6 +195,18 @@ MonoBehaviour:
   lookAheadFactor: 0
   lookAheadReturnSpeed: .5
   lookAheadMoveThreshold: .100000001
+--- !u!114 &11498608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a36640aca7642a5819747784bfa56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTotal: 0
 --- !u!114 &11499442
 MonoBehaviour:
   m_ObjectHideFlags: 1
