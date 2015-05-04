@@ -17,13 +17,10 @@ public class Move : MonoBehaviour{
 	{
 		move = new Vector2( Input.GetAxis ("Horizontal"), Input.GetAxis ("Vertical"));
 		move.Normalize ();
-		// Move senteces
 		if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
-			rb.velocity = new Vector2 (Mathf.Lerp (0, Input.GetAxis ("Horizontal") * sneakSpeed, 0.2f),
-		                                  		Mathf.Lerp (0, Input.GetAxis ("Vertical") * sneakSpeed, 0.2f));
+			rb.velocity = move * sneakSpeed;
 		} else {
-			rb.velocity = new Vector2 (Mathf.Lerp (0, Input.GetAxis ("Horizontal") * normalSpeed, 0.2f),
-			                                    Mathf.Lerp (0, Input.GetAxis ("Vertical") * normalSpeed, 0.2f));
+			rb.velocity = move * normalSpeed;
 		}
 	}
 }
