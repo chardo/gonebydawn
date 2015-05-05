@@ -17,7 +17,7 @@ public class Move : MonoBehaviour{
 	{
 		move = new Vector2( Mathf.Lerp(0, Input.GetAxis ("Horizontal"), 0.8f), Mathf.Lerp (0, Input.GetAxis ("Vertical"), 0.8f));
 		move.Normalize ();
-		if (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift) || Input.GetKeyDown (KeyCode.CapsLock)) {
+		if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift) || Input.GetKey (KeyCode.CapsLock)) {
 			rb.velocity = move * sneakSpeed;
 		} else {
 			rb.velocity = move * normalSpeed;
