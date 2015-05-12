@@ -31,6 +31,7 @@ GameObject:
   - 212: {fileID: 21242736}
   - 50: {fileID: 5009952}
   - 58: {fileID: 5868896}
+  - 58: {fileID: 5820330}
   - 114: {fileID: 11454148}
   - 114: {fileID: 11499442}
   - 114: {fileID: 11467474}
@@ -110,11 +111,24 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_FixedAngle: 0
+  m_FixedAngle: 1
   m_IsKinematic: 0
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!58 &5820330
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154322}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!58 &5868896
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -154,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   digSpeed: .0299999993
+  soundTrigger: {fileID: 5820330}
+  digSoundRadius: 15
 --- !u!114 &11454148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,6 +183,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalSpeed: 20
   sneakSpeed: 10
+  cam: {fileID: 2000122}
+  normalCamSize: 15
+  sneakCamSize: 10
+  soundTrigger: {fileID: 5820330}
+  normalSoundRadius: 20
+  sneakSoundRadius: 10
 --- !u!114 &11467474
 MonoBehaviour:
   m_ObjectHideFlags: 1
