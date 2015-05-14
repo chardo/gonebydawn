@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Dig : MonoBehaviour {
 
-	private bool inGrave = false;
+	public bool inGrave = false;
 	private GraveController gc;
 	public float digSpeed;
 
@@ -22,24 +22,29 @@ public class Dig : MonoBehaviour {
 		}
 
 		if (Input.GetKey (KeyCode.Space)) {
-			if (inGrave && gc.hasLoot) {
+			if (inGrave && gc.hasLoot && gc.occupied) {
 				gc.dirtcount -= digSpeed;
 			}
 			//enable sound radius and set its size to digging radius
 			soundTrigger.enabled = true;
-			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8*(Time.time-startTime));
+			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
+		} else {
+			soundTrigger.enabled = false;
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.tag == "grave") {
-			inGrave = true;
-			gc = other.GetComponent<GraveController> ();
+			gc = other.gameObject.GetComponent<GraveController> ();
+			if (gc.occupied) {
+				inGrave = true;
+				Debug.Log ("hello");
+			}
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D other) {
-		if (other.tag == "grave") {
+		if (other.tag == "grave" && gc.occupied) {
 			inGrave = false;
 			gc = null;
 		}
