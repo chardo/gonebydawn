@@ -3,27 +3,38 @@ using System.Collections;
 
 public class Dig : MonoBehaviour {
 
-	public bool inGrave = false;
+	private bool inGrave = false;
 	private GraveController gc;
 	public float digSpeed;
+	public bool canDig = true;
 
 	//sound radius vars for digging noise
 	public CircleCollider2D soundTrigger;
 	public float digSoundRadius;
 	private float startTime;
-
+	
 
 	// Update is called once per frame
 	void Update () {
 
 		//reset starttime when space is pressed or released (makes Lerp for soundRadius work!)
-		if (Input.GetKeyDown (KeyCode.Space) || Input.GetKeyUp (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space)) {
 			startTime = Time.time;
 		}
 
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			startTime = Time.time;
+			canDig = true;
+		}
+
 		if (Input.GetKey (KeyCode.Space)) {
-			if (inGrave && gc.hasLoot && gc.occupied) {
-				gc.dirtcount -= digSpeed;
+			if (canDig && inGrave && gc.occupied) {
+				if (gc.isFilled) {
+					gc.dirtcount -= digSpeed;
+				}
+				else {
+					gc.dirtcount += digSpeed;
+				}
 			}
 			//enable sound radius and set its size to digging radius
 			soundTrigger.enabled = true;
@@ -38,7 +49,6 @@ public class Dig : MonoBehaviour {
 			gc = other.gameObject.GetComponent<GraveController> ();
 			if (gc.occupied) {
 				inGrave = true;
-				Debug.Log ("hello");
 			}
 		}
 	}
