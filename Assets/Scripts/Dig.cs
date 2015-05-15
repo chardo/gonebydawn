@@ -12,6 +12,8 @@ public class Dig : MonoBehaviour {
 	public CircleCollider2D soundTrigger;
 	public float digSoundRadius;
 	private float startTime;
+
+	private PhotonView pv;
 	
 
 	// Update is called once per frame
@@ -29,12 +31,7 @@ public class Dig : MonoBehaviour {
 
 		if (Input.GetKey (KeyCode.Space)) {
 			if (canDig && inGrave && gc.occupied) {
-				if (gc.isFilled) {
-					gc.dirtcount -= digSpeed;
-				}
-				else {
-					gc.dirtcount += digSpeed;
-				}
+				pv.RPC ("UpdateGrave", PhotonTargets.AllBuffered, digSpeed);
 			}
 			//enable sound radius and set its size to digging radius
 			soundTrigger.enabled = true;
@@ -47,6 +44,7 @@ public class Dig : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.tag == "grave") {
 			gc = other.gameObject.GetComponent<GraveController> ();
+			pv = other.gameObject.GetComponent<PhotonView>();
 			if (gc.occupied) {
 				inGrave = true;
 			}

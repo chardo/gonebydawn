@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f072d46eeb7944bf8d5a3f5bfd395e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGrave: 0
   digSpeed: .0299999993
+  canDig: 1
   soundTrigger: {fileID: 5820330}
   digSoundRadius: 15
 --- !u!114 &11454148

@@ -22,8 +22,14 @@ public class GraveController : MonoBehaviour {
 		maxdirtcount = dirtcount;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	[RPC]
+	public void UpdateGrave (float amt) {
+		if (isFilled) {
+			dirtcount -= amt;
+		} else {
+			dirtcount += amt;
+		}
+
 		if (looterStats != null && dirtcount <= 0.0f && isFilled) {
 			dirtcount = 0.0f;
 			sprite.color = new Color(0f, 0f, 0f, 1f);
