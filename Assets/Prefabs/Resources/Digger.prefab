@@ -32,10 +32,11 @@ GameObject:
   - 50: {fileID: 5009952}
   - 61: {fileID: 6166022}
   - 58: {fileID: 5820330}
-  - 114: {fileID: 11454148}
   - 114: {fileID: 11499442}
   - 114: {fileID: 11467474}
+  - 114: {fileID: 11454148}
   - 114: {fileID: 11410802}
+  - 114: {fileID: 11454758}
   - 114: {fileID: 11498608}
   m_Layer: 0
   m_Name: Digger
@@ -190,6 +191,19 @@ MonoBehaviour:
   soundTrigger: {fileID: 5820330}
   normalSoundRadius: 20
   sneakSoundRadius: 10
+--- !u!114 &11454758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 440682aae51244d908360fbc4151fa8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rock: {fileID: 5053328, guid: f80115a1fb9f04ab4881309ae8a34dc3, type: 2}
+  throwForce: 1500
 --- !u!114 &11467474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTotal: 0
+  rocks: 3
 --- !u!114 &11499442
 MonoBehaviour:
   m_ObjectHideFlags: 1

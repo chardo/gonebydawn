@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerStats : MonoBehaviour {
 
 	public int lootTotal = 0;
+	public int rocks = 3;
 
 	// Use this for initialization
 	void Start () {
