@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - grave
+  - spawn
   layers:
   - Default
   - TransparentFX
