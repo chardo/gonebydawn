@@ -42499,9 +42499,43 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 456100, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
       propertyPath: m_RootOrder
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859618, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859618, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11485166, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: pathUpdateTime
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485166, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: chaseSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485166, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: patrolSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839598, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839598, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859618, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6073922, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
+    - {fileID: 5859618, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f3cd1b44e906dd84792372d206cf555a, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &2052947544

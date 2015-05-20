@@ -105,7 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd5a6fdebad849419fb8aa1dc2ae8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathingTarget: {fileID: 0}
+  patrolSpeed: 10
+  chaseSpeed: 30
+  pathUpdateTime: 20
 --- !u!212 &21259210
 SpriteRenderer:
   m_ObjectHideFlags: 1
