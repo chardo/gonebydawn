@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Sprites;
+using UnityEditor.Animations;
 
 public class Move : MonoBehaviour{
 	//speed vars
@@ -12,6 +14,7 @@ public class Move : MonoBehaviour{
 	public float sneakCamSize;
 	//movement vars
 	private Rigidbody2D rb;
+	public AnimationClip claywalk2;            
 	private Vector2 move;
 	//reusable time var for lerping
 	private float startTime;
