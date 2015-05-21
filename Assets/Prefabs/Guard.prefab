@@ -102,12 +102,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 177260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcd5a6fdebad849419fb8aa1dc2ae8c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2258c70c6781f4a428c3d30e9accf0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolSpeed: 10
-  chaseSpeed: 30
-  pathUpdateTime: 20
 --- !u!212 &21259210
 SpriteRenderer:
   m_ObjectHideFlags: 1
