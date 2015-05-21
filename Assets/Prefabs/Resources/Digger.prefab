@@ -137,7 +137,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154322}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: f2602d053473a4cfd85e4a24b12b663e, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -188,6 +188,7 @@ MonoBehaviour:
   cam: {fileID: 2000122}
   normalCamSize: 15
   sneakCamSize: 10
+  claywalk2: {fileID: 0}
   soundTrigger: {fileID: 5820330}
   normalSoundRadius: 20
   sneakSoundRadius: 10

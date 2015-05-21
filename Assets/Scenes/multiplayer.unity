@@ -820,7 +820,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: VVR
   playerPrefabName: Digger
-  spawnPoint: {fileID: 0}
 --- !u!4 &1388452130
 Transform:
   m_ObjectHideFlags: 0
