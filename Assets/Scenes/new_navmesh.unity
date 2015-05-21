@@ -16317,8 +16317,7 @@ GameObject:
 --- !u!114 &865779235
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11485166, guid: f3cd1b44e906dd84792372d206cf555a,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 865779234}
   m_Enabled: 1
@@ -16326,6 +16325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2258c70c6781f4a428c3d30e9accf0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolSpeed: 5
+  chaseSpeed: 15
+  pathUpdateTime: 20
 --- !u!50 &865779236
 Rigidbody2D:
   m_ObjectHideFlags: 0

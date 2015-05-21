@@ -12,6 +12,8 @@ public class Move : MonoBehaviour{
 	public Camera cam;
 	public float normalCamSize;
 	public float sneakCamSize;
+	public float zoomCamSize = 50;
+	private bool zoomedCam = false;
 	//movement vars
 	private Rigidbody2D rb;
 	public AnimationClip claywalk2;            
@@ -46,7 +48,10 @@ public class Move : MonoBehaviour{
 			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8*(Time.time-startTime));
 		} else {
 			speed = Mathf.Lerp (speed, normalSpeed, 8*(Time.time-startTime));
-			cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4*(Time.time-startTime));
+			if (zoomedCam)
+				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, zoomCamSize, 4*(Time.time-startTime));
+			else
+				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4*(Time.time-startTime));
 			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8*(Time.time-startTime));
 		}
 		if (move == Vector2.zero)
@@ -59,5 +64,13 @@ public class Move : MonoBehaviour{
 			move = Vector2.zero;
 		move.Normalize ();
 		rb.velocity = move * speed;
+
+		// camera zooming for testing purposes
+		if (Input.GetKeyDown (KeyCode.E)){
+			if (zoomedCam)
+				zoomedCam = false;
+			else 
+				zoomedCam = true;
+		}
 	}
 }

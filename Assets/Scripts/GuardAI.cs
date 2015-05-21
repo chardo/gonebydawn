@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PigeonCoopToolkit.Navmesh2D;
 
-public class ChaseTester : MonoBehaviour {
+public class GuardAI : MonoBehaviour {
 	
 	public float patrolSpeed;
 	public float chaseSpeed;
