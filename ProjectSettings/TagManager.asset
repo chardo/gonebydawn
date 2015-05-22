@@ -6,6 +6,7 @@ TagManager:
   tags:
   - grave
   - spawn
+  - Rock
   layers:
   - Default
   - TransparentFX

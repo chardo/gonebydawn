@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11405846}
   m_Layer: 0
   m_Name: rock
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwDistance: 20
-  soundRadius: 15
+  soundRadius: 60
 --- !u!212 &21230896
 SpriteRenderer:
   m_ObjectHideFlags: 1

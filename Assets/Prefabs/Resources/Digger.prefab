@@ -188,6 +188,7 @@ MonoBehaviour:
   cam: {fileID: 2000122}
   normalCamSize: 15
   sneakCamSize: 10
+  zoomCamSize: 50
   claywalk2: {fileID: 0}
   soundTrigger: {fileID: 5820330}
   normalSoundRadius: 20
@@ -245,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTotal: 0
-  rocks: 3
+  rocks: 100
 --- !u!114 &11499442
 MonoBehaviour:
   m_ObjectHideFlags: 1

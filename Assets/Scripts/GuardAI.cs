@@ -53,7 +53,7 @@ public class GuardAI : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		//if player sound bubble runs into the guard
-		if (other.tag == "Player" && newTarget) {
+		if ((other.tag == "Player" || other.tag == "Rock") && newTarget) {
 			pathingTarget = other.transform;
 			newTarget = false;
 		}

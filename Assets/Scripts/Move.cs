@@ -12,7 +12,7 @@ public class Move : MonoBehaviour{
 	public Camera cam;
 	public float normalCamSize;
 	public float sneakCamSize;
-	public float zoomCamSize = 50;
+	public float zoomCamSize = 50; // for testing; press E to de/activate
 	private bool zoomedCam = false;
 	//movement vars
 	private Rigidbody2D rb;
