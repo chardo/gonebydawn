@@ -9,7 +9,6 @@ public class RockController : MonoBehaviour {
 	private Rigidbody2D rb;
 	private SpriteRenderer sprite;
 	private Vector3 startPoint;
-	private bool destroyTime = false;
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +24,6 @@ public class RockController : MonoBehaviour {
 		if (dist > throwDistance) {
 			makeNoiseAndDie();
 		}
-		if (destroyTime)
-			Destroy (gameObject);
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
@@ -34,14 +31,15 @@ public class RockController : MonoBehaviour {
 	}
 
 	void makeNoiseAndDie() {
+		sprite.enabled = false;
+		rb.isKinematic = true;
 		thisCollider.isTrigger = true;
 		thisCollider.radius = soundRadius;
-		rb.isKinematic = true;
-		sprite.enabled = false;
-		StartCoroutine(WaitForTime(10F));
+		StartCoroutine(WaitForTime(2));
 	}
 
 	IEnumerator WaitForTime(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
+		Destroy (gameObject);
 	}
 }
