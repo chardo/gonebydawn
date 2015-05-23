@@ -32,6 +32,18 @@ public class NetworkManager : MonoBehaviour {
 		}
 
 	}
+
+	void OnCreatedRoom(){
+		// Instantiate and spawn guards	
+		int g = Random.Range (0, guardSpawnOptions.Count);
+		GameObject guardSpawnPoint = guardSpawnOptions [g];
+		guardSpawnOptions.Remove (guardSpawnPoint);
+		
+		PhotonNetwork.InstantiateSceneObject (guardPrefabName,
+		                           guardSpawnPoint.transform.position,
+		                           guardSpawnPoint.transform.rotation,
+		                           0, null);
+	}
 	
 	void OnJoinedLobby() {
 		RoomOptions roomOptions = new RoomOptions (){ isVisible = false, maxPlayers = 4};
@@ -51,14 +63,14 @@ public class NetworkManager : MonoBehaviour {
 		                           mySpawnPoint.transform.rotation,
 		                           0);
 
-		// Instantiate and spawn guards	
-		int g = Random.Range (0, guardSpawnOptions.Count);
-		GameObject guardSpawnPoint = guardSpawnOptions [g];
-		guardSpawnOptions.Remove (guardSpawnPoint);
-		
-		PhotonNetwork.InstantiateSceneObject (guardPrefabName,
-		                           guardSpawnPoint.transform.position,
-		                           guardSpawnPoint.transform.rotation,
-		                                      0, null);
+//		// Instantiate and spawn guards	
+//		int g = Random.Range (0, guardSpawnOptions.Count);
+//		GameObject guardSpawnPoint = guardSpawnOptions [g];
+//		guardSpawnOptions.Remove (guardSpawnPoint);
+//		
+//		PhotonNetwork.Instantiate (guardPrefabName,
+//		                           guardSpawnPoint.transform.position,
+//		                           guardSpawnPoint.transform.rotation,
+//		                                      0, null);
 	}
 }

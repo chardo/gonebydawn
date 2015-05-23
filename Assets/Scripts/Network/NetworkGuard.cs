@@ -14,6 +14,8 @@ public class NetworkGuard : Photon.MonoBehaviour {
 	void Start () {
 		if (photonView.isMine) {
 			GetComponent<GuardAI> ().enabled = true;
+		} else {
+			StartCoroutine ("Alive");
 		}
 	
 	}
