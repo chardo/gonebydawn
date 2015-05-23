@@ -85,6 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcacb9236f926460bb20d43d988e62c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  throwDistance: 20
+  soundRadius: 60
 --- !u!114 &11495664
 MonoBehaviour:
   m_ObjectHideFlags: 1

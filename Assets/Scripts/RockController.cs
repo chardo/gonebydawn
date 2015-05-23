@@ -35,30 +35,30 @@ public class RockController : MonoBehaviour {
 //		gameObject.transform.rotation = rotation;
 //	}
 
-	// Update is called once per frame
-	void Update () {
-		float dist = Vector3.Distance (transform.position, startPoint);
-		if (dist > throwDistance) {
-			makeNoiseAndDie();
-		}
-//		pv.RPC ("UpdateRocks", PhotonTargets.AllBuffered, transform.position, transform.rotation);
-
-	}
-
-	void OnCollisionEnter2D (Collision2D other) {
-		makeNoiseAndDie ();
-	}
-
-	void makeNoiseAndDie() {
-		sprite.enabled = false;
-		rb.isKinematic = true;
-		thisCollider.isTrigger = true;
-		thisCollider.radius = soundRadius;
-		StartCoroutine(WaitForTime(0.5f));
-	}
-
-	IEnumerator WaitForTime(float waitTime) {
-		yield return new WaitForSeconds(waitTime);
-		Destroy (gameObject);
-	}
+//	// Update is called once per frame
+//	void Update () {
+//		float dist = Vector3.Distance (transform.position, startPoint);
+//		if (dist > throwDistance) {
+//			makeNoiseAndDie();
+//		}
+////		pv.RPC ("UpdateRocks", PhotonTargets.AllBuffered, transform.position, transform.rotation);
+//
+//	}
+//
+//	void OnCollisionEnter2D (Collision2D other) {
+//		makeNoiseAndDie ();
+//	}
+//
+//	void makeNoiseAndDie() {
+//		sprite.enabled = false;
+//		rb.isKinematic = true;
+//		thisCollider.isTrigger = true;
+//		thisCollider.radius = soundRadius;
+//		StartCoroutine(WaitForTime(0.5f));
+//	}
+//
+//	IEnumerator WaitForTime(float waitTime) {
+//		yield return new WaitForSeconds(waitTime);
+//		Destroy (gameObject);
+//	}
 }
