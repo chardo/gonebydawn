@@ -16560,8 +16560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 5
-  chaseSpeed: 15
-  pathUpdateTime: 20
+  investigateSpeed: 15
+  chaseSpeed: 25
 --- !u!50 &865779236
 Rigidbody2D:
   m_ObjectHideFlags: 0
