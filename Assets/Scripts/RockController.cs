@@ -10,14 +10,28 @@ public class RockController : MonoBehaviour {
 	private SpriteRenderer sprite;
 	private Vector3 startPoint;
 
+//	public Rigidbody2D rock;
+//	public float throwForce;
+//	private Vector2 dir;
+//	private Vector3 startPos;
+//	private float angle;
+//	private PlayerStats ps;
+
 	// Use this for initialization
 	void Start () {
 		thisCollider = GetComponent<CircleCollider2D> ();
 		rb = GetComponent<Rigidbody2D> ();
 		sprite = GetComponent<SpriteRenderer> ();
 		startPoint = transform.position;
+		
+		ps = GetComponent<PlayerStats> (); 
 	}
-	
+
+//	[RPC]
+//	public void UpdateRocks(){
+//
+//	}
+
 	// Update is called once per frame
 	void Update () {
 		float dist = Vector3.Distance (transform.position, startPoint);

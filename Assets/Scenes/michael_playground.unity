@@ -3093,7 +3093,7 @@ RectTransform:
   - {fileID: 1490984483}
   - {fileID: 878118834}
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 39
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -16292,7 +16292,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 39
+  m_RootOrder: 35
 --- !u!114 &868529842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -29503,7 +29503,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 22
 --- !u!114 &1390521410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35794,7 +35794,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 25
 --- !u!50 &1615557577
 Rigidbody2D:
   m_ObjectHideFlags: 0
