@@ -13,6 +13,7 @@ GameObject:
   - 58: {fileID: 5874368}
   - 114: {fileID: 11405846}
   - 114: {fileID: 11495664}
+  - 114: {fileID: 11469878}
   m_Layer: 0
   m_Name: rock
   m_TagString: Rock
@@ -66,15 +67,26 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194594}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bbbcc51dc0194b878f935a5a7457e79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   throwDistance: 20
   soundRadius: 60
-  rock: {fileID: 0}
-  throwForce: 0
+--- !u!114 &11469878
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcacb9236f926460bb20d43d988e62c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwDistance: 20
+  soundRadius: 60
 --- !u!114 &11495664
 MonoBehaviour:
   m_ObjectHideFlags: 1

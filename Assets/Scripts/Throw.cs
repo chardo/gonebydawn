@@ -22,7 +22,7 @@ public class Throw : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButtonDown (0) && ps.rocks > 0) {
-//			pv.RPC ("UpdateRocks", PhotonTargets.AllBuffered, null);
+//			pv.RPC ("UpdateRocks", PhotonTargets.AllBuffered, r.transform.position, r.transform.rotation);
 			Vector3 mousePos = Input.mousePosition;
 			mousePos.z = (transform.position.z - Camera.main.transform.position.z);
 			mousePos = Camera.main.ScreenToWorldPoint (mousePos);
@@ -34,6 +34,13 @@ public class Throw : MonoBehaviour {
 			r.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 			r.AddForce (r.transform.right * throwForce);
 			ps.rocks -= 1;
+//			pv.RPC ("UpdateRocks", PhotonTargets.AllBuffered, r.transform.position, r.transform.rotation);
 		}
 	}
+
+//	[RPC]
+//	void UpdateRocks(Vector3 position, Quaternion rotation){
+//		gameObject.transform.position = position;
+//		gameObject.transform.rotation = rotation;
+//	}
 }
