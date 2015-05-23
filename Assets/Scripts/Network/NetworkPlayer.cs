@@ -18,6 +18,9 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			gameObject.name = "Me";
 			myCamera.SetActive (true);
 			GetComponent<Move> ().enabled = true;
+			GetComponent<Dig> ().enabled = true;
+			GetComponent<Throw> ().enabled = true;
+			GetComponent<PlayerStats> ().enabled = true;
 		} else {
 			// All other Diggers will be named this
 			gameObject.name = "Network Player";
