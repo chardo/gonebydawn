@@ -52,6 +52,7 @@ public class NetworkRock : Photon.MonoBehaviour {
 	
 	IEnumerator WaitForTime(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
+		PhotonNetwork.RemoveRPCs (photonView);
 		PhotonNetwork.Destroy (gameObject);
 	}
 }
