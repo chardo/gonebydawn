@@ -35,7 +35,7 @@ public class RockController : MonoBehaviour {
 		rb.isKinematic = true;
 		thisCollider.isTrigger = true;
 		thisCollider.radius = soundRadius;
-		StartCoroutine(WaitForTime(2));
+		StartCoroutine(WaitForTime(0.5f));
 	}
 
 	IEnumerator WaitForTime(float waitTime) {

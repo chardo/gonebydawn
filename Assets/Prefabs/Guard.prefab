@@ -106,7 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 5
-  chaseSpeed: 15
+  investigateSpeed: 15
+  chaseSpeed: 25
   pathUpdateTime: 20
 --- !u!212 &21259210
 SpriteRenderer:
