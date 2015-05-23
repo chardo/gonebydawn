@@ -52,7 +52,7 @@ public class GuardAI : MonoBehaviour {
 			// attempt at having the guard face the direction it is moving; doesn't fully work
 			/*Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
 			Quaternion rotation = Quaternion.LookRotation
-				(path3D - transform.position, transform.TransformDirection(Vector3.up));
+				(path3D - transform.position, transform.TransformDirection(Vector3.forward));
 			transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);*/
 		}
 	}

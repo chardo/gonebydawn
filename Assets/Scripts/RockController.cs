@@ -15,7 +15,7 @@ public class RockController : MonoBehaviour {
 //	private Vector2 dir;
 //	private Vector3 startPos;
 //	private float angle;
-//	private PlayerStats ps;
+	private PlayerStats ps;
 
 	// Use this for initialization
 	void Start () {
@@ -24,7 +24,7 @@ public class RockController : MonoBehaviour {
 		sprite = GetComponent<SpriteRenderer> ();
 		startPoint = transform.position;
 		
-		ps = GetComponent<PlayerStats> (); 
+		ps = GetComponent<PlayerStats> ();
 	}
 
 //	[RPC]

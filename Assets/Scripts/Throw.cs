@@ -29,9 +29,10 @@ public class Throw : MonoBehaviour {
 			dir = mousePos - transform.position;
 			Vector3 d = dir.normalized * 2f;
 			angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
-			GameObject r = PhotonNetwork.Instantiate ("rock", transform.position + d, transform.rotation, 0);
-//			r.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-//			r.AddForce (r.transform.right * throwForce);
+			GameObject g = PhotonNetwork.Instantiate ("rock", transform.position + d, transform.rotation, 0);
+			Rigidbody2D r = g.GetComponent<Rigidbody2D>();
+			r.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+			r.AddForce (r.transform.right * throwForce);
 			ps.rocks -= 1;
 		}
 	}
