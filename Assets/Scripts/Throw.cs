@@ -11,10 +11,10 @@ public class Throw : MonoBehaviour {
 
 	private PlayerStats ps;
 
-	private PhotonView pv;
+	//private PhotonView pv;
 	// Use this for initialization
 	void Start () {
-		pv = PhotonView.Get (this);
+		//pv = PhotonView.Get (this);
 		
 		ps = GetComponent<PlayerStats> (); 
 	}

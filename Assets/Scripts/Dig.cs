@@ -34,10 +34,10 @@ public class Dig : MonoBehaviour {
 				pv.RPC ("UpdateGrave", PhotonTargets.AllBuffered, digSpeed);
 			}
 			//enable sound radius and set its size to digging radius
-			soundTrigger.enabled = true;
+			//soundTrigger.enabled = true;
 			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
 		} else {
-			soundTrigger.enabled = false;
+			//soundTrigger.enabled = false;
 		}
 	}
 

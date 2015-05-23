@@ -123,12 +123,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 177260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce8f627aa83399458c855b9e56b8653, type: 3}
+  m_Script: {fileID: 11500000, guid: 2258c70c6781f4a428c3d30e9accf0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 5
   investigateSpeed: 15
   chaseSpeed: 25
+  sightAngle: 45
 --- !u!212 &21259210
 SpriteRenderer:
   m_ObjectHideFlags: 1

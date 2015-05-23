@@ -31,7 +31,6 @@ public class Move : MonoBehaviour{
 		rb = GetComponent<Rigidbody2D> ();
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
-		soundTrigger.name = "sound";
 	}
 
 	void Update()
@@ -54,16 +53,17 @@ public class Move : MonoBehaviour{
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4*(Time.time-startTime));
 			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8*(Time.time-startTime));
 		}
-		if (move == Vector2.zero)
-			soundTrigger.enabled = false;
-		else
-			soundTrigger.enabled = true;
 
 		move = new Vector2(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
 		if (Input.GetKey (KeyCode.Space))
 			move = Vector2.zero;
 		move.Normalize ();
 		rb.velocity = move * speed;
+
+		if (move != Vector2.zero || Input.GetKey (KeyCode.Space))
+			soundTrigger.enabled = true;
+		else
+			soundTrigger.enabled = true;
 
 		// camera zooming for testing purposes
 		if (Input.GetKeyDown (KeyCode.E)){
