@@ -37,7 +37,6 @@ public class GraveController : MonoBehaviour {
 			looter.canDig = false;
 			if (hasLoot) {
 				looterStats.lootTotal += lootContained;
-				Debug.Log (looterStats.lootTotal);
 				hasLoot = false;
 			}
 		}
