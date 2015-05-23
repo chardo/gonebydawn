@@ -35,4 +35,5 @@ MonoBehaviour:
   - TaggedPlayer
   - UpdateGrave
   - UpdateRocks
+  - ThrowRock
   DisableAutoOpenWizard: 0
