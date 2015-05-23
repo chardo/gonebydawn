@@ -6,17 +6,31 @@ public class NetworkManager : MonoBehaviour {
 	const string VERSION = "v0.0.1";
 	public string roomName = "VVR";
 	public string playerPrefabName = "Digger";
+
+	public string guardPrefabName = "Guard";
 	
 	GameObject[] spawnPoints;
 	List<GameObject> spawnOptions;
+
+	GameObject[] guardSpawns;
+	List<GameObject> guardSpawnOptions;
 	
 	void Start () {
 		PhotonNetwork.ConnectUsingSettings(VERSION);
+		// player spawns
 		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
 		spawnOptions = new List<GameObject> ();
 		for (int i = 0; i < spawnPoints.Length; i++) {
 			spawnOptions.Add (spawnPoints [i]);
 		}
+
+		// guard spawns
+		guardSpawns = GameObject.FindGameObjectsWithTag ("guardspawn");
+		guardSpawnOptions = new List<GameObject> ();
+		for (int i = 0; i < guardSpawns.Length; i++) {
+			guardSpawnOptions.Add (guardSpawns [i]);
+		}
+
 	}
 	
 	void OnJoinedLobby() {
@@ -25,6 +39,7 @@ public class NetworkManager : MonoBehaviour {
 	}
 	
 	void OnJoinedRoom() {
+		// instantiate and spawn players
 		int r = Random.Range (0, spawnOptions.Count);
 		GameObject mySpawnPoint = spawnOptions [r];
 		spawnOptions.Remove(mySpawnPoint);
@@ -34,6 +49,16 @@ public class NetworkManager : MonoBehaviour {
 		PhotonNetwork.Instantiate (playerPrefabName,
 		                           mySpawnPoint.transform.position,
 		                           mySpawnPoint.transform.rotation,
+		                           0);
+
+		// Instantiate and spawn guards
+		int g = Random.Range (0, guardSpawnOptions.Count);
+		GameObject guardSpawnPoint = guardSpawnOptions [g];
+		guardSpawnOptions.Remove (guardSpawnPoint);
+		
+		PhotonNetwork.Instantiate (guardPrefabName,
+		                           guardSpawnPoint.transform.position,
+		                           guardSpawnPoint.transform.rotation,
 		                           0);
 	}
 }
