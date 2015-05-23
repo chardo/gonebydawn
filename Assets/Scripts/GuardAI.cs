@@ -8,7 +8,8 @@ public class GuardAI : MonoBehaviour {
 	public float patrolSpeed;
 	public float investigateSpeed;
 	public float chaseSpeed;
-	public int sightAngle = 20;
+	public int normalAngle = 20;
+	private int sightAngle;
 	// time for new target
 
 	private float newTargetTimer;
@@ -23,6 +24,7 @@ public class GuardAI : MonoBehaviour {
 
 	void Start () {
 		newTargetTimer = 0;
+		sightAngle = normalAngle;
 	}
 
 	// Update is called once per frame
@@ -44,6 +46,7 @@ public class GuardAI : MonoBehaviour {
 				Quaternion rotation = Quaternion.LookRotation
 					(path3D - transform.position, transform.TransformDirection(Vector3.forward));
 				transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+				sightAngle = 90;
 			}
 		}
 
@@ -55,6 +58,7 @@ public class GuardAI : MonoBehaviour {
 					pathingTarget = objectSighted.transform;
 			}
 		}
+		sightAngle = normalAngle;
 		SetNewTarget ();
 	}
 
