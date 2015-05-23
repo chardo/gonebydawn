@@ -10,6 +10,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	// lerping smooths the cross-network display of other characters' movements the value can be changed. 
 	// higher float (10f means float 10) means more accurate position/movement representation
 	float lerpSmoothing  = 10f;
+	CircleCollider2D sound;
 
 	// Use this for initialization
 	void Start () {
@@ -26,15 +27,18 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			gameObject.name = "Network Player";
 			StartCoroutine("Alive");
 		}
+		sound = GetComponent<CircleCollider2D> ();
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 		if (stream.isWriting) {
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
+			stream.SendNext(sound.radius);
 		} else {
 			position = (Vector3)stream.ReceiveNext();
 			rotation = (Quaternion)stream.ReceiveNext();
+			sound.radius = (float)stream.ReceiveNext();
 
 		}
 	}

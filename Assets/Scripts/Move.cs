@@ -24,6 +24,7 @@ public class Move : MonoBehaviour{
 	public CircleCollider2D soundTrigger;
 	public float normalSoundRadius;
 	public float sneakSoundRadius;
+	public float digSoundRadius;
 	
 
 	void Start()
@@ -37,21 +38,20 @@ public class Move : MonoBehaviour{
 	{
 		//reset startTime on keyDown or keyUp (makes Lerp work!)
 		if (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift)
-		    || Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift)) {
+		    || Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift)
+		    || Input.GetKeyDown (KeyCode.Space) || Input.GetKeyUp (KeyCode.Space)) {
 			startTime = Time.time;
 		}
 		//change movement speed, resize camera, change sound radius
 		if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
 			speed = Mathf.Lerp (speed, sneakSpeed, 8*(Time.time-startTime));
 			cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4*(Time.time-startTime));
-			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8*(Time.time-startTime));
 		} else {
 			speed = Mathf.Lerp (speed, normalSpeed, 8*(Time.time-startTime));
 			if (zoomedCam)
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, zoomCamSize, 4*(Time.time-startTime));
 			else
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4*(Time.time-startTime));
-			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8*(Time.time-startTime));
 		}
 
 		move = new Vector2(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
@@ -60,10 +60,21 @@ public class Move : MonoBehaviour{
 		move.Normalize ();
 		rb.velocity = move * speed;
 
-		if (move != Vector2.zero || Input.GetKey (KeyCode.Space))
-			soundTrigger.enabled = true;
-		else
-			soundTrigger.enabled = true;
+		if (move != Vector2.zero) {
+			if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
+				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8*(Time.time-startTime));
+			}
+			else {
+				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8*(Time.time-startTime));
+			}
+		}
+		else if (Input.GetKey (KeyCode.Space)) {
+			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
+		}
+		else {
+			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8*(Time.time - startTime));
+		}
+		
 
 		// camera zooming for testing purposes
 		if (Input.GetKeyDown (KeyCode.E)){
