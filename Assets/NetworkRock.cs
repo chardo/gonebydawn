@@ -52,6 +52,6 @@ public class NetworkRock : Photon.MonoBehaviour {
 	
 	IEnumerator WaitForTime(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
-		Destroy (gameObject);
+		PhotonNetwork.Destroy (gameObject);
 	}
 }
