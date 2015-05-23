@@ -16,6 +16,7 @@ public class RockController : MonoBehaviour {
 //	private Vector3 startPos;
 //	private float angle;
 	private PlayerStats ps;
+	private PhotonView pv;
 
 	// Use this for initialization
 	void Start () {
@@ -25,12 +26,14 @@ public class RockController : MonoBehaviour {
 		startPoint = transform.position;
 		
 		ps = GetComponent<PlayerStats> ();
+		pv = PhotonView.Get (this);
 	}
 
-//	[RPC]
-//	public void UpdateRocks(){
-//
-//	}
+	[RPC]
+	void UpdateRocks(Vector3 position, Quaternion rotation){
+		gameObject.transform.position = position;
+		gameObject.transform.rotation = rotation;
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -38,6 +41,8 @@ public class RockController : MonoBehaviour {
 		if (dist > throwDistance) {
 			makeNoiseAndDie();
 		}
+		pv.RPC ("UpdateRocks", PhotonTargets.AllBuffered, transform.position, transform.rotation);
+
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
