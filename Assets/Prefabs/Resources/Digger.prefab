@@ -38,7 +38,7 @@ GameObject:
   - 114: {fileID: 11410802}
   - 114: {fileID: 11454758}
   - 114: {fileID: 11498608}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Digger
   m_TagString: Player
   m_Icon: {fileID: 0}
