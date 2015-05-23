@@ -51,14 +51,14 @@ public class NetworkManager : MonoBehaviour {
 		                           mySpawnPoint.transform.rotation,
 		                           0);
 
-		// Instantiate and spawn guards
+		// Instantiate and spawn guards	
 		int g = Random.Range (0, guardSpawnOptions.Count);
 		GameObject guardSpawnPoint = guardSpawnOptions [g];
 		guardSpawnOptions.Remove (guardSpawnPoint);
 		
-		PhotonNetwork.Instantiate (guardPrefabName,
+		PhotonNetwork.InstantiateSceneObject (guardPrefabName,
 		                           guardSpawnPoint.transform.position,
 		                           guardSpawnPoint.transform.rotation,
-		                           0);
+		                                      0, null);
 	}
 }
