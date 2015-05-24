@@ -165,9 +165,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolSpeed: 5
-  investigateSpeed: 15
-  chaseSpeed: 25
+  investigateSpeed: 12
+  chaseSpeed: 20
   normalAngle: 20
+  cornerAngle: 90
 --- !u!212 &21259210
 SpriteRenderer:
   m_ObjectHideFlags: 1

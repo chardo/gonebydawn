@@ -8,6 +8,7 @@ TagManager:
   - spawn
   - Rock
   - guardspawn
+  - waypoint
   layers:
   - Default
   - TransparentFX
