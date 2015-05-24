@@ -122,10 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2258c70c6781f4a428c3d30e9accf0d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolSpeed: 5
+  patrolSpeed: 7
   investigateSpeed: 12
   chaseSpeed: 20
-  normalAngle: 20
+  normalAngle: 45
   cornerAngle: 90
   waitForPatrol: 2
 --- !u!212 &21259210
