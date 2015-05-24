@@ -28,9 +28,11 @@ public class GuardAI : MonoBehaviour {
 	private int playerMask = (1 << 10) + (1 << 9);
 
 	// patrolling
+	public float waitForPatrol = 2f;
 	private GameObject[] waypoints;
 	private int numWaypoints;
 	private int curWaypoint;
+	private bool waitToPatrol;
 
 
 	void Start () {
@@ -40,6 +42,7 @@ public class GuardAI : MonoBehaviour {
 		numWaypoints = waypoints.Length;
 		Debug.Log (numWaypoints);
 		currentSpeed = patrolSpeed;
+		waitToPatrol = false;
 	}
 
 	// Update is called once per frame
@@ -47,7 +50,7 @@ public class GuardAI : MonoBehaviour {
 		if (newTargetTimer > 0)
 			newTargetTimer--;
 
-		if (path == null || path.Count == 0) {
+		if ((path == null || path.Count == 0) && !waitToPatrol) {
 			curWaypoint = Random.Range (0, numWaypoints);
 			pathingTarget = waypoints[curWaypoint].transform;
 			currentSpeed = patrolSpeed;
@@ -71,6 +74,9 @@ public class GuardAI : MonoBehaviour {
 			}
 			else {
 				sightAngle = cornerAngle; // Increasing sight angle for 1 frame to look around corners when target is lost
+				if (waitToPatrol){
+					StartCoroutine(WaitForPeriod(waitForPatrol));
+				}
 			}
 		}
 
@@ -81,6 +87,7 @@ public class GuardAI : MonoBehaviour {
 				if (objectSighted.transform.tag == "Player") {
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
+					waitToPatrol = true;
 				}
 			}
 		}
@@ -110,6 +117,12 @@ public class GuardAI : MonoBehaviour {
 		if (other.tag == "Player" || other.tag == "Rock") {
 			pathingTarget = other.transform;
 			currentSpeed = investigateSpeed;
+			waitToPatrol = true;
 		}
+	}
+
+	IEnumerator WaitForPeriod(float waitTime) {
+		yield return new WaitForSeconds(waitTime);
+		waitToPatrol = false;
 	}
 }
