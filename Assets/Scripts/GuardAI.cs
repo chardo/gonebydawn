@@ -70,8 +70,6 @@ public class GuardAI : MonoBehaviour {
 			prevWaypoint = curWaypoint;
 			curWaypoint = pathingTarget;
 			currentSpeed = patrolSpeed;
-
-			SetNewTarget();
 		}
 
 		// If there is currently a target
@@ -111,12 +109,12 @@ public class GuardAI : MonoBehaviour {
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
-					SetNewTarget();
 				}
 			}
 		}
 
 		sightAngle = normalAngle;
+		SetNewTarget ();
 	}
 
 	// this function gets the path to a new target and starts the new target timer
@@ -126,9 +124,9 @@ public class GuardAI : MonoBehaviour {
 
 			// set timer to reset target relative to distance from target, for efficiency
 			distToTarget = Vector2.Distance (transform.position, pathingTarget.position);
-			if (distToTarget < 20)
+			if (distToTarget < 30)
 				newTargetTimer = 10;
-			else if (distToTarget < 50)
+			else if (distToTarget < 70)
 				newTargetTimer = 40;
 			else
 				newTargetTimer = 70;
@@ -162,7 +160,6 @@ public class GuardAI : MonoBehaviour {
 			pathingTarget = other.transform;
 			currentSpeed = investigateSpeed;
 			waitToPatrol = true;
-			SetNewTarget ();
 		}
 	}
 
@@ -174,7 +171,6 @@ public class GuardAI : MonoBehaviour {
 		if (path.Count == 0) { 
 			pathingTarget = FindClosestWaypoint();
 			currentSpeed = patrolSpeed;
-			SetNewTarget();
 			waitToPatrol = false;
 		}
 	}
