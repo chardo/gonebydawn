@@ -56,6 +56,9 @@ public class GraveController : MonoBehaviour {
 			if (LooterList.Count == 1) {
 				looterStats = other.GetComponent<PlayerStats>();
 				looter = other.GetComponent<Dig>();
+				looter.inGrave = true;
+				looter.gc = this;
+				looter.pv = GetComponent<PhotonView>();
 			}
 			else
 				looterStats = null;
@@ -64,6 +67,10 @@ public class GraveController : MonoBehaviour {
 
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
+			looter = other.GetComponent<Dig>();
+			looter.inGrave = true;
+			looter.gc = null;
+			looter.pv = null;
 			if (LooterList.Contains (other)) LooterList.Remove (other);
 
 			if (LooterList.Count == 0) {
