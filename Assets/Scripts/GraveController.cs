@@ -7,6 +7,7 @@ public class GraveController : MonoBehaviour {
 	public bool isFilled = true;
 	public bool hasLoot = true;
 	public bool occupied = false;
+	public bool isTrapped = false;
 	public float dirtcount;
 	private float maxdirtcount;
 	private SpriteRenderer sprite;

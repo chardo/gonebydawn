@@ -35,10 +35,6 @@ public class GuardAI : MonoBehaviour {
 	private Transform curWaypoint;
 	private List<Transform> adjoiningWaypoints;
 
-	//light
-	public GameObject guardLight;
-	private GameObject myLight;
-
 
 	void Start () {
 		newTargetTimer = 0;
@@ -48,7 +44,6 @@ public class GuardAI : MonoBehaviour {
 		waitToPatrol = false;
 		pathingTarget = FindClosestWaypoint();
 		SetNewTarget();
-		myLight = Instantiate (guardLight);
 	}
 
 	// Update is called once per frame
@@ -117,7 +112,6 @@ public class GuardAI : MonoBehaviour {
 				}
 			}
 		}
-		myLight.transform.position = transform.position;
 
 		sightAngle = normalAngle;
 		SetNewTarget ();
