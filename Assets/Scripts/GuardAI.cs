@@ -21,6 +21,7 @@ public class GuardAI : MonoBehaviour {
 
 	// pathing
 	private Transform pathingTarget;
+	private Vector2 targetLocation;
 	private List<Vector2> path;
 
 	// sight
@@ -82,12 +83,23 @@ public class GuardAI : MonoBehaviour {
 				path.RemoveAt(0);
 			}
 
+
+
 			// rotate to face direction of travel
 			if (path.Count != 0){
-				Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
-				Quaternion rotation = Quaternion.LookRotation
-					(path3D - transform.position, transform.TransformDirection(Vector3.forward));
-				transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+				if (Vector2.Distance (transform.position, targetLocation) < 2 && currentSpeed != patrolSpeed){
+					path = null;
+					sightAngle = cornerAngle;
+					if (waitToPatrol){
+						StartCoroutine(WaitForPeriod(waitForPatrol));
+					}
+				}
+				else {
+					Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
+					Quaternion rotation = Quaternion.LookRotation
+						(path3D - transform.position, transform.TransformDirection(Vector3.forward));
+					transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+				}
 			}
 			// when the target is reached
 			else { 
@@ -130,7 +142,8 @@ public class GuardAI : MonoBehaviour {
 				newTargetTimer = 40;
 			else
 				newTargetTimer = 70;
-			
+
+			targetLocation = pathingTarget.position;
 			pathingTarget = null;
 		}
 	}
@@ -168,7 +181,7 @@ public class GuardAI : MonoBehaviour {
 		yield return new WaitForSeconds(waitTime);
 		// make sure that if the guard picked a new target while waiting, this doesn't activate
 		// otherwise, select the closest waypoint
-		if (path.Count == 0) { 
+		if (path == null || path.Count == 0) { 
 			pathingTarget = FindClosestWaypoint();
 			currentSpeed = patrolSpeed;
 			waitToPatrol = false;
