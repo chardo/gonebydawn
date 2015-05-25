@@ -35,14 +35,18 @@ public class NetworkManager : MonoBehaviour {
 
 	void OnCreatedRoom(){
 		// Instantiate and spawn guards	
-		int g = Random.Range (0, guardSpawnOptions.Count);
-		GameObject guardSpawnPoint = guardSpawnOptions [g];
-		guardSpawnOptions.Remove (guardSpawnPoint);
-		
-		PhotonNetwork.InstantiateSceneObject (guardPrefabName,
-		                           guardSpawnPoint.transform.position,
-		                           guardSpawnPoint.transform.rotation,
-		                           0, null);
+		// While loop implements multiple guards spawned at same time at beginning
+		int i = 0;
+		while (i < guardSpawnOptions.Count) {
+			int g = Random.Range (0, guardSpawnOptions.Count);
+			GameObject guardSpawnPoint = guardSpawnOptions [g];
+			guardSpawnOptions.Remove (guardSpawnPoint);
+			
+			PhotonNetwork.InstantiateSceneObject (guardPrefabName,
+			                           guardSpawnPoint.transform.position,
+			                           guardSpawnPoint.transform.rotation,
+			                           0, null);
+		}
 	}
 	
 	void OnJoinedLobby() {
