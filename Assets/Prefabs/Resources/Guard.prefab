@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 405760}
   - 212: {fileID: 21215172}
   - 58: {fileID: 5886090}
-  - 58: {fileID: 5801562}
   - 50: {fileID: 5094228}
   - 114: {fileID: 11454096}
   - 114: {fileID: 11436940}
@@ -50,19 +49,6 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!58 &5801562
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 148046}
-  m_Enabled: 0
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 30
 --- !u!58 &5886090
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -128,6 +114,7 @@ MonoBehaviour:
   chaseSpeed: 20
   normalAngle: 45
   cornerAngle: 90
+  sightDistance: 45
   waitForPatrol: 2
 --- !u!114 &11482174
 MonoBehaviour:
