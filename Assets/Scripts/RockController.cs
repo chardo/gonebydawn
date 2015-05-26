@@ -28,6 +28,10 @@ public class RockController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
+		Debug.Log ("hello");
+		Rigidbody2D rb = GetComponent<Rigidbody2D>();
+		transform.position = transform.position + new Vector3 (-transform.up.y, transform.up.x, 0);
+		rb.velocity = new Vector2 (0, 0);
 		makeNoiseAndDie ();
 	}
 

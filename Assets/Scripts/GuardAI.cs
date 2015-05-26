@@ -21,7 +21,6 @@ public class GuardAI : MonoBehaviour {
 
 	// pathing
 	private Transform pathingTarget;
-	private Vector2 targetLocation;
 	private List<Vector2> path;
 
 	// sight
@@ -105,25 +104,12 @@ public class GuardAI : MonoBehaviour {
 				path.RemoveAt(0);
 			}
 
-
-
-
 			if (path.Count != 0){
-				// stop a distance of 2 before reaching target, if not patrolling & not actively chasing
-				if (Vector2.Distance (transform.position, targetLocation) < 2 && pathingTarget == null && currentSpeed != patrolSpeed){
-					path = null;
-					sightAngle = cornerAngle;
-					if (waitToPatrol){
-						StartCoroutine(WaitForPeriod(waitForPatrol));
-					}
-				}
 				// rotate to face direction of travel
-				else {
-					Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
-					Quaternion rotation = Quaternion.LookRotation
-						(path3D - transform.position, transform.TransformDirection(Vector3.forward));
-					transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
-				}
+				Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
+				Quaternion rotation = Quaternion.LookRotation
+					(path3D - transform.position, transform.TransformDirection(Vector3.forward));
+				transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 			}
 			// when the target is reached
 			else { 
@@ -139,7 +125,6 @@ public class GuardAI : MonoBehaviour {
 	void SetNewTarget() {
 		if ( pathingTarget != null && newTargetTimer == 0) {
 			distToTarget = Vector2.Distance (transform.position, pathingTarget.position);
-			targetLocation = pathingTarget.position;
 
 			path = NavMesh2D.GetSmoothedPath (transform.position, pathingTarget.position);
 
