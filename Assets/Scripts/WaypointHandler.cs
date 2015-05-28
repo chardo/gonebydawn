@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class WaypointHandler : MonoBehaviour {
 
+	public int patrolRouteNum = 0;
+	public int numberOfGuards = 1;
 	public GameObject adjoin1 = null;
 	public GameObject adjoin2 = null;
 	public GameObject adjoin3 = null;

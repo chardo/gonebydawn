@@ -12,8 +12,9 @@ public class NetworkManager : MonoBehaviour {
 	GameObject[] spawnPoints;
 	List<GameObject> spawnOptions;
 
-	GameObject[] guardSpawns;
-	List<GameObject> guardSpawnOptions;
+	public int numberOfPatrols;
+	GameObject[] waypoints;
+	List<List<GameObject>> guardPatrols;
 	
 	void Start () {
 		PhotonNetwork.ConnectUsingSettings(VERSION);
@@ -25,10 +26,15 @@ public class NetworkManager : MonoBehaviour {
 		}
 
 		// guard spawns
-		guardSpawns = GameObject.FindGameObjectsWithTag ("guardspawn");
-		guardSpawnOptions = new List<GameObject> ();
-		for (int i = 0; i < guardSpawns.Length; i++) {
-			guardSpawnOptions.Add (guardSpawns [i]);
+		waypoints = GameObject.FindGameObjectsWithTag ("waypoint");
+		guardPatrols = new List<List<GameObject>> ();
+		for (int i = 0; i < numberOfPatrols; i++) {
+			guardPatrols.Add (new List<GameObject> ());
+		}
+		for (int i = 0; i < waypoints.Length; i++) {
+			WaypointHandler getPatrolNum = waypoints[i].GetComponent<WaypointHandler>();
+			int routeNum = getPatrolNum.patrolRouteNum;
+			guardPatrols[routeNum].Add (waypoints[i]);
 		}
 
 	}
@@ -36,16 +42,22 @@ public class NetworkManager : MonoBehaviour {
 	void OnCreatedRoom(){
 		// Instantiate and spawn guards	
 		// While loop implements multiple guards spawned at same time at beginning
-		int i = 0;
-		while (i < guardSpawnOptions.Count) {
-			int g = Random.Range (0, guardSpawnOptions.Count);
-			GameObject guardSpawnPoint = guardSpawnOptions [g];
-			guardSpawnOptions.Remove (guardSpawnPoint);
-			
-			PhotonNetwork.InstantiateSceneObject (guardPrefabName,
-			                           guardSpawnPoint.transform.position,
-			                           guardSpawnPoint.transform.rotation,
-			                           0, null);
+		for (int i = 0; i < numberOfPatrols; i++) {
+			WaypointHandler waypointScript = guardPatrols[i][0].GetComponent<WaypointHandler>();
+			int numGuards = waypointScript.numberOfGuards;
+			for (int j = 0; j < numGuards; j++) {
+				int g = Random.Range (0, guardPatrols[i].Count);
+				GameObject guardSpawnPoint = guardPatrols[i][g];
+				guardPatrols[i].Remove (guardSpawnPoint);
+
+				GameObject newGuard;
+				newGuard = PhotonNetwork.InstantiateSceneObject (guardPrefabName,
+			                           		guardSpawnPoint.transform.position,
+			                           		guardSpawnPoint.transform.rotation,
+			                           		0, null);
+				GuardAI guardScript = newGuard.GetComponent<GuardAI>();
+				guardScript.patrolRoute = waypointScript.patrolRouteNum;
+			}
 		}
 	}
 	

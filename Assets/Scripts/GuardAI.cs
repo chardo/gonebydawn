@@ -31,10 +31,12 @@ public class GuardAI : MonoBehaviour {
 	private int playerMask = (1 << 10) + (1 << 9);
 
 	// patrolling
+	public int patrolRoute;
 	public float waitForPatrol = 2f; // pause time before patrolling
 	private bool waitToPatrol; // guard pauses before patrolling if true
 	// waypoint variables
 	private GameObject[] waypoints;
+	private List<GameObject> myWaypoints;
 	private Transform prevWaypoint;
 	private Transform curWaypoint;
 	private List<Transform> adjoiningWaypoints;
@@ -50,6 +52,14 @@ public class GuardAI : MonoBehaviour {
 		sightAngle = normalAngle;
 		// gather all waypoints
 		waypoints = GameObject.FindGameObjectsWithTag("waypoint");
+		myWaypoints = new List<GameObject> ();
+		// add all the waypoints of the proper number to myWaypoints
+		for (int i = 0; i < waypoints.Length; i++) {
+			WaypointHandler waypointScript = waypoints[i].GetComponent<WaypointHandler>();
+			if (waypointScript.patrolRouteNum == patrolRoute) {
+				myWaypoints.Add(waypoints[i]);
+			}
+		}
 		// initialize patrolling
 		currentSpeed = patrolSpeed;
 		waitToPatrol = false;
@@ -177,7 +187,7 @@ public class GuardAI : MonoBehaviour {
 		float waypointDist;
 		float minDist = 10000f; // arbitrarily large
 		GameObject newWP = null;
-		foreach (GameObject o in waypoints) {
+		foreach (GameObject o in myWaypoints) {
 			waypointDist = Vector2.Distance(transform.position, o.transform.position);
 			if (waypointDist < minDist && o.transform != prevWaypoint){
 				minDist = waypointDist;
