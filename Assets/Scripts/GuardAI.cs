@@ -165,7 +165,9 @@ public class GuardAI : MonoBehaviour {
 			path = NavMesh2D.GetSmoothedPath (transform.position, pathingTarget.position);
 
 			// set timer to reset target relative to distance from target, for efficiency
-			if (distToTarget < 30)
+			if (distToTarget == 0)
+				newTargetTimer = 0;
+			else if (distToTarget < 30)
 				newTargetTimer = 5;
 			else if (distToTarget < 70)
 				newTargetTimer = 40;
