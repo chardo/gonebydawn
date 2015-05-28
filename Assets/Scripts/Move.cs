@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Sprites;
-using UnityEditor.Animations;
+//using UnityEditor.Animations;
 
 public class Move : MonoBehaviour{
 	//speed vars

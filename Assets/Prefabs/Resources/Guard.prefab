@@ -15,9 +15,10 @@ GameObject:
   - 114: {fileID: 11436940}
   - 114: {fileID: 11414758}
   - 114: {fileID: 11482174}
+  - 58: {fileID: 5831028}
   m_Layer: 0
   m_Name: Guard
-  m_TagString: Untagged
+  m_TagString: guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +50,19 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!58 &5831028
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148046}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 10
 --- !u!58 &5886090
 CircleCollider2D:
   m_ObjectHideFlags: 1
