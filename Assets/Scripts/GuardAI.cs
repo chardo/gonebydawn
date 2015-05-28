@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using PigeonCoopToolkit.Navmesh2D;
+using UnityEngine.Audio;
 
 public class GuardAI : MonoBehaviour {
 
@@ -15,9 +16,10 @@ public class GuardAI : MonoBehaviour {
 	public int cornerAngle = 90;
 	private int sightAngle;
 
-	// target reset
-	private float newTargetTimer;
+	// target
+	private float newTargetTimer; // only paths to a new target when 0
 	private float distToTarget;
+	private GameObject playerTarget;
 
 	// pathing
 	private Transform pathingTarget;
@@ -29,30 +31,42 @@ public class GuardAI : MonoBehaviour {
 	private int playerMask = (1 << 10) + (1 << 9);
 
 	// patrolling
-	public float waitForPatrol = 2f;
+	public float waitForPatrol = 2f; // pause time before patrolling
+	private bool waitToPatrol; // guard pauses before patrolling if true
+	// waypoint variables
 	private GameObject[] waypoints;
-	private bool waitToPatrol;
 	private Transform prevWaypoint;
 	private Transform curWaypoint;
 	private List<Transform> adjoiningWaypoints;
 
-	//respawning
+	// respawning
 	private PlayerStats ps;
 	private GameObject[] spawnPoints;
-	
+
 
 	void Start () {
+		// initialize timing and angle variables
 		newTargetTimer = 0;
 		sightAngle = normalAngle;
+		// gather all waypoints
 		waypoints = GameObject.FindGameObjectsWithTag("waypoint");
+		// initialize patrolling
 		currentSpeed = patrolSpeed;
 		waitToPatrol = false;
 		pathingTarget = FindClosestWaypoint();
 		SetNewTarget();
+		// gather player spawn points
 		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
 	}
 	
-	// Update is called once per frame
+	/* Every frame, Update does the following:
+	 * - decrement the timer for finding a new target
+	 * - picks a patrol point, if conditions allow
+	 * - raycasts for sight detection
+	 * - finds a new target, if conditions allow
+	 * - progresses on the current path
+	 * - update rotation to always face the direction of travel
+	 */
 	void Update () {
 		// Count down timer until new target can be set
 		if (newTargetTimer > 0)
@@ -60,19 +74,23 @@ public class GuardAI : MonoBehaviour {
 
 		// Pick the next patrol point
 		if ((path == null || path.Count == 0) && !waitToPatrol) {
+			// retrieve the script from the waypoint to determine adjacent waypoints
 			WaypointHandler otherScript = curWaypoint.GetComponent<WaypointHandler>();
 			List<Transform> getAdjoining = otherScript.RequestAdjoining();
 
+			// collect adjacent waypoints, and remove the one from which we came
 			adjoiningWaypoints = new List<Transform>();
 			foreach (Transform t in getAdjoining){
 				if (t != prevWaypoint)
 					adjoiningWaypoints.Add (t);
 			}
 
+			// pick a random remaining adjacent waypoint and set as the new target
 			int numAdjoining = adjoiningWaypoints.Count;
 			int randWaypoint = Random.Range (0, numAdjoining);
 			pathingTarget = adjoiningWaypoints[randWaypoint];
 
+			// update waypoint & speed variables
 			prevWaypoint = curWaypoint;
 			curWaypoint = pathingTarget;
 			currentSpeed = patrolSpeed;
@@ -85,14 +103,18 @@ public class GuardAI : MonoBehaviour {
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
 				if (objectSighted.transform.tag == "Player") {
+					CombatMusicControl sendMessage = objectSighted.transform.GetComponent<CombatMusicControl>();
+					sendMessage.switchMusic = true;
+					playerTarget = objectSighted.transform.gameObject;
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
 				}
 			}
 		}
-		sightAngle = normalAngle;
 		SetNewTarget ();
+		sightAngle = normalAngle;
+
 
 		// If there is currently a target
 		if(path != null && path.Count != 0)
@@ -116,6 +138,10 @@ public class GuardAI : MonoBehaviour {
 				sightAngle = cornerAngle; // Increasing sight angle for 1 frame to look around corners when target is lost
 				if (waitToPatrol){
 					StartCoroutine(WaitForPeriod(waitForPatrol));
+				}
+				if (playerTarget != null) {
+					CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
+					sendSwitch.switchMusic = false;
 				}
 			}
 		}
@@ -171,6 +197,11 @@ public class GuardAI : MonoBehaviour {
 			pathingTarget = other.transform;
 			currentSpeed = investigateSpeed;
 			waitToPatrol = true;
+			if (other.tag == "Player") {
+				CombatMusicControl sendSwitch = other.GetComponent<CombatMusicControl>();
+				sendSwitch.switchMusic = true;
+				playerTarget = other.gameObject;
+			}
 		}
 	}
 
@@ -190,6 +221,10 @@ public class GuardAI : MonoBehaviour {
 			path = null;
 			pathingTarget = null;
 			StartCoroutine(WaitForPeriod(waitForPatrol));
+
+			// discontinue intense music
+			CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
+			sendSwitch.switchMusic = false;
 		}
 	}
 
@@ -200,8 +235,8 @@ public class GuardAI : MonoBehaviour {
 		// otherwise, select the closest waypoint
 		if (path == null || path.Count == 0) { 
 			pathingTarget = FindClosestWaypoint();
-			currentSpeed = patrolSpeed;
 			waitToPatrol = false;
+			currentSpeed = patrolSpeed;
 		}
 	}
 }
