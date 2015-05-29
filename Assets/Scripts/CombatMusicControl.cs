@@ -16,29 +16,37 @@ public class CombatMusicControl : MonoBehaviour {
 	private float m_TransitionIn; // The time in milliseconds to transition between snapshots
 	private float m_TransitionOut;
 	private float m_QuarterNote;
+	private bool transition;
 
 	// Use this for initialization
 	void Start () {
 		m_QuarterNote = 60 / bpm;
 		m_TransitionIn = m_QuarterNote;
 		m_TransitionOut = m_QuarterNote * 32;
-
-		switchMusic = false;
-		intenseMusic = false;
-		freezePlayer = false;
+		transition = true;
 	}
 
-	void Update () {
-		if (!intenseMusic && switchMusic) {
-			intenseMusic = true;
-			inCombat.TransitionTo(m_TransitionIn);
-			PlaySting();
+	[RPC]
+	public void IntenseMusic(){
+		if (transition) {
+			inCombat.TransitionTo (m_TransitionIn);
+			PlaySting ();
+			transition = false;
 		}
-		if (intenseMusic && !switchMusic) {
-			intenseMusic = false;
+	}
+
+	[RPC]
+	public void CalmMusic(){
+		if (!transition) { 
 			outOfCombat.TransitionTo (m_TransitionOut);
+			transition = true;
 		}
 	}
+
+	/*[RPC]
+	public void GuardYell(){
+		if (transition) {  }
+	}*/
 
 	void PlaySting(){
 		int randClip = Random.Range (0, stings.Length);

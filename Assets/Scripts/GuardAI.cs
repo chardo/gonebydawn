@@ -114,9 +114,12 @@ public class GuardAI : MonoBehaviour {
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
 
+					PhotonView objectPV = PhotonView.Get (playerTarget);
+					objectPV.RPC ("IntenseMusic", PhotonTargets.AllBuffered);
+					//objectPV.RPC ("GuardYell", PhotonTargets.AllBuffered);
+
 					float playerDist = Vector2.Distance(transform.position, playerTarget.transform.position);
 					if (playerDist < 7){
-						PhotonView objectPV = PhotonView.Get (playerTarget);
 						objectPV.RPC ("FreezePlayer", PhotonTargets.AllBuffered);
 						currentSpeed = patrolSpeed;
 					}
@@ -158,8 +161,8 @@ public class GuardAI : MonoBehaviour {
 						StartCoroutine(WaitForPeriod(waitForPatrol));
 					}
 					if (playerTarget != null) {
-						CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
-						sendSwitch.switchMusic = false;
+						PhotonView objectPV = PhotonView.Get (playerTarget);
+						objectPV.RPC ("CalmMusic", PhotonTargets.AllBuffered);
 					}
 				}
 			}
@@ -219,7 +222,9 @@ public class GuardAI : MonoBehaviour {
 			currentSpeed = investigateSpeed;
 			waitToPatrol = true;
 			if (other.tag == "Player") {
-				other.GetComponent<CombatMusicControl>().switchMusic = true;
+				PhotonView objectPV = PhotonView.Get (playerTarget);
+				objectPV.RPC ("IntenseMusic", PhotonTargets.AllBuffered);
+				//objectPV.RPC ("GuardYell", PhotonTargets.AllBuffered);
 				playerTarget = other.gameObject;
 			}
 		}
