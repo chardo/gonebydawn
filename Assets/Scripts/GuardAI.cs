@@ -130,7 +130,6 @@ public class GuardAI : MonoBehaviour {
 					path = null;
 					pathingTarget = null;
 					StartCoroutine(WaitForPeriod(waitForPatrol));
-					Debug.Log ("Well this triggered");
 				}
 				else {
 				// move along the path to target

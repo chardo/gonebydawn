@@ -107,8 +107,6 @@ public class Move : MonoBehaviour{
 
 			GuardAI guardScript = other.gameObject.GetComponent<GuardAI>();
 			guardScript.loseTarget = true;
-
-			Debug.Log ("Well this happened (in player)");
 		}
 	}
 }
