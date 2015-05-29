@@ -70,6 +70,8 @@ public class GraveController : MonoBehaviour {
 			//add loot to player total if there's any in here, then mark that it's gone
 			if (hasLoot) {
 				looterStats.lootTotal += lootContained;
+				//update alert text to reflect gained loot
+				looter.alertLoot(lootContained);
 				hasLoot = false;
 			}
 		}

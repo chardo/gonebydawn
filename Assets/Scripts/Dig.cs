@@ -11,6 +11,9 @@ public class Dig : MonoBehaviour {
 	//sound radius vars for digging noise
 	public CircleCollider2D soundTrigger;
 
+	//gui object for alerting player
+	public GameObject alertGUI;
+
 	public PhotonView pv;
 
 	public AudioSource digSound;
@@ -56,5 +59,19 @@ public class Dig : MonoBehaviour {
 			digSoundPlayed = false;
 			failSoundPlayed = false;
 		}
+	}
+
+	//update the attached GUI to display the amount of loot gained
+	public void alertLoot(int lootGained) {
+		//get the child alertText of the child playerGUI, then get its text component
+		GameObject alert = Instantiate (alertGUI, this.transform.position, Quaternion.identity) as GameObject;
+		alertDisplay a = alert.transform.GetChild(0).gameObject.GetComponent<alertDisplay> ();
+		a.updateLoot (lootGained);
+		StartCoroutine (WaitThenKill (3f, alert));
+	}
+
+	IEnumerator WaitThenKill(float waitTime, GameObject obj) {
+		yield return new WaitForSeconds(waitTime);
+		Destroy (obj);
 	}
 }

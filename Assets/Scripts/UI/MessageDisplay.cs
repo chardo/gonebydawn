@@ -19,7 +19,9 @@ public class MessageDisplay : MonoBehaviour {
 	}
 
 	IEnumerator setBlankAfter(float waitTime) {
-		yield return new WaitForSeconds(waitTime);
+		yield return new WaitForSeconds(waitTime-1f);
+		messageText.CrossFadeAlpha (0f, 1f, false);
+		yield return new WaitForSeconds (1f);
 		messageText.text = "";
 	}
 }

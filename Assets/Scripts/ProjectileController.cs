@@ -44,10 +44,10 @@ public class ProjectileController : MonoBehaviour {
 		thisCollider.isTrigger = true;
 		thisCollider.radius = soundRadius;
 		//wait a bit then destroy
-		StartCoroutine(WaitForTime(0.5f));
+		StartCoroutine(WaitThenDie(0.5f));
 	}
 
-	IEnumerator WaitForTime(float waitTime) {
+	IEnumerator WaitThenDie(float waitTime) {
 		yield return new WaitForSeconds(waitTime);
 		Destroy (gameObject);
 	}

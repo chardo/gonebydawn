@@ -714,6 +714,7 @@ MonoBehaviour:
   digSpeed: .0299999993
   canDig: 1
   soundTrigger: {fileID: 5820330}
+  alertGUI: {fileID: 117772, guid: 70f8dfcf1cc3241d8ae06bc14fe2cf7c, type: 2}
   pv: {fileID: 0}
   digSound: {fileID: 8259170}
   digHitBottomSound: {fileID: 8241484}
@@ -815,7 +816,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTotal: 0
-  rocks: 100
 --- !u!114 &11499442
 MonoBehaviour:
   m_ObjectHideFlags: 1
