@@ -37,8 +37,6 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	void Update(){
 		if (freezePlayer && photonView.isMine)
 			GetComponent<Move> ().freeze = true;
-		else if (!freezePlayer && photonView.isMine)
-			GetComponent<Move> ().freeze = false;
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

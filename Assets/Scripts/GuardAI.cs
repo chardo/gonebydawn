@@ -113,12 +113,7 @@ public class GuardAI : MonoBehaviour {
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
-
-					//float playerDist = Vector2.Distance(transform.position, playerTarget.transform.position);
-					//if (playerDist < 7) {
-						playerTarget.GetComponent<NetworkPlayer>().freezePlayer = true;
-						//currentSpeed = patrolSpeed;
-					//}
+					playerTarget.GetComponent<NetworkPlayer>().freezePlayer = true;
 				}
 			}
 		}
@@ -153,14 +148,14 @@ public class GuardAI : MonoBehaviour {
 				// when the target is reached
 				else { 
 					sightAngle = cornerAngle; // Increasing sight angle for 1 frame to look around corners when target is lost
-					if (playerTarget != null) {
-						CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
-						sendSwitch.switchMusic = false;
-						//playerTarget.GetComponent<NetworkPlayer>().freezePlayer = false;
-					}
 					if (waitToPatrol){
 						StartCoroutine(WaitForPeriod(waitForPatrol));
 					}
+					if (playerTarget != null) {
+						CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
+						sendSwitch.switchMusic = false;
+					}
+					playerTarget.GetComponent<NetworkPlayer>().freezePlayer = false;
 				}
 			}
 		}
@@ -220,7 +215,7 @@ public class GuardAI : MonoBehaviour {
 			waitToPatrol = true;
 			if (other.tag == "Player") {
 				other.GetComponent<CombatMusicControl>().switchMusic = true;
-				//playerTarget = other.gameObject;
+				playerTarget = other.gameObject;
 			}
 		}
 	}
