@@ -39,4 +39,7 @@ MonoBehaviour:
   - ThrowProjectile
   - alertLoot
   - FreezePlayer
+  - CalmMusic
+  - GuardYell
+  - IntenseMusic
   DisableAutoOpenWizard: 0

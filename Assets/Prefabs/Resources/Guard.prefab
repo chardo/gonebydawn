@@ -114,7 +114,9 @@ MonoBehaviour:
   chaseSpeed: 20.5
   normalAngle: 45
   cornerAngle: 90
-  sightDistance: 45
+  loseTarget: 0
+  sightDistance: 40
+  patrolRoute: 0
   waitForPatrol: 2
 --- !u!114 &11482174
 MonoBehaviour:
