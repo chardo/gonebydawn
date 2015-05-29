@@ -146,7 +146,7 @@ public class GuardAI : MonoBehaviour {
 					path.RemoveAt(0);
 				}
 
-				if (path.Count != 0){
+				if (path != null && path.Count != 0){
 					// rotate to face direction of travel
 					Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
 					Quaternion rotation = Quaternion.LookRotation
