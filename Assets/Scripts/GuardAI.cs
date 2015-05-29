@@ -108,7 +108,7 @@ public class GuardAI : MonoBehaviour {
 			Vector2 dir = Quaternion.AngleAxis(i, Vector3.forward) * -transform.up;
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
-				if (objectSighted.transform.tag == "Player") {
+				if (objectSighted.transform.gameObject.tag == "Player") {
 					CombatMusicControl musicScript = objectSighted.transform.GetComponent<CombatMusicControl>();
 					musicScript.switchMusic = true;
 					playerTarget = objectSighted.transform.gameObject;
@@ -116,10 +116,10 @@ public class GuardAI : MonoBehaviour {
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
 
-					musicScript.freezePlayer = true;
+
 					float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
 					if (playerDist < 7) {
-
+						objectSighted.transform.GetComponent<Move>().freeze = true;
 						currentSpeed = patrolSpeed;
 					}
 				}
