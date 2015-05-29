@@ -303,6 +303,11 @@ Prefab:
       propertyPath: m_Name
       value: wall 1
       objectReference: {fileID: 0}
+    - target: {fileID: 21267408, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fd4717ea7f60d4d9eb45fe7e70e01245,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
   m_IsPrefabParent: 0
@@ -1091,6 +1096,11 @@ Prefab:
       propertyPath: m_Name
       value: wall 6
       objectReference: {fileID: 0}
+    - target: {fileID: 21267408, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fd4717ea7f60d4d9eb45fe7e70e01245,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
   m_IsPrefabParent: 0
@@ -1320,6 +1330,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 21267408, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fd4717ea7f60d4d9eb45fe7e70e01245,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
   m_IsPrefabParent: 0
@@ -3446,6 +3461,11 @@ Prefab:
       propertyPath: m_Name
       value: wall 3
       objectReference: {fileID: 0}
+    - target: {fileID: 21267408, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fd4717ea7f60d4d9eb45fe7e70e01245,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
   m_IsPrefabParent: 0
@@ -4602,6 +4622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20e2a69835ea437ba11f819164d7cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rocktext: {fileID: 0}
 --- !u!114 &1821787523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4796,6 +4817,11 @@ Prefab:
       propertyPath: m_Name
       value: wall 2
       objectReference: {fileID: 0}
+    - target: {fileID: 21267408, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fd4717ea7f60d4d9eb45fe7e70e01245,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d7e1c45fd4e64356ac05b544cd694f5, type: 2}
   m_IsPrefabParent: 0
