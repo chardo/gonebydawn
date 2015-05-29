@@ -20,6 +20,7 @@ public class GuardAI : MonoBehaviour {
 	private float newTargetTimer; // only paths to a new target when 0
 	private float distToTarget;
 	private GameObject playerTarget;
+	public bool loseTarget;
 
 	// pathing
 	private Transform pathingTarget;
@@ -34,6 +35,7 @@ public class GuardAI : MonoBehaviour {
 	public int patrolRoute;
 	public float waitForPatrol = 2f; // pause time before patrolling
 	private bool waitToPatrol; // guard pauses before patrolling if true
+
 	// waypoint variables
 	private GameObject[] waypoints;
 	private List<GameObject> myWaypoints;
@@ -55,13 +57,14 @@ public class GuardAI : MonoBehaviour {
 				myWaypoints.Add(waypoints[i]);
 			}
 		}
+		loseTarget = false;
 		// initialize patrolling
 		currentSpeed = patrolSpeed;
 		waitToPatrol = false;
 		pathingTarget = FindClosestWaypoint();
 		SetNewTarget();
 	}
-	
+
 	/* Every frame, Update does the following:
 	 * - decrement the timer for finding a new target
 	 * - picks a patrol point, if conditions allow
@@ -122,29 +125,38 @@ public class GuardAI : MonoBehaviour {
 		// If there is currently a target
 		if(path != null && path.Count != 0)
 		{
-			// move along the path to target
-			transform.position = Vector2.MoveTowards(transform.position, path[0], currentSpeed*Time.deltaTime);
-			if(Vector2.Distance(transform.position,path[0]) < 0.01f)
-			{
-				path.RemoveAt(0);
-			}
-
-			if (path.Count != 0){
-				// rotate to face direction of travel
-				Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
-				Quaternion rotation = Quaternion.LookRotation
-					(path3D - transform.position, transform.TransformDirection(Vector3.forward));
-				transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
-			}
-			// when the target is reached
-			else { 
-				sightAngle = cornerAngle; // Increasing sight angle for 1 frame to look around corners when target is lost
-				if (waitToPatrol){
+				if (loseTarget) {
+					loseTarget = false;
+					path = null;
+					pathingTarget = null;
 					StartCoroutine(WaitForPeriod(waitForPatrol));
+					Debug.Log ("Well this triggered");
 				}
-				if (playerTarget != null) {
-					CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
-					sendSwitch.switchMusic = false;
+				else {
+				// move along the path to target
+				transform.position = Vector2.MoveTowards(transform.position, path[0], currentSpeed*Time.deltaTime);
+				if(Vector2.Distance(transform.position,path[0]) < 0.01f)
+				{
+					path.RemoveAt(0);
+				}
+
+				if (path.Count != 0){
+					// rotate to face direction of travel
+					Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
+					Quaternion rotation = Quaternion.LookRotation
+						(path3D - transform.position, transform.TransformDirection(Vector3.forward));
+					transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+				}
+				// when the target is reached
+				else { 
+					sightAngle = cornerAngle; // Increasing sight angle for 1 frame to look around corners when target is lost
+					if (waitToPatrol){
+						StartCoroutine(WaitForPeriod(waitForPatrol));
+					}
+					if (playerTarget != null) {
+						CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
+						sendSwitch.switchMusic = false;
+					}
 				}
 			}
 		}
@@ -212,18 +224,14 @@ public class GuardAI : MonoBehaviour {
 
 	// when a guard collides with a player, it sends the player
 	// to a spawn point and returns to patrolling
-	void OnCollisionEnter2D(Collision2D other) {
+	/*void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "Player" && !other.collider.isTrigger) {
 			// lose target
 			path = null;
 			pathingTarget = null;
 			StartCoroutine(WaitForPeriod(waitForPatrol));
-
-			// discontinue intense music
-			CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
-			sendSwitch.switchMusic = false;
 		}
-	}
+	}*/
 
 	// makes the guard wait before patrolling again after investigating or chasing something
 	IEnumerator WaitForPeriod(float waitTime) {

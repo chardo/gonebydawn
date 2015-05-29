@@ -25,6 +25,10 @@ public class Move : MonoBehaviour{
 	public float normalSoundRadius;
 	public float sneakSoundRadius;
 	public float digSoundRadius;
+
+	// collision attempt
+	private PlayerStats ps;
+	private GameObject[] spawnPoints;
 	
 
 	void Start()
@@ -32,6 +36,9 @@ public class Move : MonoBehaviour{
 		rb = GetComponent<Rigidbody2D> ();
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
+
+		// BLAH BLAH
+		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
 	}
 
 	void Update()
@@ -82,6 +89,26 @@ public class Move : MonoBehaviour{
 				zoomedCam = false;
 			else 
 				zoomedCam = true;
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.tag == "guard") {
+			ps = gameObject.GetComponent<PlayerStats>();
+			ps.lootTotal /= 2;
+			
+			int r = Random.Range (0, spawnPoints.Length);
+			GameObject mySpawnPoint = spawnPoints [r];
+			
+			transform.position = mySpawnPoint.transform.position;
+
+			CombatMusicControl sendSwitch = gameObject.GetComponent<CombatMusicControl>();
+			sendSwitch.switchMusic = false;
+
+			GuardAI guardScript = other.gameObject.GetComponent<GuardAI>();
+			guardScript.loseTarget = true;
+
+			Debug.Log ("Well this happened (in player)");
 		}
 	}
 }
