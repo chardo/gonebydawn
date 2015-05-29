@@ -74,8 +74,8 @@ public class PlayerStats : MonoBehaviour {
 		for (int i=0; i<4; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];
 		}
-		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
-		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
-		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
+		PlayerPrefs.SetFloat ("WinningR", playerColors[4].r);
+		PlayerPrefs.SetFloat ("WinningG", playerColors[4].g);
+		PlayerPrefs.SetFloat ("WinningB", playerColors[4].b);
 	}
 }
