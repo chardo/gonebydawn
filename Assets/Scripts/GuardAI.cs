@@ -109,6 +109,7 @@ public class GuardAI : MonoBehaviour {
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
 				if (objectSighted.collider.tag == "Player") {
+					Debug.Log ("knows it's a player");
 					objectSighted.collider.GetComponent<CombatMusicControl>().switchMusic = true;
 					playerTarget = objectSighted.transform.gameObject;
 					pathingTarget = objectSighted.transform;
