@@ -31,7 +31,6 @@ GameObject:
   - 212: {fileID: 21242736}
   - 50: {fileID: 5009952}
   - 61: {fileID: 6166022}
-  - 58: {fileID: 5820330}
   - 114: {fileID: 11499442}
   - 114: {fileID: 11467474}
   - 114: {fileID: 11454148}
@@ -177,19 +176,6 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
---- !u!58 &5820330
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154322}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1
 --- !u!61 &6166022
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -442,7 +428,7 @@ MonoBehaviour:
   gc: {fileID: 0}
   digSpeed: .0299999993
   canDig: 1
-  soundTrigger: {fileID: 5820330}
+  soundTrigger: {fileID: 0}
   pv: {fileID: 0}
 --- !u!114 &11454148
 MonoBehaviour:
@@ -462,7 +448,7 @@ MonoBehaviour:
   sneakCamSize: 10
   zoomCamSize: 50
   claywalk2: {fileID: 0}
-  soundTrigger: {fileID: 5820330}
+  soundTrigger: {fileID: 0}
   normalSoundRadius: 20
   sneakSoundRadius: 10
   digSoundRadius: 15
