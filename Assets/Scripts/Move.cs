@@ -26,10 +26,7 @@ public class Move : MonoBehaviour{
 	public float sneakSoundRadius;
 	public float digSoundRadius;
 
-	// collision variables
-	public bool freeze;
-	private PlayerStats ps;
-	private GameObject[] spawnPoints;
+
 	
 
 	void Start()
@@ -37,15 +34,10 @@ public class Move : MonoBehaviour{
 		rb = GetComponent<Rigidbody2D> ();
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
-
-		// gather spawn points, tell the player not to freeze
-		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
-		freeze = false;
 	}
 
 	void Update()
 	{
-		if (!freeze) {
 			//reset startTime on keyDown or keyUp (makes Lerp work!)
 			if (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift)
 				|| Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift)
@@ -81,9 +73,6 @@ public class Move : MonoBehaviour{
 			} else {
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8 * (Time.time - startTime));
 			}
-		} else {
-			rb.velocity = Vector2.zero;
-		}
 
 		// camera zooming for testing purposes
 		if (Input.GetKeyDown (KeyCode.E)){
@@ -91,25 +80,6 @@ public class Move : MonoBehaviour{
 				zoomedCam = false;
 			else 
 				zoomedCam = true;
-		}
-	}
-
-	void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.tag == "guard") {
-			ps = gameObject.GetComponent<PlayerStats>();
-			ps.lootTotal /= 2;
-			
-			int r = Random.Range (0, spawnPoints.Length);
-			GameObject mySpawnPoint = spawnPoints [r];
-			
-			transform.position = mySpawnPoint.transform.position;
-
-			CombatMusicControl sendSwitch = gameObject.GetComponent<CombatMusicControl>();
-			sendSwitch.switchMusic = false;
-
-			GuardAI guardScript = other.gameObject.GetComponent<GuardAI>();
-			guardScript.loseTarget = true;
-			freeze = false;
 		}
 	}
 }

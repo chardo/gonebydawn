@@ -119,7 +119,9 @@ public class GuardAI : MonoBehaviour {
 					float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
 					if (playerDist < 7) {
 						Move playerScript = objectSighted.transform.GetComponent<Move>();
-						playerScript.freeze = true;
+						//playerScript.freeze = true;
+						playerScript.enabled = false;
+						objectSighted.rigidbody.velocity = Vector2.zero;
 						currentSpeed = patrolSpeed;
 					}
 				}
