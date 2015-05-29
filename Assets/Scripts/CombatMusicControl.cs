@@ -38,24 +38,7 @@ public class CombatMusicControl : MonoBehaviour {
 			intenseMusic = false;
 			outOfCombat.TransitionTo (m_TransitionOut);
 		}
-		if (freezePlayer) {
-			gameObject.GetComponent<Move>().freeze = true;
-			freezePlayer = false;
-		}
 	}
-
-	/*void OnTriggerEnter2D(Collider2D other){
-		if (other.tag == "guard"){
-			inCombat.TransitionTo(m_TransitionIn);
-			PlaySting();
-		}
-	}
-
-	void OnTriggerExit2D(Collider2D other){
-		if (other.tag == "guard") {
-			outOfCombat.TransitionTo(m_TransitionOut);
-		}
-	}*/
 
 	void PlaySting(){
 		int randClip = Random.Range (0, stings.Length);

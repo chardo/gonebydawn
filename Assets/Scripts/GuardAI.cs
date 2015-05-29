@@ -109,8 +109,7 @@ public class GuardAI : MonoBehaviour {
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
 				if (objectSighted.transform.gameObject.tag == "Player") {
-					CombatMusicControl musicScript = objectSighted.transform.GetComponent<CombatMusicControl>();
-					musicScript.switchMusic = true;
+					objectSighted.transform.GetComponent<CombatMusicControl>().switchMusic = true;
 					playerTarget = objectSighted.transform.gameObject;
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
@@ -221,23 +220,11 @@ public class GuardAI : MonoBehaviour {
 			currentSpeed = investigateSpeed;
 			waitToPatrol = true;
 			if (other.tag == "Player") {
-				CombatMusicControl sendSwitch = other.GetComponent<CombatMusicControl>();
-				sendSwitch.switchMusic = true;
+				other.GetComponent<CombatMusicControl>().switchMusic = true;
 				playerTarget = other.gameObject;
 			}
 		}
 	}
-
-	// when a guard collides with a player, it sends the player
-	// to a spawn point and returns to patrolling
-	/*void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.tag == "Player" && !other.collider.isTrigger) {
-			// lose target
-			path = null;
-			pathingTarget = null;
-			StartCoroutine(WaitForPeriod(waitForPatrol));
-		}
-	}*/
 
 	// makes the guard wait before patrolling again after investigating or chasing something
 	IEnumerator WaitForPeriod(float waitTime) {

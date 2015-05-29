@@ -107,7 +107,6 @@ public class Move : MonoBehaviour{
 	}
 
 	//check if guard runs into us
-	//REDUNDANT: THIS SCRIPT IS ALSO IN PlayerStats() ---- WHY?
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "guard") {
 			gameObject.GetComponent<PlayerStats>().lootTotal /= 2;
