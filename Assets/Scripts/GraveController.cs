@@ -13,6 +13,7 @@ public class GraveController : MonoBehaviour {
 	private float maxdirtcount;
 	private SpriteRenderer sprite;
 	public int lootContained;
+	public PhotonView pv;
 	private PlayerStats looterStats;
 	private Dig looter;
 
@@ -22,6 +23,7 @@ public class GraveController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 //		sprite = GetComponent<SpriteRenderer> ();
+		pv = GetComponent<PhotonView> ();
 		gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[0];
 		maxdirtcount = dirtcount;
 	}
@@ -71,7 +73,7 @@ public class GraveController : MonoBehaviour {
 			if (hasLoot) {
 				looterStats.AddLoot(lootContained);
 				//update alert text to reflect gained loot
-				looter.alertLoot(lootContained);
+				pv.RPC("alertLoot", PhotonTargets.AllBuffered, lootContained);
 				hasLoot = false;
 			}
 		}
