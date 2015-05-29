@@ -121,7 +121,7 @@ public class Move : MonoBehaviour{
 			gameObject.GetComponent<CombatMusicControl>().switchMusic = false;
 			other.gameObject.GetComponent<GuardAI>().loseTarget = true;
 
-			//GetComponent<NetworkPlayer>().freezePlayer = false;
+			GetComponent<NetworkPlayer>().freezePlayer = false;
 			freeze = false;
 		}
 	}
