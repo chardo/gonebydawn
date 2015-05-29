@@ -11,9 +11,11 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	// higher float (10f means float 10) means more accurate position/movement representation
 	float lerpSmoothing  = 10f;
 	CircleCollider2D sound;
+	PlayerStats ps;
 
 	// Use this for initialization
 	void Start () {
+		ps = GetComponent<PlayerStats> ();
 		if (photonView.isMine) {
 			// Tells us which Digger is us
 			gameObject.name = "Me";
@@ -21,7 +23,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			GetComponent<Move> ().enabled = true;
 			GetComponent<Dig> ().enabled = true;
 			GetComponent<Throw> ().enabled = true;
-			GetComponent<PlayerStats> ().enabled = true;
+			ps.enabled = true;
 			GetComponent<CombatMusicControl>().enabled = true;
 		} else {
 			// All other Diggers will be named this
@@ -36,10 +38,12 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
 			stream.SendNext(sound.radius);
+			stream.SendNext(PhotonNetwork.player.ID);
 		} else {
 			position = (Vector3)stream.ReceiveNext();
 			rotation = (Quaternion)stream.ReceiveNext();
 			sound.radius = (float)stream.ReceiveNext();
+			ps.ID = (int)stream.ReceiveNext ();
 
 		}
 	}
