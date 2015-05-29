@@ -45,8 +45,10 @@ public class PlayerStats : MonoBehaviour {
 		lootTotal += l;
 
 		//update gui score
-		if (pv.isMine) {
-			ScoreDisplay.currentscore = lootTotal;
+		if (pv) {
+			if (pv.isMine) {
+				ScoreDisplay.currentscore = lootTotal;
+			}
 		}
 
 		//get list of scores in order of player ID's
