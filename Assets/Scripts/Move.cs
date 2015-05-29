@@ -121,7 +121,14 @@ public class Move : MonoBehaviour{
 			gameObject.GetComponent<CombatMusicControl>().switchMusic = false;
 			other.gameObject.GetComponent<GuardAI>().loseTarget = true;
 
-			freeze = false;
+			StartCoroutine(WaitForPeriod (1));
 		}
+	}
+
+	IEnumerator WaitForPeriod(float waitTime) {
+		yield return new WaitForSeconds(waitTime);
+		// make sure that if the guard picked a new target while waiting, this doesn't activate
+		// otherwise, select the closest waypoint
+		freeze = false;
 	}
 }
