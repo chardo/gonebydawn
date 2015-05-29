@@ -4,7 +4,6 @@ using System.Collections;
 public class PlayerStats : MonoBehaviour {
 
 	public int lootTotal = 0;
-	public int rocks = 3;
 
 	// collision variables
 	private PlayerStats ps;
@@ -18,13 +17,15 @@ public class PlayerStats : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ScoreDisplay.currentscore = lootTotal;
-		RockDisplay.rockcount = rocks;
 
 		// gather spawn points, tell the player not to freeze
 		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
 	}
 
+	
+	//REDUNDANT: THIS SCRIPT IS ALSO IN Move() ---- WHY?
 	void OnCollisionEnter2D(Collision2D other) {
+		//if a guard runs into us, decrease loot and spawn us at a random point
 		if (other.gameObject.tag == "guard") {
 			lootTotal /= 2;
 			

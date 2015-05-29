@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkRock : Photon.MonoBehaviour {
+public class NetworkProjectile : Photon.MonoBehaviour {
 
 	public float throwDistance;
 	public float soundRadius;
@@ -19,7 +19,7 @@ public class NetworkRock : Photon.MonoBehaviour {
 			startPoint = transform.position;
 			
 
-			GetComponent<RockController> ().enabled = true;
+			GetComponent<ProjectileController> ().enabled = true;
 		}
 	}
 

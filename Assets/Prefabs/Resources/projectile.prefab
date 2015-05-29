@@ -13,7 +13,7 @@ GameObject:
   - 58: {fileID: 5874368}
   - 114: {fileID: 11405846}
   m_Layer: 0
-  m_Name: rock
+  m_Name: projectile
   m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

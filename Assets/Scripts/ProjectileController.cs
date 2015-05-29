@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RockController : MonoBehaviour {
+public class ProjectileController : MonoBehaviour {
 
 	public float throwDistance;
 	public float soundRadius;
@@ -21,6 +21,7 @@ public class RockController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		//calc distance from where it was thrown, make it 'hit ground' if it's at max throw dist
 		float dist = Vector3.Distance (transform.position, startPoint);
 		if (dist > throwDistance) {
 			makeNoiseAndDie();
@@ -28,18 +29,21 @@ public class RockController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D other) {
-		Debug.Log ("hello");
 		Rigidbody2D rb = GetComponent<Rigidbody2D>();
+		//push rock backwards just a bit to make sure it doesn't make noise from outside navmesh
 		transform.position = transform.position + new Vector3 (-transform.up.y, transform.up.x, 0);
 		rb.velocity = new Vector2 (0, 0);
 		makeNoiseAndDie ();
 	}
 
 	void makeNoiseAndDie() {
+		//turn off sprite, fix the position
 		sprite.enabled = false;
 		rb.isKinematic = true;
+		//turn collider to trigger and expand it to the sound radius
 		thisCollider.isTrigger = true;
 		thisCollider.radius = soundRadius;
+		//wait a bit then destroy
 		StartCoroutine(WaitForTime(0.5f));
 	}
 

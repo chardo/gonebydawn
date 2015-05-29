@@ -33,14 +33,12 @@ public class CombatMusicControl : MonoBehaviour {
 			intenseMusic = true;
 			inCombat.TransitionTo(m_TransitionIn);
 			PlaySting();
-			Debug.Log ("we're in the music script");
 		}
 		if (intenseMusic && !switchMusic) {
 			intenseMusic = false;
 			outOfCombat.TransitionTo (m_TransitionOut);
 		}
 		if (freezePlayer) {
-			Debug.Log ("We're in the freezePlayer condition");
 			gameObject.GetComponent<Move>().freeze = true;
 			freezePlayer = false;
 		}

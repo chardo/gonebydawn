@@ -45,6 +45,7 @@ public class Move : MonoBehaviour{
 
 	void Update()
 	{
+		//first check if a guard has frozen us by being within the catch radius
 		if (!freeze) {	
 			//reset startTime on keyDown or keyUp (makes Lerp work!)
 			if (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift)
@@ -54,9 +55,11 @@ public class Move : MonoBehaviour{
 			}
 			//change movement speed, resize camera, change sound radius
 			if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
+				//sneaking speed, tighter cam
 				speed = Mathf.Lerp (speed, sneakSpeed, 8 * (Time.time - startTime));
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4 * (Time.time - startTime));
 			} else {
+				//running speed, wider cam
 				speed = Mathf.Lerp (speed, normalSpeed, 8 * (Time.time - startTime));
 				if (zoomedCam)
 					cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, zoomCamSize, 4 * (Time.time - startTime));
@@ -64,25 +67,33 @@ public class Move : MonoBehaviour{
 					cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4 * (Time.time - startTime));
 			}
 
+			//create move vector based on input
 			move = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+			//no move if digging
 			if (Input.GetKey (KeyCode.Space))
 				move = Vector2.zero;
+			//normalize it and multiply by the conditional speed calculated above
 			move.Normalize ();
 			rb.velocity = move * speed;
 
-			if (move != Vector2.zero) {
+			//vary the sound radius based on movement speed or digging
+			if (move != Vector2.zero) { //moving:
 				if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
+					//sneaking, smaller radius = quieter
 					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8 * (Time.time - startTime));
 				} else {
+					//running, larger radius = louder
 					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8 * (Time.time - startTime));
 				}
-			} else if (Input.GetKey (KeyCode.Space)) {
+			} else if (Input.GetKey (KeyCode.Space)) { //digging:
+				//digging, make some noise
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
 			} else {
+				//neither digging nor moving, make sound radius smaller than player
+				//(effectively disables it without actually disabling it)
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8 * (Time.time - startTime));
 			}
-		} else {
-			Debug.Log ("We're in the else statement");
+		} else { //we're caught! no movement at all, don't do anything with sound radius
 			rb.velocity = Vector2.zero;
 		}
 
@@ -94,7 +105,9 @@ public class Move : MonoBehaviour{
 				zoomedCam = true;
 		}
 	}
-	
+
+	//check if guard runs into us
+	//REDUNDANT: THIS SCRIPT IS ALSO IN PlayerStats() ---- WHY?
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "guard") {
 			gameObject.GetComponent<PlayerStats>().lootTotal /= 2;

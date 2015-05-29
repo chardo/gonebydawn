@@ -25,57 +25,57 @@ public class GraveController : MonoBehaviour {
 		gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[0];
 		maxdirtcount = dirtcount;
 	}
-	
+
+	//rpc for updating grave sprites in all clients' scenes
 	[RPC]
-	public void UpdateGrave (float amt) {
+	public void UpdateGrave (float amt) { //note: 'amt' here is the 'digSpeed' var passed from the player's Dig() script
 		float intdirt = dirtcount;
 
-		if (isFilled) {
+		if (isFilled) { //grave is filled, so digging takes dirt out of it
 			dirtcount -= amt;
-			//turns out you can't write switches with floats
-
 		}
-		else {
+		else {	//grave is not filled, so digging adds dirt to it
 			dirtcount += amt;
 		}
 
+		//check dirt amount and update sprite accordingly
 		if (intdirt < 3f && intdirt >2.4f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[0];
-			Debug.Log ("HERE!!!!");
 		}
 		if (intdirt < 2.4f && intdirt > 1.8f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[1];
-			Debug.Log ("HERE1!!!!");
 		}
 		if (intdirt < 1.8f && intdirt >1.2f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[2];
-			Debug.Log ("HERE2!!!!");
 		}
 		if (intdirt < 1.2f && intdirt >0.6f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[3];
-			Debug.Log ("HERE3!!!!");
-			
 		}
 		if (intdirt < 0.6f && intdirt >0.0f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[4];
-			Debug.Log ("HERE4!!!!");
 		}
 		if (intdirt <= 0.0f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[5];
-			Debug.Log ("HERE5!!!!");
 		}
 
+		//if grave is made to be empty:
 		if (looterStats != null && dirtcount <= 0.0f && isFilled) {
+			//clamp dirtcount to 0, update final sprite, flip isFilled
 			dirtcount = 0.0f;
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[5];
 			isFilled = false;
+			//force looter to release the spacebar before grave can be dug again
+			//(prevents endless bouncing of dirtcount val by holding space)
 			looter.canDig = false;
+			//add loot to player total if there's any in here, then mark that it's gone
 			if (hasLoot) {
 				looterStats.lootTotal += lootContained;
 				hasLoot = false;
 			}
 		}
+		//if grave is made to be full:
 		if (looterStats != null && dirtcount >= maxdirtcount && !isFilled) {
+			//clamp dirtcount to max, flip isFilled, do same deal with canDig
 			dirtcount = maxdirtcount;
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[0];
 			isFilled = true;
@@ -86,8 +86,10 @@ public class GraveController : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
 			occupied = true;
+			//add player to list of players in this grave, check if they're the only one
 			if (!LooterList.Contains(other)) LooterList.Add (other);
 			if (LooterList.Count == 1) {
+				//only one looter, so they become this grave's digger
 				looterStats = other.GetComponent<PlayerStats>();
 				looter = other.GetComponent<Dig>();
 				looter.inGrave = true;
@@ -95,12 +97,14 @@ public class GraveController : MonoBehaviour {
 				looter.pv = GetComponent<PhotonView>();
 			}
 			else
+				//if there's more than one, no one can dig
 				looterStats = null;
 		}
 	}
 
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
+			//when player leaves, unassign those reference vars and remove them from list of looters in this grave
 			looter = other.GetComponent<Dig>();
 			looter.inGrave = true;
 			looter.gc = null;

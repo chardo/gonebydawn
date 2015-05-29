@@ -36,4 +36,5 @@ MonoBehaviour:
   - UpdateGrave
   - UpdateRocks
   - ThrowRock
+  - ThrowProjectile
   DisableAutoOpenWizard: 0
