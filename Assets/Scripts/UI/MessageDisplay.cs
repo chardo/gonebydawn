@@ -15,7 +15,6 @@ public class MessageDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
 	IEnumerator setBlankAfter(float waitTime) {

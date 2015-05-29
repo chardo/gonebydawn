@@ -36,7 +36,7 @@ public class Throw : MonoBehaviour {
 			pv.RPC("ThrowProjectile", PhotonTargets.AllBuffered, transform.position+d, transform.rotation, dir);
 
 			//decrement lootTotal
-			ps.lootTotal -= 1;
+			ps.AddLoot(-1);
 		}
 	}
 
