@@ -114,11 +114,11 @@ public class GuardAI : MonoBehaviour {
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
 
-					float playerDist = Vector2.Distance(transform.position, playerTarget.transform.position);
-					if (playerDist < 7) {
+					//float playerDist = Vector2.Distance(transform.position, playerTarget.transform.position);
+					//if (playerDist < 7) {
 						playerTarget.GetComponent<NetworkPlayer>().freezePlayer = true;
-						currentSpeed = patrolSpeed;
-					}
+						//currentSpeed = patrolSpeed;
+					//}
 				}
 			}
 		}
