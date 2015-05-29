@@ -102,7 +102,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  lightRadius: 50
+  lightRadius: 60
   lightSegments: 10
   Layer:
     serializedVersion: 2
