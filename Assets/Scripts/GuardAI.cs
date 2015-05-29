@@ -117,7 +117,9 @@ public class GuardAI : MonoBehaviour {
 					waitToPatrol = true;
 
 					float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
+					Debug.Log ("dist: " + playerDist);
 					if (playerDist < 7) {
+						Debug.Log ("dis triggered");
 						Move playerScript = objectSighted.transform.GetComponent<Move>();
 						//playerScript.freeze = true;
 						playerScript.enabled = false;
