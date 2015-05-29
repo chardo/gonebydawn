@@ -113,7 +113,8 @@ public class GuardAI : MonoBehaviour {
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
-					playerTarget.GetComponent<NetworkPlayer>().FreezePlayer();
+					PhotonView objectPV = PhotonView.Get (playerTarget);
+					objectPV.RPC ("FreezePlayer", PhotonTargets.AllBuffered);
 				}
 			}
 		}
