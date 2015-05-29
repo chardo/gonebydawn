@@ -41,11 +41,6 @@ public class GuardAI : MonoBehaviour {
 	private Transform curWaypoint;
 	private List<Transform> adjoiningWaypoints;
 
-	// respawning
-	private PlayerStats ps;
-	private GameObject[] spawnPoints;
-
-
 	void Start () {
 		// initialize timing and angle variables
 		newTargetTimer = 0;
@@ -65,8 +60,6 @@ public class GuardAI : MonoBehaviour {
 		waitToPatrol = false;
 		pathingTarget = FindClosestWaypoint();
 		SetNewTarget();
-		// gather player spawn points
-		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
 	}
 	
 	/* Every frame, Update does the following:
@@ -221,14 +214,6 @@ public class GuardAI : MonoBehaviour {
 	// to a spawn point and returns to patrolling
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "Player" && !other.collider.isTrigger) {
-			ps = other.gameObject.GetComponent<PlayerStats>();
-			ps.lootTotal /= 2;
-			
-			int r = Random.Range (0, spawnPoints.Length);
-			GameObject mySpawnPoint = spawnPoints [r];
-			
-			ps.transform.position = mySpawnPoint.transform.position;
-
 			// lose target
 			path = null;
 			pathingTarget = null;
