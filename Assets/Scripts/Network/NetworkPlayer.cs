@@ -35,8 +35,11 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	}
 
 	void Update(){
-		if (freezePlayer && photonView.isMine)
+		if (freezePlayer && photonView.isMine) {
 			GetComponent<Move> ().freeze = true;
+			Debug.Log ("actual if");
+		} else if (freezePlayer)
+			Debug.Log ("fake if");
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
