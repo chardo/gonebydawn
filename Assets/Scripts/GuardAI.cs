@@ -43,10 +43,6 @@ public class GuardAI : MonoBehaviour {
 	private Transform curWaypoint;
 	private List<Transform> adjoiningWaypoints;
 
-	// for playing around
-	private bool inSight;
-	private Transform playerChasing = null;
-
 	void Start () {
 		// initialize timing and angle variables
 		newTargetTimer = 0;
@@ -67,7 +63,6 @@ public class GuardAI : MonoBehaviour {
 		waitToPatrol = false;
 		pathingTarget = FindClosestWaypoint();
 		SetNewTarget();
-		inSight = false;
 	}
 
 	/* Every frame, Update does the following:
@@ -82,12 +77,6 @@ public class GuardAI : MonoBehaviour {
 		// Count down timer until new target can be set
 		if (newTargetTimer > 0)
 			newTargetTimer--;
-
-		if (inSight && playerChasing) {
-			float playerDist = Vector2.Distance(transform.position, playerChasing.position);
-			if (playerDist < 7)
-				playerChasing.GetComponent<Move>().freeze = true;
-		}
 
 		// Pick the next patrol point
 		if ((path == null || path.Count == 0) && !waitToPatrol) {
@@ -124,13 +113,6 @@ public class GuardAI : MonoBehaviour {
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
-					inSight = true;
-
-					/*float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
-					if (playerDist < 7) {
-						playerTarget.GetComponent<Move>().freeze = true;
-						currentSpeed = patrolSpeed;
-					}*/
 				}
 			}
 		}
@@ -172,8 +154,6 @@ public class GuardAI : MonoBehaviour {
 						CombatMusicControl sendSwitch = playerTarget.GetComponent<CombatMusicControl>();
 						sendSwitch.switchMusic = false;
 					}
-					inSight = false;
-					playerChasing = null;
 				}
 			}
 		}
@@ -234,7 +214,6 @@ public class GuardAI : MonoBehaviour {
 			if (other.tag == "Player") {
 				other.GetComponent<CombatMusicControl>().switchMusic = true;
 				playerTarget = other.gameObject;
-				playerChasing = other.transform;
 			}
 		}
 	}
