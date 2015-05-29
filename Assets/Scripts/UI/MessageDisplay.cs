@@ -10,7 +10,7 @@ public class MessageDisplay : MonoBehaviour {
 	void Start () {
 		messageText = GetComponent<Text> ();
 		messageText.text = "Steal what you can and get out by 6am!";
-		StartCoroutine (setBlankAfter (5));
+		StartCoroutine (setBlankAfter (5f));
 	}
 	
 	// Update is called once per frame

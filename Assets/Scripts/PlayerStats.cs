@@ -11,6 +11,8 @@ public class PlayerStats : MonoBehaviour {
 	private Color[] playerColors;
 	private GameObject[] rankings;
 
+	Color c1, c2, c3, c4;
+
 	public PhotonView pv;
 
 
@@ -19,15 +21,18 @@ public class PlayerStats : MonoBehaviour {
 		//set this player's ID
 		ID = PhotonNetwork.player.ID;
 
-		Color c1 = Color.green;
-		Color c2 = Color.blue;
-		Color c3 = Color.magenta;
-		Color c4 = Color.yellow;
+		c1 = Color.green;
+		c2 = Color.blue;
+		c3 = Color.magenta;
+		c4 = Color.yellow;
 		//array of colors representing players
 		playerColors = new Color[] {c1, c2, c3, c4};
 
 		//array of boxes to be filled with colors
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
+		for (int i=0; i<4; i++) {
+			Debug.Log (rankings [i].transform.position.y);
+		}
 
 		//set initial colors of rankings
 		UpdateRankings ();
@@ -54,8 +59,12 @@ public class PlayerStats : MonoBehaviour {
 			scoreArray[pid-1] = score;
 		}
 		Debug.Log (scoreArray[0]+","+scoreArray[1]+","+scoreArray[2]+","+scoreArray[3]);
+		//reset playerColors to the initial ordered list so the sorting aligns with
+		//	scoreArray order
+		playerColors = new Color[] {c1, c2, c3, c4};
 		//now we sort playerColors according to the score array
 		Array.Sort (scoreArray, playerColors);
+		Debug.Log (playerColors [0]);
 
 		//finally, fill each of the boxes in rankings[] with those colors
 		UpdateRankings ();
@@ -65,5 +74,8 @@ public class PlayerStats : MonoBehaviour {
 		for (int i=0; i<4; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];
 		}
+		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
+		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
+		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
 	}
 }
