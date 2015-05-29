@@ -22,6 +22,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			GetComponent<Dig> ().enabled = true;
 			GetComponent<Throw> ().enabled = true;
 			GetComponent<PlayerStats> ().enabled = true;
+			GetComponent<CombatMusicControl>().enabled = true;
 		} else {
 			// All other Diggers will be named this
 			gameObject.name = "Network Player";
