@@ -10,6 +10,7 @@ public class CombatMusicControl : MonoBehaviour {
 	public AudioSource stingSource;
 	public float bpm = 100; // tempo
 	public bool switchMusic;
+	public bool freezePlayer;
 	private bool intenseMusic;
 
 	private float m_TransitionIn; // The time in milliseconds to transition between snapshots
@@ -24,6 +25,7 @@ public class CombatMusicControl : MonoBehaviour {
 
 		switchMusic = false;
 		intenseMusic = false;
+		freezePlayer = false;
 	}
 
 	void Update () {
@@ -31,10 +33,16 @@ public class CombatMusicControl : MonoBehaviour {
 			intenseMusic = true;
 			inCombat.TransitionTo(m_TransitionIn);
 			PlaySting();
+			Debug.Log ("we're in the music script");
 		}
 		if (intenseMusic && !switchMusic) {
 			intenseMusic = false;
 			outOfCombat.TransitionTo (m_TransitionOut);
+		}
+		if (freezePlayer) {
+			Debug.Log ("We're in the freezePlayer condition");
+			gameObject.GetComponent<Move>().freeze = true;
+			freezePlayer = false;
 		}
 	}
 

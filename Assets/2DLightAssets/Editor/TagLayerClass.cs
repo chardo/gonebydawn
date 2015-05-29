@@ -20,7 +20,7 @@ public class TagLayerClass{
 #if UNITY_5
 
 		while(it.NextVisible (showChildren)){
-			Debug.Log(it.displayName);
+			//Debug.Log(it.displayName);
 
 
 			if(it.displayName == "Element 8"){

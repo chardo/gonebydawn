@@ -82,6 +82,7 @@ public class Move : MonoBehaviour{
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8 * (Time.time - startTime));
 			}
 		} else {
+			Debug.Log ("We're in the else statement");
 			rb.velocity = Vector2.zero;
 		}
 
