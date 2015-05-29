@@ -12,6 +12,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	float lerpSmoothing  = 10f;
 	CircleCollider2D sound;
 	PlayerStats ps;
+	public bool freezePlayer = false;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,11 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			StartCoroutine("Alive");
 		}
 		sound = GetComponent<CircleCollider2D> ();
+	}
+
+	void Update(){
+		if (freezePlayer && photonView.isMine)
+			GetComponent<Move> ().freeze = true;
 	}
 
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

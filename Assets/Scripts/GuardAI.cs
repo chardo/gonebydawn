@@ -113,6 +113,7 @@ public class GuardAI : MonoBehaviour {
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
+					objectSighted.collider.GetComponent<NetworkPlayer>().freezePlayer = true;
 				}
 			}
 		}
@@ -213,6 +214,7 @@ public class GuardAI : MonoBehaviour {
 			waitToPatrol = true;
 			if (other.tag == "Player") {
 				other.GetComponent<CombatMusicControl>().switchMusic = true;
+				other.GetComponent<Move>().freeze = true;
 				playerTarget = other.gameObject;
 			}
 		}
