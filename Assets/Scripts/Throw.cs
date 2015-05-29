@@ -12,6 +12,10 @@ public class Throw : MonoBehaviour {
 	private PlayerStats ps;
 
 	private PhotonView pv;
+
+	public AudioSource lootThrowSound;
+	public AudioSource lootHitSound;
+
 	// Use this for initialization
 	void Start () {
 		pv = PhotonView.Get (this);
@@ -42,6 +46,7 @@ public class Throw : MonoBehaviour {
 
 	[RPC]
 	void ThrowProjectile(Vector3 pos, Quaternion rot, Vector2 dir) {
+		lootThrowSound.Play ();
 		//get angle from direction vector
 		float angle = Mathf.Atan2 (dir.y, dir.x) * Mathf.Rad2Deg;
 		//instantiate rock with previously calculated position
@@ -49,5 +54,6 @@ public class Throw : MonoBehaviour {
 		//rotate so that 'forward' vec points in mouse direction, then push it in that direction
 		r.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 		r.AddForce (r.transform.right * throwForce);
+		lootHitSound.Play ();
 	}
 }
