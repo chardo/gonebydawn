@@ -26,7 +26,8 @@ public class Move : MonoBehaviour{
 	public float sneakSoundRadius;
 	public float digSoundRadius;
 
-	// collision attempt
+	// collision variables
+	public bool freeze;
 	private PlayerStats ps;
 	private GameObject[] spawnPoints;
 	
@@ -37,51 +38,52 @@ public class Move : MonoBehaviour{
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
 
-		// BLAH BLAH
+		// gather spawn points, tell the player not to freeze
 		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
+		freeze = false;
 	}
 
 	void Update()
 	{
-		//reset startTime on keyDown or keyUp (makes Lerp work!)
-		if (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift)
-		    || Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift)
-		    || Input.GetKeyDown (KeyCode.Space) || Input.GetKeyUp (KeyCode.Space)) {
-			startTime = Time.time;
-		}
-		//change movement speed, resize camera, change sound radius
-		if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
-			speed = Mathf.Lerp (speed, sneakSpeed, 8*(Time.time-startTime));
-			cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4*(Time.time-startTime));
-		} else {
-			speed = Mathf.Lerp (speed, normalSpeed, 8*(Time.time-startTime));
-			if (zoomedCam)
-				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, zoomCamSize, 4*(Time.time-startTime));
-			else
-				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4*(Time.time-startTime));
-		}
-
-		move = new Vector2(Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
-		if (Input.GetKey (KeyCode.Space))
-			move = Vector2.zero;
-		move.Normalize ();
-		rb.velocity = move * speed;
-
-		if (move != Vector2.zero) {
+		if (!freeze) {
+			//reset startTime on keyDown or keyUp (makes Lerp work!)
+			if (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift)
+				|| Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift)
+				|| Input.GetKeyDown (KeyCode.Space) || Input.GetKeyUp (KeyCode.Space)) {
+				startTime = Time.time;
+			}
+			//change movement speed, resize camera, change sound radius
 			if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
-				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8*(Time.time-startTime));
+				speed = Mathf.Lerp (speed, sneakSpeed, 8 * (Time.time - startTime));
+				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4 * (Time.time - startTime));
+			} else {
+				speed = Mathf.Lerp (speed, normalSpeed, 8 * (Time.time - startTime));
+				if (zoomedCam)
+					cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, zoomCamSize, 4 * (Time.time - startTime));
+				else
+					cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4 * (Time.time - startTime));
 			}
-			else {
-				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8*(Time.time-startTime));
+
+			move = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
+			if (Input.GetKey (KeyCode.Space))
+				move = Vector2.zero;
+			move.Normalize ();
+			rb.velocity = move * speed;
+
+			if (move != Vector2.zero) {
+				if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
+					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8 * (Time.time - startTime));
+				} else {
+					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8 * (Time.time - startTime));
+				}
+			} else if (Input.GetKey (KeyCode.Space)) {
+				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
+			} else {
+				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8 * (Time.time - startTime));
 			}
+		} else {
+			rb.velocity = Vector2.zero;
 		}
-		else if (Input.GetKey (KeyCode.Space)) {
-			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
-		}
-		else {
-			soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8*(Time.time - startTime));
-		}
-		
 
 		// camera zooming for testing purposes
 		if (Input.GetKeyDown (KeyCode.E)){
@@ -107,6 +109,7 @@ public class Move : MonoBehaviour{
 
 			GuardAI guardScript = other.gameObject.GetComponent<GuardAI>();
 			guardScript.loseTarget = true;
+			freeze = false;
 		}
 	}
 }

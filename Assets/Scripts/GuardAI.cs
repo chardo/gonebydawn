@@ -115,6 +115,13 @@ public class GuardAI : MonoBehaviour {
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
+
+					float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
+					if (playerDist < 7) {
+						Move playerScript = objectSighted.transform.GetComponent<Move>();
+						playerScript.freeze = true;
+						currentSpeed = patrolSpeed;
+					}
 				}
 			}
 		}
