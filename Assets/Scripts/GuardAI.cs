@@ -109,15 +109,13 @@ public class GuardAI : MonoBehaviour {
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
 				if (objectSighted.transform.tag == "Player") {
-					objectSighted.transform.GetComponent<CombatMusicControl>().enabled = false;
-					//sendMessage.switchMusic = true;
+					objectSighted.transform.GetComponent<CombatMusicControl>().switchMusic = true;
 					playerTarget = objectSighted.transform.gameObject;
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
 
-					objectSighted.transform.GetComponent<Move>().enabled = false;
-					objectSighted.rigidbody.velocity = Vector2.zero;
+					objectSighted.transform.GetComponent<Move>().freeze = true;
 					float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
 					if (playerDist < 7) {
 
