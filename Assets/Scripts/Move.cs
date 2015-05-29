@@ -109,7 +109,7 @@ public class Move : MonoBehaviour{
 	//check if guard runs into us
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "guard") {
-			float l = Mathf.Floor (GetComponent<PlayerStats>().lootTotal*0.1f);
+			float l = Mathf.Ceil (GetComponent<PlayerStats>().lootTotal*0.1f);
 			int il = (int) l;
 			gameObject.GetComponent<PlayerStats>().AddLoot (-1*il);
 			
