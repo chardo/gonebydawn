@@ -74,6 +74,14 @@ MonoBehaviour:
   isFilled: 1
   hasLoot: 1
   occupied: 0
+  isTrapped: 0
+  grave_array:
+  - {fileID: 21300000, guid: 315307d152efc411f9bd12c68163d912, type: 3}
+  - {fileID: 21300000, guid: d30a529560afe4001aee786f2035348d, type: 3}
+  - {fileID: 21300000, guid: 120f8286ade9b44608eaed775385566c, type: 3}
+  - {fileID: 21300000, guid: 29171298353014b51a914f0d46b6b8a1, type: 3}
+  - {fileID: 21300000, guid: 620c833cbbbdf4a88a7f38619e70e660, type: 3}
+  - {fileID: 21300000, guid: 8d8a63ec420ee476594a88c3aedfe484, type: 3}
   dirtcount: 3
   lootContained: 0
 --- !u!114 &11494834
