@@ -11,6 +11,8 @@ public class PlayerStats : MonoBehaviour {
 	private Color[] playerColors;
 	private GameObject[] rankings;
 
+	public PhotonView pv;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +31,8 @@ public class PlayerStats : MonoBehaviour {
 
 		//set initial colors of rankings
 		UpdateRankings ();
+
+		pv = GetComponent<PhotonView> ();
 	}
 
 	public void AddLoot (int l) {
@@ -36,7 +40,9 @@ public class PlayerStats : MonoBehaviour {
 		lootTotal += l;
 
 		//update gui score
-		ScoreDisplay.currentscore = lootTotal;
+		if (pv.isMine) {
+			ScoreDisplay.currentscore = lootTotal;
+		}
 
 		//get list of scores in order of player ID's
 		//ie, after this loop, player1's score is at scoreArray[0], player2's score is at scoreArray[1], etc.
