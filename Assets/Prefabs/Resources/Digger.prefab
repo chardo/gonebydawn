@@ -27,8 +27,7 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 447696}
-  - 212: {fileID: 21242736}
+  - 224: {fileID: 22475970}
   - 50: {fileID: 5009952}
   - 61: {fileID: 6166022}
   - 58: {fileID: 5820330}
@@ -39,6 +38,7 @@ GameObject:
   - 114: {fileID: 11454758}
   - 114: {fileID: 11498608}
   - 114: {fileID: 11488630}
+  - 212: {fileID: 21242736}
   m_Layer: 10
   m_Name: Digger
   m_TagString: Player
@@ -104,19 +104,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 420268}
   m_RootOrder: 0
---- !u!4 &447696
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154322}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.6000004, y: 54, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 467672}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
 --- !u!4 &467672
 Transform:
   m_ObjectHideFlags: 1
@@ -128,7 +115,7 @@ Transform:
   m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
   m_Children:
   - {fileID: 420268}
-  m_Father: {fileID: 447696}
+  m_Father: {fileID: 22475970}
   m_RootOrder: 0
 --- !u!20 &2000122
 Camera:
@@ -502,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8238cc53530b64fbb7828c3d3bb591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 447696}
+  target: {fileID: 22475970}
   damping: .100000001
   lookAheadFactor: 0
   lookAheadReturnSpeed: .5
@@ -513,7 +500,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154322}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1dfd3a7a221dd402a90f999b2e44dbbd, type: 3}
   m_Name: 
@@ -597,6 +584,24 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 29bfca27b454f4648b820564925a3a87, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!224 &22475970
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 467672}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: -27.6000004, y: 54}
+  m_SizeDelta: {x: 2, y: 2}
+  m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
