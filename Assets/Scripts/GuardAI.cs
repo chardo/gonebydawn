@@ -116,14 +116,11 @@ public class GuardAI : MonoBehaviour {
 					currentSpeed = chaseSpeed;
 					waitToPatrol = true;
 
+					objectSighted.transform.GetComponent<Move>().enabled = false;
+					objectSighted.rigidbody.velocity = Vector2.zero;
 					float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
-					Debug.Log ("dist: " + playerDist);
 					if (playerDist < 7) {
-						Debug.Log ("dis triggered");
-						Move playerScript = objectSighted.transform.GetComponent<Move>();
-						//playerScript.freeze = true;
-						playerScript.enabled = false;
-						objectSighted.rigidbody.velocity = Vector2.zero;
+
 						currentSpeed = patrolSpeed;
 					}
 				}
