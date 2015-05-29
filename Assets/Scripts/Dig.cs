@@ -62,7 +62,6 @@ public class Dig : MonoBehaviour {
 	}
 
 	//update the attached GUI to display the amount of loot gained
-	[RPC]
 	public void alertLoot(int lootGained) {
 		//get the child alertText of the child playerGUI, then get its text component
 		Debug.Log ("showing alert! in theory");
