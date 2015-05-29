@@ -110,7 +110,7 @@ public class GuardAI : MonoBehaviour {
 			if (objectSighted) {
 				if (objectSighted.collider.tag == "Player") {
 					Debug.Log ("knows it's a player");
-					objectSighted.collider.GetComponent<CombatMusicControl>().switchMusic = true;
+					objectSighted.transform.gameObject.GetComponent<CombatMusicControl>().switchMusic = true;
 					playerTarget = objectSighted.transform.gameObject;
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
@@ -119,7 +119,7 @@ public class GuardAI : MonoBehaviour {
 
 					float playerDist = Vector2.Distance(transform.position, objectSighted.transform.position);
 					if (playerDist < 7) {
-						objectSighted.collider.GetComponent<Move>().freeze = true;
+						objectSighted.transform.gameObject.GetComponent<Move>().freeze = true;
 						currentSpeed = patrolSpeed;
 					}
 				}
