@@ -41,7 +41,7 @@ public class PlayerStats : MonoBehaviour {
 		pv = GetComponent<PhotonView> ();
 
 		//set initial colors of rankings
-		UpdateRankings ();
+		pv.RPC ("UpdateRankings", PhotonTargets.AllBuffered);
 	}
 
 	public void AddLoot (int l) {
@@ -71,10 +71,16 @@ public class PlayerStats : MonoBehaviour {
 		Array.Sort (scoreArray.ToArray(), playerColors);
 
 		//finally, fill each of the boxes in rankings[] with those colors
-		UpdateRankings ();
+		pv.RPC ("UpdateRankings", PhotonTargets.AllBuffered);
 	}
 
+	[RPC]
 	public void UpdateRankings() {
+		//array of boxes to be filled with colors (in top to bottom order)
+		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
+		Array.Sort (rankings, (GameObject a, GameObject b) => a.transform.position.y.CompareTo(b.transform.position.y));
+		Array.Reverse (rankings);
+
 		//color the boxes in order of winning players
 		for (int i=0; i<numPlayers; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];

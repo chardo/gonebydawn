@@ -43,4 +43,5 @@ MonoBehaviour:
   - GuardYell
   - IntenseMusic
   - UpdateScoreArray
+  - UpdateRankings
   DisableAutoOpenWizard: 0
