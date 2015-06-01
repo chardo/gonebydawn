@@ -42,4 +42,5 @@ MonoBehaviour:
   - CalmMusic
   - GuardYell
   - IntenseMusic
+  - UpdateScoreArray
   DisableAutoOpenWizard: 0

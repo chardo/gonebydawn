@@ -1,43 +1,47 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerStats : MonoBehaviour {
 
 	public int lootTotal = 0;
 	public int ID;
-	private int[] scoreArray = new int[4];
+	private List<int> scoreArray = new List<int>();
 	private Color[] playerColors;
 	private GameObject[] rankings;
 
 	Color c1, c2, c3, c4;
 
-	public PhotonView pv;
+	private PhotonView pv;
 
-
+	private int numPlayers;
+	
 	// Use this for initialization
 	void Start () {
-		//set this player's ID
+		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
+		numPlayers = GameObject.FindGameObjectsWithTag ("Player").Length;
+		scoreArray.Add(0);
 
+		//make array of colors representing players
 		c1 = Color.green;
 		c2 = Color.blue;
 		c3 = Color.magenta;
 		c4 = Color.yellow;
-		//array of colors representing players
 		playerColors = new Color[] {c1, c2, c3, c4};
 
-		//array of boxes to be filled with colors
+		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
-		for (int i=0; i<4; i++) {
-			Debug.Log (rankings [i].transform.position.y);
-		}
+		Array.Sort (rankings, (GameObject a, GameObject b) => a.transform.position.y.CompareTo(b.transform.position.y));
+		Array.Reverse (rankings);
+
+		pv = GetComponent<PhotonView> ();
 
 		//set initial colors of rankings
 		UpdateRankings ();
-
-		pv = GetComponent<PhotonView> ();
 	}
 
 	public void AddLoot (int l) {
@@ -60,24 +64,29 @@ public class PlayerStats : MonoBehaviour {
 			int score = stats.lootTotal;
 			scoreArray[pid-1] = score;
 		}
-		Debug.Log (scoreArray[0]+","+scoreArray[1]+","+scoreArray[2]+","+scoreArray[3]);
 		//reset playerColors to the initial ordered list so the sorting aligns with
 		//	scoreArray order
 		playerColors = new Color[] {c1, c2, c3, c4};
 		//now we sort playerColors according to the score array
-		Array.Sort (scoreArray, playerColors);
-		Debug.Log (playerColors [0]);
+		Array.Sort (scoreArray.ToArray(), playerColors);
 
 		//finally, fill each of the boxes in rankings[] with those colors
 		UpdateRankings ();
 	}
 
-	void UpdateRankings() {
-		for (int i=0; i<4; i++) {
+	public void UpdateRankings() {
+		//color the boxes in order of winning players
+		for (int i=0; i<numPlayers; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];
 		}
-		PlayerPrefs.SetFloat ("WinningR", playerColors[3].r);
-		PlayerPrefs.SetFloat ("WinningG", playerColors[3].g);
-		PlayerPrefs.SetFloat ("WinningB", playerColors[3].b);
+		//make remaining boxes transparent
+		for (int i=numPlayers; i<4; i++) {
+			rankings[i].GetComponent<Image>().color = new Color(0f,0f,0f,0f);
+		}
+		//pass the first-place player to PlayerPrefs so the win-screen can adapt
+		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
+		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
+		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
 	}
+
 }
