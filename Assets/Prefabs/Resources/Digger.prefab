@@ -45,6 +45,7 @@ GameObject:
   - 82: {fileID: 8245672}
   - 82: {fileID: 8215680}
   - 82: {fileID: 8251136}
+  - 95: {fileID: 9594896}
   m_Layer: 10
   m_Name: Digger
   m_TagString: Player
@@ -840,6 +841,23 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 153704}
   m_Enabled: 1
+--- !u!95 &9594896
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154322}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 16fb22c4a88534d0b94c88b1bb691c4d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11410802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -880,6 +898,7 @@ MonoBehaviour:
   sneakCamSize: 10
   zoomCamSize: 50
   claywalk2: {fileID: 0}
+  anim_player: {fileID: 0}
   soundTrigger: {fileID: 5820330}
   normalSoundRadius: 20
   sneakSoundRadius: 10
@@ -961,6 +980,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootTotal: 0
   ID: 0
+  pv: {fileID: 0}
 --- !u!114 &11499442
 MonoBehaviour:
   m_ObjectHideFlags: 1

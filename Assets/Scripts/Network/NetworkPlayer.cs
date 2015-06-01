@@ -6,6 +6,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 
 	bool isAlive = true;
 	Vector3 position;
+	protected Animation player_animation;
 	Quaternion rotation;
 	// lerping smooths the cross-network display of other characters' movements the value can be changed. 
 	// higher float (10f means float 10) means more accurate position/movement representation
@@ -23,8 +24,11 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			GetComponent<Move> ().enabled = true;
 			GetComponent<Dig> ().enabled = true;
 			GetComponent<Throw> ().enabled = true;
+			GetComponent<PlayerStats> ().enabled = true;
 			ps.enabled = true;
 			GetComponent<CombatMusicControl>().enabled = true;
+			GetComponent<Animation>().enabled = true;
+			player_animation = GetComponent<Animation>();
 		} else {
 			// All other Diggers will be named this
 			gameObject.name = "Network Player";
@@ -58,7 +62,6 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 		while (isAlive) {
 			transform.position = Vector3.Lerp (transform.position, position, Time.deltaTime * lerpSmoothing);
 			transform.rotation = Quaternion.Lerp (transform.rotation, rotation, Time.deltaTime * lerpSmoothing);
-
 			yield return null;
 		}
 	}
