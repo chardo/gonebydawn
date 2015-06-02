@@ -10,11 +10,14 @@ public class PlayerStats : Photon.MonoBehaviour {
 	public int lootTotal = 0;
 	public int ID;
 	private int[] scoreArray = new int[4];
-	public Color[] playerColors;
+	private Color[] playerColors;
 	private GameObject[] rankings;
 	private GameObject[] allPlayers;
 	
-	Color c1, c2, c3, c4;
+	private Color c1 = Color.green;
+	private Color c2 = Color.blue;
+	private Color c3 = Color.magenta;
+	private Color c4 = Color.yellow;
 
 	private int numPlayers = 0;
 
@@ -29,12 +32,6 @@ public class PlayerStats : Photon.MonoBehaviour {
 
 		//get photonview
 		pv = GetComponent<PhotonView> ();
-
-		//make array of colors representing players
-		c1 = Color.green;
-		c2 = Color.blue;
-		c3 = Color.magenta;
-		c4 = Color.yellow;
 
 		StartCoroutine ("WelcomePlayer", 1f);
 	}
