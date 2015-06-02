@@ -61,6 +61,7 @@ public class Move : MonoBehaviour{
 
 	void Update()
 	{
+		Debug.Log ("ingrave = " + GetComponent<Dig> ().inGrave);
 		anim_player = GetComponent<Animator> ();
 		//first check if a guard has frozen us by being within the catch radius
 		if (!freeze && anim_control) {	
@@ -100,8 +101,10 @@ public class Move : MonoBehaviour{
 			move = new Vector2 (Input.GetAxisRaw ("Horizontal"), Input.GetAxisRaw ("Vertical"));
 
 			//no move if digging
-			if (Input.GetKey (KeyCode.Space))
+			if (Input.GetKey (KeyCode.Space)) {
 				move = Vector2.zero;
+			}
+
 			//normalize it and multiply by the conditional speed calculated above
 			move.Normalize ();
 			rb.velocity = move * speed;
@@ -159,11 +162,13 @@ public class Move : MonoBehaviour{
 					//Debug.Log ("set run to true");				
 				}
 			} 
-			else if (Input.GetKey (KeyCode.Space)) { //digging:
+			else if (Input.GetKey (KeyCode.Space) && GetComponent<Dig> ().inGrave) { //digging:
 				//digging, make some noise
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
 				anim_player.SetInteger("mc_state",2);
 				mc_status = 2;
+				Debug.Log ("dig in grave");
+
 				//anim_player.SetBool("run",false);
 				//anim_player.SetBool("dig",true);
 				//Debug.Log ("set run to false");
@@ -178,6 +183,7 @@ public class Move : MonoBehaviour{
 				//anim_player.SetBool("run",false);
 				anim_player.SetInteger("mc_state",0);
 				mc_status = 0;
+				Debug.Log ("idle");
 //				Debug.Log ("mc status: " + mc_status);
 
 

@@ -72,8 +72,7 @@ public class GraveController : MonoBehaviour {
 				//update alert text to reflect gained loot
 				looter.alertLoot(lootContained);
 
-				if (looterStats.enabled)
-					looterStats.AddMyLoot(lootContained);
+				looterStats.AddMyLoot(lootContained);
 
 				hasLoot = false;
 			}
@@ -111,7 +110,7 @@ public class GraveController : MonoBehaviour {
 		if (other.tag == "Player" && !other.isTrigger) {
 			//when player leaves, unassign those reference vars and remove them from list of looters in this grave
 			looter = other.GetComponent<Dig>();
-			looter.inGrave = true;
+			looter.inGrave = false;
 			looter.gc = null;
 			looter.pv = null;
 			if (LooterList.Contains (other)) LooterList.Remove (other);
