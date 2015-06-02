@@ -848,7 +848,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154322}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 16fb22c4a88534d0b94c88b1bb691c4d, type: 2}
   m_CullingMode: 0
@@ -897,11 +897,14 @@ MonoBehaviour:
   normalCamSize: 15
   sneakCamSize: 10
   zoomCamSize: 50
+  anim_player: {fileID: 0}
   soundTrigger: {fileID: 5820330}
   normalSoundRadius: 20
   sneakSoundRadius: 10
   digSoundRadius: 15
   freeze: 0
+  anim_control: 0
+  mc_status: 0
 --- !u!114 &11454758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -929,6 +932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCamera: {fileID: 153704}
+  network_anim_player: {fileID: 0}
 --- !u!114 &11475074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -963,8 +967,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3a39e9b38142e41899c931cc20c8e99c, type: 3}
   stingSource: {fileID: 8288144}
   bpm: 100
-  switchMusic: 0
-  freezePlayer: 0
 --- !u!114 &11498608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -999,6 +1001,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 11467474}
+  - {fileID: 9594896}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
