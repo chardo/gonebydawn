@@ -36,6 +36,11 @@ public class PlayerStats : Photon.MonoBehaviour {
 		c3 = Color.magenta;
 		c4 = Color.yellow;
 
+		StartCoroutine ("WelcomePlayer", 1f);
+	}
+
+	IEnumerator WelcomePlayer(float t) {
+		yield return new WaitForSeconds(t);
 		AddLoot (0);
 	}
 
@@ -44,12 +49,13 @@ public class PlayerStats : Photon.MonoBehaviour {
 		//make list of scores
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
 		foreach (GameObject player in allPlayers) {
-			int thisLootTotal = player.GetComponent<PlayerStats>().lootTotal;
-			int thisID = player.GetComponent<PlayerStats>().ID;
-			Debug.Log (thisID);
+			PlayerStats ps = player.GetComponent<PlayerStats>();
+			int thisLootTotal = ps.lootTotal;
+			int thisID = ps.ID;
 			scoreArray[thisID-1] = thisLootTotal;
 			numPlayers++;
 		}
+
 		pv.RPC ("UpdateRankings", PhotonTargets.All);
 	}
 
