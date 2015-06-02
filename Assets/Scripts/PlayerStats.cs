@@ -42,6 +42,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 	}
 
 	public void fillScoreArray() {
+		//creates an accurate score array based on everyone's current scores
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
 		numPlayers = allPlayers.Length;
 		foreach (GameObject player in allPlayers) {
@@ -68,14 +69,14 @@ public class PlayerStats : Photon.MonoBehaviour {
 		//initial array needs to be in reverse order, since the scoreArray gets reverse after sorting
 		playerColors = new Color[] {c1, c2, c3, c4};
 
-		//now we sort scoreArray & playerColors as if they're a key-value pair
+		//create an inverse score array to represent top-down ranking
 		int[] inverseScore = new int[4];
 		for (int i=0; i<4; i++) {
 			if (scoreArray[i] != 0)
 				inverseScore[i] = -1*scoreArray[i];
 		}
+		//sort playerColors according to the inverse score array
 		Array.Sort (inverseScore, playerColors);
-
 
 		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
@@ -85,15 +86,12 @@ public class PlayerStats : Photon.MonoBehaviour {
 		Debug.Log (nump + " players");
 		//color the boxes in order of winning players
 		for (int i=0; i<nump; i++) {
-			Debug.Log ("we are setting live square " + i + " to " + playerColors[i]);
 			rankings[i].GetComponent<Image>().color = playerColors[i];
 		}
 		//make remaining boxes transparent
 		for (int i=nump; i<4; i++) {
-			Debug.Log ("we are setting dead square " + i + " to " + playerColors[i]);
 			rankings[i].GetComponent<Image>().color = new Color(0f,0f,0f,0f);
 		}
-		Debug.Log (scoreArray [0] + ", " + scoreArray [1] + ", " + scoreArray [2] + ", " + scoreArray [3]);
 		//pass the first-place player to PlayerPrefs so the win-screen can adapt
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
