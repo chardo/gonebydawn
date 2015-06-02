@@ -45,6 +45,7 @@ GameObject:
   - 82: {fileID: 8245672}
   - 82: {fileID: 8215680}
   - 82: {fileID: 8251136}
+  - 82: {fileID: 8275164}
   - 95: {fileID: 9594896}
   m_Layer: 10
   m_Name: Digger
@@ -694,6 +695,76 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!82 &8275164
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 154322}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24375136, guid: 34f7036f323874ac88a25449c77aaa70,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!82 &8284362
 AudioSource:
   m_ObjectHideFlags: 1
@@ -905,6 +976,21 @@ MonoBehaviour:
   freeze: 0
   anim_control: 0
   mc_status: 0
+  guardCatch: {fileID: 8275164}
+  guardCatches:
+  - {fileID: 8300000, guid: 11d4a01f80ccb4d429db7f6b94a5dceb, type: 3}
+  - {fileID: 8300000, guid: 3673e202c5cd64fcf82fe74025c5da53, type: 3}
+  - {fileID: 8300000, guid: 28f6e6bf1336040b8a4c81b6f6a6afdd, type: 3}
+  - {fileID: 8300000, guid: a860a311bd1d0414f971c3a8ae6c793a, type: 3}
+  - {fileID: 8300000, guid: baa73c7180d714ad49f14049515e0ca7, type: 3}
+  - {fileID: 8300000, guid: 8e9d1d5b9f1254d2dbd2fefffec2864f, type: 3}
+  - {fileID: 8300000, guid: be4088c0b93904f258bb37393625ad29, type: 3}
+  - {fileID: 8300000, guid: eff387b60069346fdb8a59de2f697b97, type: 3}
+  - {fileID: 8300000, guid: a5f90d3c446f449deb66e34b740721d5, type: 3}
+  - {fileID: 8300000, guid: ef0a81f037b0649bdbef9e11add4a517, type: 3}
+  - {fileID: 8300000, guid: 3e5c219c17b4c439da338b6e142c5880, type: 3}
+  - {fileID: 8300000, guid: 6adb5ccf5b3614e0ab614756f71dfeab, type: 3}
+  - {fileID: 8300000, guid: d9f302aa8c25a49e8ad700b4b7004795, type: 3}
 --- !u!114 &11454758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -963,8 +1049,30 @@ MonoBehaviour:
   outOfCombat: {fileID: 24500003, guid: 34f7036f323874ac88a25449c77aaa70, type: 2}
   inCombat: {fileID: 24501178, guid: 34f7036f323874ac88a25449c77aaa70, type: 2}
   stings:
-  - {fileID: 8300000, guid: 6868316e066a84799b8546f0642b59e0, type: 3}
-  - {fileID: 8300000, guid: 3a39e9b38142e41899c931cc20c8e99c, type: 3}
+  - {fileID: 8300000, guid: 085f0ad01b46f484bb55710429f7b40d, type: 3}
+  - {fileID: 8300000, guid: 543224399f9714b689088684d5909a6c, type: 3}
+  - {fileID: 8300000, guid: 3aab322039231451cae9f3ec9a4d6d5f, type: 3}
+  - {fileID: 8300000, guid: 82361879b931d46448016bacf5a2df0f, type: 3}
+  - {fileID: 8300000, guid: cdecac9637c1f4274b2fca440133f8bb, type: 3}
+  - {fileID: 8300000, guid: 10f5a1ef66fe346cfa0bdc67d4cf5838, type: 3}
+  - {fileID: 8300000, guid: 40e8fa2ec1e9949b4b73f3cc4c00543a, type: 3}
+  - {fileID: 8300000, guid: fcad9e0ea2a0545d7b9af5b1456e96f2, type: 3}
+  - {fileID: 8300000, guid: df4b385f605054b079dd42c0c0b86f8e, type: 3}
+  - {fileID: 8300000, guid: 4e564ec996989483295f9c82417b6852, type: 3}
+  - {fileID: 8300000, guid: 36f2d1171c1614b11a8a124ededba790, type: 3}
+  - {fileID: 8300000, guid: 06a6da3a79c194fcb87a1e1400c8f4d7, type: 3}
+  - {fileID: 8300000, guid: 9101bf51fb0724642beabb60a9bfdb2d, type: 3}
+  - {fileID: 8300000, guid: 2ea31b7bd152448729645da6442a0a3b, type: 3}
+  - {fileID: 8300000, guid: aff7ea46c282641d5bf5bdc8eae5e494, type: 3}
+  - {fileID: 8300000, guid: 7c7d60ffbc81b468c921a1c28939323c, type: 3}
+  - {fileID: 8300000, guid: 7132a72d088984bae99bc22e63b50b16, type: 3}
+  - {fileID: 8300000, guid: 43e8b8cc3f0de4fccaad876778bcbaac, type: 3}
+  - {fileID: 8300000, guid: 09183673aa28746debdc46e5ed61b2bb, type: 3}
+  - {fileID: 8300000, guid: 91688f1108e504c4db522b33794ae770, type: 3}
+  - {fileID: 8300000, guid: 840b28f5685f34688b0ff7cbec17b735, type: 3}
+  - {fileID: 8300000, guid: c61b7037551a24c00ae5ce42cbb92ab5, type: 3}
+  - {fileID: 8300000, guid: 77b159ac32be441f98aa0d489a41c65d, type: 3}
+  - {fileID: 8300000, guid: debbd165b724c47abaac5c9fab3e862e, type: 3}
   stingSource: {fileID: 8288144}
   bpm: 100
 --- !u!114 &11498608

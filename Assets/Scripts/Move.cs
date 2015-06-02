@@ -32,6 +32,9 @@ public class Move : MonoBehaviour{
 	public bool freeze;
 	public bool anim_control = false;
 	public int mc_status = 0;
+	// audio
+	public AudioSource guardCatch;
+	public AudioClip[] guardCatches;
 
 
 	void External_Anim(int anim_status) {
@@ -206,6 +209,11 @@ public class Move : MonoBehaviour{
 			
 			int r = Random.Range (0, spawnPoints.Length);
 			GameObject mySpawnPoint = spawnPoints [r];
+
+			// the guard shouts at you
+			int randClip = Random.Range (0, guardCatches.Length);
+			guardCatch.clip = guardCatches [randClip];
+			guardCatch.Play ();
 			
 			transform.position = mySpawnPoint.transform.position;
 			
