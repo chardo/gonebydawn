@@ -23,27 +23,16 @@ public class PlayerStats : Photon.MonoBehaviour {
 	void Start () {
 		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
-		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
-		
-		scoreList.Add (0);
-		playerList.Add (gameObject); // add ourselves
-		StartCoroutine (WaitForPeriod (1f));
-	}
+		UpdatePlayers ();
 
-	IEnumerator WaitForPeriod(float waitTime) {
-		yield return new WaitForSeconds(waitTime);
-		Debug.Log ("Hi");
 		foreach (GameObject player in allPlayers) {
 			if (player != gameObject) {
-				AddToPlayerList (player); // add other player to us
 				PhotonView playerPV = PhotonView.Get(player);
 				Debug.Log("Added a player!");
 				Debug.Log(playerPV);
-				playerPV.RPC ("AddToPlayerList", PhotonTargets.All, gameObject); // add us to other player - broken
-				playerPV.RPC ("GetInfo", PhotonTargets.All, gameObject);
+				playerPV.RPC ("UpdatePlayers", PhotonTargets.All); // add us to other player - broken
 			}
 		}
-		numPlayers = playerList.Count;
 		
 		//make array of colors representing players
 		c1 = Color.green;
@@ -51,34 +40,22 @@ public class PlayerStats : Photon.MonoBehaviour {
 		c3 = Color.magenta;
 		c4 = Color.yellow;
 		playerColors = new Color[] {c1, c2, c3, c4};
-		
-		//set initial colors of rankings
-		foreach (GameObject player in playerList) {
-			PhotonView pv = PhotonView.Get(player);
-			pv.RPC ("UpdateRankings", PhotonTargets.All);
-		}
 	}
 	
 	[RPC]
-	public void AddToPlayerList(GameObject player) {
-		playerList.Add (player);
+	public void UpdatePlayers() {
+		scoreList.Clear();
+		playerList.Clear();
+		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
+
+		foreach (GameObject o in allPlayers) {
+			scoreList.Add (0);
+			playerList.Add (o);
+		}
 		numPlayers = playerList.Count;
-		scoreList.Add (0);
 		Debug.Log ("player count: " + numPlayers);
 		Debug.Log ("score count: " + scoreList.Count);
-	}
-
-	[RPC]
-	public void GetInfo(GameObject g) {
-		PhotonView pv = PhotonView.Get(g);
-		pv.RPC ("SetInfo", PhotonTargets.All, lootTotal, ID);
-		Debug.Log ("In GetInfo");
-	}
-
-	[RPC]
-	public void SetInfo(int loot, int id) {
-		scoreList[id-1] = loot;
-		Debug.Log ("In SetInfo");
+		UpdateRankings ();
 	}
 
 	[RPC]
@@ -98,7 +75,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 		UpdateRankings ();
 	}
 
-	[RPC]
+
 	public void UpdateRankings() {
 		//reset playerColors to the initial ordered list so the sorting aligns with
 		//	scoreList order
