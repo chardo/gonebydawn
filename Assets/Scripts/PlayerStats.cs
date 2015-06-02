@@ -35,8 +35,6 @@ public class PlayerStats : Photon.MonoBehaviour {
 		c2 = Color.blue;
 		c3 = Color.magenta;
 		c4 = Color.yellow;
-		//initial array needs to be in reverse order, since the scoreArray gets reverse after sorting
-		playerColors = new Color[] {c4, c3, c2, c1};
 
 		StartCoroutine ("WelcomePlayer", 1f);
 	}
@@ -66,18 +64,22 @@ public class PlayerStats : Photon.MonoBehaviour {
 		fillScoreArray ();
 		foreach (GameObject player in allPlayers) {
 			PhotonView pvp = player.GetComponent<PhotonView>();
-			pvp.RPC ("UpdateRankings", PhotonTargets.All, numPlayers);
+			pvp.RPC ("UpdateRankings", PhotonTargets.All);
 		}
 	}
 
 	[RPC]
-	public void UpdateRankings(int nump) {
-		//now we sort scoreArray & playerColors as if they're a key-value pair
-		Array.Sort (scoreArray, playerColors);
-		Array.Reverse (playerColors); //set the rank in decreasing order (highest score -> lowest score)
-		//then we restore the correct order of scoreArray so we can use it again later
-		fillScoreArray ();
+	public void UpdateRankings() {
+		//initial array needs to be in reverse order, since the scoreArray gets reverse after sorting
+		playerColors = new Color[] {c1, c2, c3, c4};
 
+		//now we sort scoreArray & playerColors as if they're a key-value pair
+		int[] inverseScore = new int[4];
+		for (int i=0; i<4; i++) {
+			if (scoreArray[i] != 0)
+				inverseScore[i] = -1*scoreArray[i];
+		}
+		Array.Sort (inverseScore, playerColors);
 
 		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
@@ -97,9 +99,5 @@ public class PlayerStats : Photon.MonoBehaviour {
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
 		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
-
-		//reset playerColors to the initial ordered list so the sorting aligns with
-		//	scoreList order
-		playerColors = new Color[] {c1, c2, c3, c4};
 	}
 }
