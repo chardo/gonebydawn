@@ -60,13 +60,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			rotation = (Quaternion)stream.ReceiveNext();
 			sound.radius = (float)stream.ReceiveNext();
 			ps.ID = (int)stream.ReceiveNext ();
-			int receive_test = 4;
 			int receive_anim = (int)stream.ReceiveNext ();
-//			if (receive_test != receive_anim) {
-//				Debug.Log ("anim change:");
-//				Debug.Log (receive_anim);
-//			}
-//			receive_test = receive_anim;
 			network_anim_player.SetInteger("mc_state", receive_anim);
 		}
 	}
