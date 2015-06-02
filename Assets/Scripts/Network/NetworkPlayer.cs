@@ -21,7 +21,9 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			// Tells us which Digger is us
 			gameObject.name = "Me";
 			myCamera.SetActive (true);
+			GetComponent<Move> ().anim_control = true;
 			GetComponent<Move> ().enabled = true;
+			GetComponent<Move> ().anim_control = true;
 			GetComponent<Dig> ().enabled = true;
 			GetComponent<Throw> ().enabled = true;
 			GetComponent<PlayerStats> ().enabled = true;
@@ -48,12 +50,16 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			stream.SendNext(transform.rotation);
 			stream.SendNext(sound.radius);
 			stream.SendNext(PhotonNetwork.player.ID);
-		} else {
+			stream.SendNext(GetComponent<Move> ().mc_status);
+		} 
+		else {
 			position = (Vector3)stream.ReceiveNext();
 			rotation = (Quaternion)stream.ReceiveNext();
 			sound.radius = (float)stream.ReceiveNext();
 			ps.ID = (int)stream.ReceiveNext ();
-
+			int receive_anim = (int)stream.ReceiveNext ();
+			Debug.Log ("this is extern anim:");
+			Debug.Log (receive_anim);
 		}
 	}
 

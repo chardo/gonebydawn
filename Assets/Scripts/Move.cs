@@ -17,7 +17,7 @@ public class Move : MonoBehaviour{
 	//movement vars
 	private Rigidbody2D rb;
 	//public AnimationClip claywalk2;    
-	//public Animator anim_player;
+	public Animator anim_player;
 	private Vector2 move;
 	//reusable time var for lerping
 	private float startTime;
@@ -30,13 +30,19 @@ public class Move : MonoBehaviour{
 	private PlayerStats ps;
 	private GameObject[] spawnPoints;
 	public bool freeze;
+	public bool anim_control = false;
+	public int mc_status = 0;
 
 
+	void External_Anim(int anim_status) {
+		anim_player.SetInteger("mc_state",anim_status);
+		mc_status = anim_status;
+	}
 
 	void Start()
 	{	
 		rb = GetComponent<Rigidbody2D> ();
-		//anim_player = GetComponent<Animator> ();
+		anim_player = GetComponent<Animator> ();
 		//Debug.Log ("init animator");
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
@@ -52,7 +58,7 @@ public class Move : MonoBehaviour{
 	{
 		//anim_player = GetComponent<Animator> ();
 		//first check if a guard has frozen us by being within the catch radius
-		if (!freeze) {	
+		if (!freeze && anim_control) {	
 			//reset startTime on keyDown or keyUp (makes Lerp work!)
 			if (Input.GetKeyDown (KeyCode.LeftShift) || Input.GetKeyDown (KeyCode.RightShift)
 				|| Input.GetKeyUp (KeyCode.LeftShift) || Input.GetKeyUp (KeyCode.RightShift)
@@ -64,16 +70,17 @@ public class Move : MonoBehaviour{
 				//sneaking speed, tighter cam
 				speed = Mathf.Lerp (speed, sneakSpeed, 8 * (Time.time - startTime));
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4 * (Time.time - startTime));
-				//anim_player.SetBool("walk",true);
+				anim_player.SetInteger("mc_state",3);
+				mc_status = 3;
 				//anim_player.SetBool("run",false);
 				//anim_player.SetBool("dig",false);
-
 
 			} 
 			else {
 				//running speed, wider cam
 				speed = Mathf.Lerp (speed, normalSpeed, 8 * (Time.time - startTime));
-				//anim_player.SetBool("run",true);
+				anim_player.SetInteger("mc_state",1);
+				mc_status = 1;
 
 
 				if (zoomedCam)
@@ -93,7 +100,7 @@ public class Move : MonoBehaviour{
 			rb.velocity = move * speed;
 
 
-			/*//well, this was ONE way to do rotation based on movement...
+			//well, this was ONE way to do rotation based on movement...
 			if (rb.velocity.y > 0 && rb.velocity.x >0) {
 				rb.rotation = -45;
 			}
@@ -117,7 +124,7 @@ public class Move : MonoBehaviour{
 			}
 			else if (rb.velocity.y > 0 && rb.velocity.x == 0) {
 				rb.rotation = 0;
-			}*/
+			}
 
 
 			//vary the sound radius based on movement speed or digging
@@ -128,12 +135,18 @@ public class Move : MonoBehaviour{
 					//anim_player.SetBool("run",false);
 					//anim_player.SetBool("walk", true);
 					//Debug.Log ("set walk to true");
+					anim_player.SetInteger("mc_state",3);
+					mc_status = 3;
+
 
 				} 
 				else {
 					//running, larger radius = louder
 					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8 * (Time.time - startTime));
 					//anim_player.SetBool("dig",false);
+					anim_player.SetInteger("mc_state",1);
+					mc_status = 1;
+
 					//anim_player.SetBool("run", true);
 					//Debug.Log ("set run to true");				
 				}
@@ -153,11 +166,17 @@ public class Move : MonoBehaviour{
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8 * (Time.time - startTime));
 				//anim_player.SetBool("dig",false);
 				//anim_player.SetBool("run",false);
+				anim_player.SetInteger("mc_state",0);
+				mc_status = 0;
+
+
 			}
 		} 
 
 		else { //we're caught! no movement at all, don't do anything with sound radius
 			rb.velocity = Vector2.zero;
+			anim_player.SetInteger("mc_state",0);
+			mc_status = 0;
 			//anim_player.SetBool("dig",false);
 			//anim_player.SetBool("run",false);
 		}
