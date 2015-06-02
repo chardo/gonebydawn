@@ -43,6 +43,10 @@ public class GuardAI : MonoBehaviour {
 	private Transform curWaypoint;
 	private List<Transform> adjoiningWaypoints;
 
+	// audio
+	public AudioSource guardLose;
+	public AudioClip[] guardLosses;
+
 	void Start () {
 		// initialize timing and angle variables
 		newTargetTimer = 0;
@@ -163,6 +167,10 @@ public class GuardAI : MonoBehaviour {
 					if (playerTarget != null) {
 						PhotonView objectPV = PhotonView.Get (playerTarget);
 						objectPV.RPC ("CalmMusic", PhotonTargets.AllBuffered);
+
+						int randClip = Random.Range (0, guardLosses.Length);
+						guardLose.clip = guardLosses [randClip];
+						guardLose.Play ();
 					}
 				}
 			}
