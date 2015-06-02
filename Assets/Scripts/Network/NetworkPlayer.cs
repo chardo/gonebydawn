@@ -58,8 +58,12 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			sound.radius = (float)stream.ReceiveNext();
 			ps.ID = (int)stream.ReceiveNext ();
 			int receive_anim = (int)stream.ReceiveNext ();
-			Debug.Log ("this is extern anim:");
-			Debug.Log (receive_anim);
+			int receive_test = receive_anim;
+
+			if (receive_test != receive_anim) {
+				Debug.Log ("anim change:");
+				Debug.Log (receive_anim);
+			}
 		}
 	}
 
