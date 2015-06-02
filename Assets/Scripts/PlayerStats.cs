@@ -10,7 +10,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 	public int lootTotal = 0;
 	public int ID;
 	private int[] scoreArray = new int[4];
-	private Color[] playerColors;
+	public Color[] playerColors;
 	private GameObject[] rankings;
 	private GameObject[] allPlayers;
 	
@@ -88,10 +88,12 @@ public class PlayerStats : Photon.MonoBehaviour {
 		Debug.Log (nump + " players");
 		//color the boxes in order of winning players
 		for (int i=0; i<nump; i++) {
+			Debug.Log ("we are setting live square " + i + " to " + playerColors[i]);
 			rankings[i].GetComponent<Image>().color = playerColors[i];
 		}
 		//make remaining boxes transparent
 		for (int i=nump; i<4; i++) {
+			Debug.Log ("we are setting dead square " + i + " to " + playerColors[i]);
 			rankings[i].GetComponent<Image>().color = new Color(0f,0f,0f,0f);
 		}
 		Debug.Log (scoreArray [0] + ", " + scoreArray [1] + ", " + scoreArray [2] + ", " + scoreArray [3]);
