@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class GraveController : MonoBehaviour {
-
+	
 	public bool isFilled = true; //should dirt be subtracted or added
 	public bool hasLoot = true;
 	public bool occupied = false;
@@ -15,29 +15,29 @@ public class GraveController : MonoBehaviour {
 	public int lootContained;
 	private PlayerStats looterStats;
 	private Dig looter;
-
-
+	
+	
 	private List<Collider2D> LooterList = new List<Collider2D>();
-
+	
 	// Use this for initialization
 	void Start () {
-//		sprite = GetComponent<SpriteRenderer> ();
+		//		sprite = GetComponent<SpriteRenderer> ();
 		gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[0];
 		maxdirtcount = dirtcount;
 	}
-
+	
 	//rpc for updating grave sprites in all clients' scenes
 	[RPC]
 	public void UpdateGrave (float amt) { //note: 'amt' here is the 'digSpeed' var passed from the player's Dig() script
 		float intdirt = dirtcount;
-
+		
 		if (isFilled) { //grave is filled, so digging takes dirt out of it
 			dirtcount -= amt;
 		}
 		else {	//grave is not filled, so digging adds dirt to it
 			dirtcount += amt;
 		}
-
+		
 		//check dirt amount and update sprite accordingly
 		if (intdirt < 3f && intdirt >2.4f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[0];
@@ -57,7 +57,7 @@ public class GraveController : MonoBehaviour {
 		if (intdirt <= 0.0f) {
 			gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[5];
 		}
-
+		
 		//if grave is made to be empty:
 		if (looterStats != null && dirtcount <= 0.0f && isFilled) {
 			//clamp dirtcount to 0, update final sprite, flip isFilled
@@ -71,7 +71,9 @@ public class GraveController : MonoBehaviour {
 			if (hasLoot) {
 				//update alert text to reflect gained loot
 				looter.alertLoot(lootContained);
-				looterStats.AddLoot(lootContained);
+				PhotonView pv = GetComponent<PhotonView>();
+				pv.RPC ("AddLoot", PhotonTargets.AllBuffered, lootContained, looterStats.ID);
+				//looterStats.AddLoot(lootContained);
 				hasLoot = false;
 			}
 		}
@@ -84,7 +86,7 @@ public class GraveController : MonoBehaviour {
 			looter.canDig = false;
 		}
 	}
-
+	
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
 			occupied = true;
@@ -103,7 +105,7 @@ public class GraveController : MonoBehaviour {
 				looterStats = null;
 		}
 	}
-
+	
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
 			//when player leaves, unassign those reference vars and remove them from list of looters in this grave
@@ -112,7 +114,7 @@ public class GraveController : MonoBehaviour {
 			looter.gc = null;
 			looter.pv = null;
 			if (LooterList.Contains (other)) LooterList.Remove (other);
-
+			
 			if (LooterList.Count == 0) {
 				looterStats = null;
 				occupied = false;

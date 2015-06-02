@@ -2,20 +2,20 @@
 using System.Collections;
 
 public class Throw : MonoBehaviour {
-
+	
 	public Rigidbody2D rock;
 	public float throwForce;
 	private Vector2 dir;
 	private Vector3 startPos;
 	private float angle;
-
+	
 	private PlayerStats ps;
-
+	
 	private PhotonView pv;
-
+	
 	public AudioSource lootThrowSound;
 	public AudioSource lootHitSound;
-
+	
 	// Use this for initialization
 	void Start () {
 		pv = PhotonView.Get (this);
@@ -35,15 +35,16 @@ public class Throw : MonoBehaviour {
 			dir = mousePos - transform.position;
 			//get position on circle around player in direction of throw 
 			Vector3 d = dir.normalized * 2f;
-
+			
 			//call rpc so that rocks are thrown from this player in all clients' scenes
 			pv.RPC("ThrowProjectile", PhotonTargets.AllBuffered, transform.position+d, transform.rotation, dir);
-
+			
 			//decrement lootTotal
-			ps.AddLoot(-1);
+			pv.RPC ("AddLoot", PhotonTargets.AllBuffered, -1, ps.ID);
+			//ps.AddLoot(-1);
 		}
 	}
-
+	
 	[RPC]
 	void ThrowProjectile(Vector3 pos, Quaternion rot, Vector2 dir) {
 		lootThrowSound.Play ();
