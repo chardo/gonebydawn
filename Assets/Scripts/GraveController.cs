@@ -74,8 +74,7 @@ public class GraveController : MonoBehaviour {
 				Debug.Log(looter);
 				PhotonView looterPV = PhotonView.Get(looter.gameObject);
 				Debug.Log(looterPV);
-				if (PhotonView.isMine)
-					looterPV.RPC ("AddMyLoot", PhotonTargets.All, lootContained);
+				looterPV.RPC ("AddMyLoot", PhotonTargets.All, lootContained);
 				//looterStats.AddLoot(lootContained);
 				hasLoot = false;
 			}
