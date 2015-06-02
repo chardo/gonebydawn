@@ -23,6 +23,14 @@ public class PlayerStats : Photon.MonoBehaviour {
 	void Start () {
 		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
+
+		//make array of colors representing players
+		c1 = Color.green;
+		c2 = Color.blue;
+		c3 = Color.magenta;
+		c4 = Color.yellow;
+		playerColors = new Color[] {c1, c2, c3, c4};
+
 		UpdatePlayers ();
 
 		foreach (GameObject player in allPlayers) {
@@ -33,13 +41,6 @@ public class PlayerStats : Photon.MonoBehaviour {
 				playerPV.RPC ("UpdatePlayers", PhotonTargets.All); // add us to other player - broken
 			}
 		}
-		
-		//make array of colors representing players
-		c1 = Color.green;
-		c2 = Color.blue;
-		c3 = Color.magenta;
-		c4 = Color.yellow;
-		playerColors = new Color[] {c1, c2, c3, c4};
 	}
 	
 	[RPC]
