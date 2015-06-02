@@ -74,7 +74,7 @@ public class Move : MonoBehaviour{
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4 * (Time.time - startTime));
 				anim_player.SetInteger("mc_state",3);
 				mc_status = 3;
-				Debug.Log ("mc status: " + mc_status);
+//				Debug.Log ("mc status: " + mc_status);
 
 				//anim_player.SetBool("run",false);
 				//anim_player.SetBool("dig",false);
@@ -84,7 +84,6 @@ public class Move : MonoBehaviour{
 				speed = Mathf.Lerp (speed, normalSpeed, 8 * (Time.time - startTime));
 				anim_player.SetInteger("mc_state",1);
 				mc_status = 1;
-				Debug.Log ("mc status: " + mc_status);
 
 
 
@@ -142,7 +141,7 @@ public class Move : MonoBehaviour{
 					//Debug.Log ("set walk to true");
 					anim_player.SetInteger("mc_state",3);
 					mc_status = 3;
-					Debug.Log ("mc status: " + mc_status);
+//					Debug.Log ("mc status: " + mc_status);
 
 				} 
 				else {
@@ -151,7 +150,7 @@ public class Move : MonoBehaviour{
 					//anim_player.SetBool("dig",false);
 					anim_player.SetInteger("mc_state",1);
 					mc_status = 1;
-					Debug.Log ("mc status: " + mc_status);
+//					Debug.Log ("mc status: " + mc_status);
 
 					//anim_player.SetBool("run", true);
 					//Debug.Log ("set run to true");				
@@ -174,7 +173,7 @@ public class Move : MonoBehaviour{
 				//anim_player.SetBool("run",false);
 				anim_player.SetInteger("mc_state",0);
 				mc_status = 0;
-				Debug.Log ("mc status: " + mc_status);
+//				Debug.Log ("mc status: " + mc_status);
 
 
 
