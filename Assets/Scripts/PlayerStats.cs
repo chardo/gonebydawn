@@ -62,10 +62,8 @@ public class PlayerStats : Photon.MonoBehaviour {
 		lootTotal += l;
 		//make list of scores
 		fillScoreArray ();
-		foreach (GameObject player in allPlayers) {
-			PhotonView pvp = player.GetComponent<PhotonView>();
-			pvp.RPC ("UpdateRankings", PhotonTargets.All, numPlayers);
-		}
+		UpdateRankings (numPlayers);
+		photonView.RPC ("UpdateRankings", PhotonTargets.Others, numPlayers);
 	}
 
 	[RPC]
