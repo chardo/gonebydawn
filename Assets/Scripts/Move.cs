@@ -162,6 +162,8 @@ public class Move : MonoBehaviour{
 			else if (Input.GetKey (KeyCode.Space)) { //digging:
 				//digging, make some noise
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
+				anim_player.SetInteger("mc_state",2);
+				mc_status = 2;
 				//anim_player.SetBool("run",false);
 				//anim_player.SetBool("dig",true);
 				//Debug.Log ("set run to false");

@@ -50,4 +50,5 @@ MonoBehaviour:
   - GetInfo
   - SetInfo
   - AddMyLoot
+  - UpdatePlayers
   DisableAutoOpenWizard: 0
