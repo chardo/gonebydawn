@@ -13,6 +13,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	float lerpSmoothing  = 10f;
 	CircleCollider2D sound;
 	PlayerStats ps;
+	public Animator network_anim_player;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +36,8 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			// All other Diggers will be named this
 			gameObject.name = "Network Player";
 			StartCoroutine("Alive");
+			network_anim_player = GetComponent<Animator> ();
+
 		}
 		sound = GetComponent<CircleCollider2D> ();
 	}
@@ -64,6 +67,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 				Debug.Log (receive_anim);
 			}
 			receive_test = receive_anim;
+			network_anim_player.SetInteger("mc_state", receive_anim);
 		}
 	}
 
