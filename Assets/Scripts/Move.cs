@@ -42,8 +42,10 @@ public class Move : MonoBehaviour{
 	void Start()
 	{	
 		rb = GetComponent<Rigidbody2D> ();
-		anim_player = GetComponent<Animator> ();
+//		anim_player = GetComponent<Animator> ();
 		//Debug.Log ("init animator");
+		GetComponent<Animator> ().enabled = true;
+
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
 		//anim_player.SetBool ("run", false);
@@ -56,7 +58,7 @@ public class Move : MonoBehaviour{
 
 	void Update()
 	{
-		//anim_player = GetComponent<Animator> ();
+		anim_player = GetComponent<Animator> ();
 		//first check if a guard has frozen us by being within the catch radius
 		if (!freeze && anim_control) {	
 			//reset startTime on keyDown or keyUp (makes Lerp work!)
@@ -72,15 +74,18 @@ public class Move : MonoBehaviour{
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4 * (Time.time - startTime));
 				anim_player.SetInteger("mc_state",3);
 				mc_status = 3;
+				Debug.Log ("mc status: " + mc_status);
+
 				//anim_player.SetBool("run",false);
 				//anim_player.SetBool("dig",false);
 
-			} 
-			else {
+			} else {
 				//running speed, wider cam
 				speed = Mathf.Lerp (speed, normalSpeed, 8 * (Time.time - startTime));
 				anim_player.SetInteger("mc_state",1);
 				mc_status = 1;
+				Debug.Log ("mc status: " + mc_status);
+
 
 
 				if (zoomedCam)
@@ -137,7 +142,7 @@ public class Move : MonoBehaviour{
 					//Debug.Log ("set walk to true");
 					anim_player.SetInteger("mc_state",3);
 					mc_status = 3;
-
+					Debug.Log ("mc status: " + mc_status);
 
 				} 
 				else {
@@ -146,6 +151,7 @@ public class Move : MonoBehaviour{
 					//anim_player.SetBool("dig",false);
 					anim_player.SetInteger("mc_state",1);
 					mc_status = 1;
+					Debug.Log ("mc status: " + mc_status);
 
 					//anim_player.SetBool("run", true);
 					//Debug.Log ("set run to true");				
@@ -168,6 +174,8 @@ public class Move : MonoBehaviour{
 				//anim_player.SetBool("run",false);
 				anim_player.SetInteger("mc_state",0);
 				mc_status = 0;
+				Debug.Log ("mc status: " + mc_status);
+
 
 
 			}
@@ -175,8 +183,8 @@ public class Move : MonoBehaviour{
 
 		else { //we're caught! no movement at all, don't do anything with sound radius
 			rb.velocity = Vector2.zero;
-			anim_player.SetInteger("mc_state",0);
-			mc_status = 0;
+//			anim_player.SetInteger("mc_state",0);
+//			mc_status = 0;
 			//anim_player.SetBool("dig",false);
 			//anim_player.SetBool("run",false);
 		}

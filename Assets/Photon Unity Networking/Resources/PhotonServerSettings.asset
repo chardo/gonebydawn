@@ -46,4 +46,7 @@ MonoBehaviour:
   - UpdateRankings
   - AddLoot
   - newPlayer
+  - AddToPlayerList
+  - GetInfo
+  - SetInfo
   DisableAutoOpenWizard: 0
