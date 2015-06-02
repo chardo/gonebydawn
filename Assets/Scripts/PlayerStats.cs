@@ -62,6 +62,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 	}
 
 	public void AddMyLoot(int lootAdd) {
+		Debug.Log ("AddMyLoot");
 		lootTotal += lootAdd;
 		scoreList [ID - 1] = lootTotal;
 		UpdateRankings ();
