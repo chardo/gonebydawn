@@ -23,7 +23,9 @@ public class PlayerStats : Photon.MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//set this player's ID and count total number of players
-		ID = PhotonNetwork.player.ID;
+		if (photonView.isMine) {
+			ID = PhotonNetwork.player.ID;
+		}
 
 		//get photonview
 		pv = GetComponent<PhotonView> ();
