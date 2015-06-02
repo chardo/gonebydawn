@@ -79,11 +79,13 @@ public class PlayerStats : Photon.MonoBehaviour {
 		}
 		Array.Sort (inverseScore, playerColors);
 
+
 		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
 		Array.Sort (rankings, (GameObject a, GameObject b) => a.transform.position.y.CompareTo(b.transform.position.y));
 		Array.Reverse (rankings);
-		
+
+		Debug.Log (nump + " players");
 		//color the boxes in order of winning players
 		for (int i=0; i<nump; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];
