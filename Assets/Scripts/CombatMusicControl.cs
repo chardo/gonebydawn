@@ -9,9 +9,6 @@ public class CombatMusicControl : MonoBehaviour {
 	public AudioClip[] stings;
 	public AudioSource stingSource;
 	public float bpm = 100; // tempo
-	public bool switchMusic;
-	public bool freezePlayer;
-	private bool intenseMusic;
 
 	private float m_TransitionIn; // The time in milliseconds to transition between snapshots
 	private float m_TransitionOut;

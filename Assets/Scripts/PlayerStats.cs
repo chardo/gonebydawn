@@ -27,19 +27,17 @@ public class PlayerStats : MonoBehaviour {
 		for (int i=0; i<allPlayers.Length; i++) {
 			scoreList.Add (0);
 			Debug.Log("Added a scoreList");
-			Debug.Log( "initial size: " + scoreList.Count);
+			Debug.Log("initial size: " + scoreList.Count);
 		}
-		
+
+		playerList.Add (gameObject); // add ourselves
 		foreach (GameObject player in allPlayers) {
 			if (player != gameObject) {
-				AddToPlayerList (gameObject);
-				PhotonView playerPV = player.GetComponent<PhotonView>();
+				AddToPlayerList (player); // add other player to us
+				PhotonView playerPV = PhotonView.Get(player);
 				Debug.Log("Added a player!");
-				playerPV.RPC ("AddToPlayerList", PhotonTargets.All, gameObject);
+				playerPV.RPC ("AddToPlayerList", PhotonTargets.All, gameObject); // add us to other player - broken
 				playerPV.RPC ("GetInfo", PhotonTargets.All, gameObject);
-			}
-			else {
-				playerList.Add (player);
 			}
 		}
 		numPlayers = playerList.Count;
@@ -53,21 +51,23 @@ public class PlayerStats : MonoBehaviour {
 		
 		//set initial colors of rankings
 		foreach (GameObject player in playerList) {
-			PhotonView pv = player.GetComponent<PhotonView>();
+			PhotonView pv = PhotonView.Get(player);
 			pv.RPC ("UpdateRankings", PhotonTargets.All);
 		}
 	}
 	
 	[RPC]
 	public void AddToPlayerList(GameObject player) {
+		Debug.Log ("Hi!" + playerList.Count);
 		playerList.Add (player);
 		numPlayers = playerList.Count;
 		scoreList.Add (0);
+		Debug.Log (playerList.Count);
 	}
 
 	[RPC]
 	public void GetInfo(GameObject g) {
-		PhotonView pv = g.GetComponent<PhotonView> ();
+		PhotonView pv = PhotonView.Get(g);
 		pv.RPC ("SetInfo", PhotonTargets.All, lootTotal, ID);
 	}
 
@@ -79,7 +79,7 @@ public class PlayerStats : MonoBehaviour {
 	public void AddMyLoot(int lootAdd) {
 		lootTotal += lootAdd;
 		foreach (GameObject player in playerList) {
-			PhotonView playerPV = player.GetComponent<PhotonView>();
+			PhotonView playerPV = PhotonView.Get(player);
 			playerPV.RPC ("AddLoot", PhotonTargets.All, lootTotal, ID);
 		}
 	}
