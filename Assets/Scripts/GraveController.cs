@@ -72,7 +72,8 @@ public class GraveController : MonoBehaviour {
 				//update alert text to reflect gained loot
 				looter.alertLoot(lootContained);
 
-				looterStats.AddMyLoot(lootContained);
+				if (looterStats.enabled)
+					looterStats.AddMyLoot(lootContained);
 
 				hasLoot = false;
 			}

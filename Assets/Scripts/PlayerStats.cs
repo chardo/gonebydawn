@@ -59,19 +59,22 @@ public class PlayerStats : Photon.MonoBehaviour {
 		UpdateRankings ();
 	}
 
-	[RPC]
 	public void AddMyLoot(int lootAdd) {
 		lootTotal += lootAdd;
+		scoreList [ID - 1] = lootTotal;
+		UpdateRankings ();
 		foreach (GameObject player in playerList) {
-			PhotonView playerPV = PhotonView.Get(player);
-			playerPV.RPC ("AddLoot", PhotonTargets.All, lootTotal, ID);
+			if (player != gameObject) {
+				PhotonView playerPV = PhotonView.Get(player);
+				playerPV.RPC ("AddLoot", PhotonTargets.All, lootTotal, ID);
+			}
 		}
 	}
-	
+
 	[RPC]
 	public void AddLoot (int l, int id) {
 		Debug.Log (scoreList.Count + " " + id);
-		//scoreList [id - 1] = l;
+		scoreList [id - 1] = l;
 
 		UpdateRankings ();
 	}
