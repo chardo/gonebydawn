@@ -72,6 +72,7 @@ public class PlayerStats : MonoBehaviour {
 		scoreList[id-1] = loot;
 	}
 
+	[RPC]
 	public void AddMyLoot(int lootAdd) {
 		lootTotal += lootAdd;
 		foreach (GameObject player in playerList) {
@@ -83,7 +84,7 @@ public class PlayerStats : MonoBehaviour {
 	[RPC]
 	public void AddLoot (int l, int id) {
 		Debug.Log (scoreList.Count + " " + id);
-		scoreList [id - 1] = l;
+		//scoreList [id - 1] = l;
 
 		UpdateRankings ();
 	}
