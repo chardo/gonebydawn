@@ -48,6 +48,8 @@ public class PlayerStats : Photon.MonoBehaviour {
 		scoreList.Clear();
 		playerList.Clear();
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
+		int len = allPlayers.Length;
+		Debug.Log ("Size of allPlayers: " + len);
 
 		foreach (GameObject o in allPlayers) {
 			scoreList.Add (0);
