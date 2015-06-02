@@ -39,6 +39,15 @@ public class PlayerStats : Photon.MonoBehaviour {
 
 	public void AddLoot(int l) {
 		lootTotal += l;
+		//make list of scores
+		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
+		foreach (GameObject player in allPlayers) {
+			int thisLootTotal = player.GetComponent<PlayerStats>().lootTotal;
+			int thisID = player.GetComponent<PlayerStats>().ID;
+			Debug.Log (thisID);
+			scoreArray[thisID-1] = thisLootTotal;
+			numPlayers++;
+		}
 		pv.RPC ("UpdateRankings", PhotonTargets.All);
 	}
 
@@ -47,15 +56,6 @@ public class PlayerStats : Photon.MonoBehaviour {
 		//reset playerColors to the initial ordered list so the sorting aligns with
 		//	scoreList order
 		playerColors = new Color[] {c1, c2, c3, c4};
-
-		//make list of scores
-		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
-		foreach (GameObject player in allPlayers) {
-			int thisLootTotal = player.GetComponent<PlayerStats>().lootTotal;
-			int thisID = player.GetComponent<PlayerStats>().ID;
-			scoreArray[thisID-1] = thisLootTotal;
-			numPlayers++;
-		}
 
 		//now we sort playerColors according to the score array
 		Array.Sort (scoreArray, playerColors);
@@ -77,5 +77,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
 		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
+
+		numPlayers = 0;
 	}
 }
