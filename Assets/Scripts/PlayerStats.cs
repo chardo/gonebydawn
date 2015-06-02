@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 
-public class PlayerStats : Photon.MonoBehaviour {
+public class PlayerStats : MonoBehaviour {
 	
 	public int lootTotal = 0;
 	public int ID;
@@ -76,7 +76,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 
 	[RPC]
 	public void AddLoot (int l, int id) {
-		Debug.Log (scoreList.Count + " " + id);
+		Debug.Log ("AddLoot " + scoreList.Count + " " + id);
 		scoreList [id - 1] = l;
 
 		UpdateRankings ();
