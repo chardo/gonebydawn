@@ -26,16 +26,23 @@ public class PlayerStats : MonoBehaviour {
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
 		for (int i=0; i<allPlayers.Length; i++) {
 			scoreList.Add (0);
+			Debug.Log("Added a scoreList");
+			Debug.Log( "initial size: " + scoreList.Count);
 		}
 		
 		foreach (GameObject player in allPlayers) {
-			AddToPlayerList (gameObject);
 			if (player != gameObject) {
+				AddToPlayerList (gameObject);
 				PhotonView playerPV = player.GetComponent<PhotonView>();
+				Debug.Log("Added a player!");
 				playerPV.RPC ("AddToPlayerList", PhotonTargets.AllBuffered, gameObject);
 				playerPV.RPC ("GetInfo", PhotonTargets.AllBuffered, gameObject);
 			}
+			else {
+				playerList.Add (player);
+			}
 		}
+		numPlayers = playerList.Count;
 		
 		//make array of colors representing players
 		c1 = Color.green;
@@ -79,11 +86,13 @@ public class PlayerStats : MonoBehaviour {
 	
 	[RPC]
 	public void AddLoot (int l, int id) {
+		Debug.Log (scoreList.Count + " " + id);
 		scoreList [id - 1] = l;
 
 		UpdateRankings ();
 	}
 
+	[RPC]
 	public void UpdateRankings() {
 		//reset playerColors to the initial ordered list so the sorting aligns with
 		//	scoreList order
@@ -108,5 +117,7 @@ public class PlayerStats : MonoBehaviour {
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
 		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
+
+		Debug.Log ("Final score size: " + scoreList.Count);
 	}
 }
