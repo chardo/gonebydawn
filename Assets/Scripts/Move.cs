@@ -16,8 +16,8 @@ public class Move : MonoBehaviour{
 	private bool zoomedCam = false;
 	//movement vars
 	private Rigidbody2D rb;
-	public AnimationClip claywalk2;    
-	public Animator anim_player;
+	//public AnimationClip claywalk2;    
+	//public Animator anim_player;
 	private Vector2 move;
 	//reusable time var for lerping
 	private float startTime;
@@ -36,12 +36,12 @@ public class Move : MonoBehaviour{
 	void Start()
 	{	
 		rb = GetComponent<Rigidbody2D> ();
-		anim_player = GetComponent<Animator> ();
+		//anim_player = GetComponent<Animator> ();
 		Debug.Log ("init animator");
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
-		anim_player.SetBool ("run", false);
-		anim_player.SetBool ("walk", false);
+		//anim_player.SetBool ("run", false);
+		//anim_player.SetBool ("walk", false);
 
 		// gather spawn points, tell the player not to freeze
 		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
@@ -50,7 +50,7 @@ public class Move : MonoBehaviour{
 
 	void Update()
 	{
-		anim_player = GetComponent<Animator> ();
+		//anim_player = GetComponent<Animator> ();
 		//first check if a guard has frozen us by being within the catch radius
 		if (!freeze) {	
 			//reset startTime on keyDown or keyUp (makes Lerp work!)
@@ -64,16 +64,16 @@ public class Move : MonoBehaviour{
 				//sneaking speed, tighter cam
 				speed = Mathf.Lerp (speed, sneakSpeed, 8 * (Time.time - startTime));
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4 * (Time.time - startTime));
-				anim_player.SetBool("walk",true);
-				anim_player.SetBool("run",false);
-				anim_player.SetBool("dig",false);
+				//anim_player.SetBool("walk",true);
+				//anim_player.SetBool("run",false);
+				//anim_player.SetBool("dig",false);
 
 
 			} 
 			else {
 				//running speed, wider cam
 				speed = Mathf.Lerp (speed, normalSpeed, 8 * (Time.time - startTime));
-				anim_player.SetBool("run",true);
+				//anim_player.SetBool("run",true);
 
 
 				if (zoomedCam)
@@ -125,24 +125,24 @@ public class Move : MonoBehaviour{
 				if (Input.GetKey (KeyCode.LeftShift) || Input.GetKey (KeyCode.RightShift)) {
 					//sneaking, smaller radius = quieter
 					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8 * (Time.time - startTime));
-					anim_player.SetBool("run",false);
-					anim_player.SetBool("walk", true);
+					//anim_player.SetBool("run",false);
+					//anim_player.SetBool("walk", true);
 					Debug.Log ("set walk to true");
 
 				} 
 				else {
 					//running, larger radius = louder
 					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8 * (Time.time - startTime));
-					anim_player.SetBool("dig",false);
-					anim_player.SetBool("run", true);
+					//anim_player.SetBool("dig",false);
+					//anim_player.SetBool("run", true);
 					Debug.Log ("set run to true");				
 				}
 			} 
 			else if (Input.GetKey (KeyCode.Space)) { //digging:
 				//digging, make some noise
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
-				anim_player.SetBool("run",false);
-				anim_player.SetBool("dig",true);
+				//anim_player.SetBool("run",false);
+				//anim_player.SetBool("dig",true);
 				Debug.Log ("set run to false");
 
 			} 
@@ -151,15 +151,15 @@ public class Move : MonoBehaviour{
 				//neither digging nor moving, make sound radius smaller than player
 				//(effectively disables it without actually disabling it)
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, 0.5f, 8 * (Time.time - startTime));
-				anim_player.SetBool("dig",false);
-				anim_player.SetBool("run",false);
+				//anim_player.SetBool("dig",false);
+				//anim_player.SetBool("run",false);
 			}
 		} 
 
 		else { //we're caught! no movement at all, don't do anything with sound radius
 			rb.velocity = Vector2.zero;
-			anim_player.SetBool("dig",false);
-			anim_player.SetBool("run",false);
+			//anim_player.SetBool("dig",false);
+			//anim_player.SetBool("run",false);
 		}
 
 		// camera zooming for testing purposes
