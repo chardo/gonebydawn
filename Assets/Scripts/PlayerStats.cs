@@ -35,6 +35,8 @@ public class PlayerStats : Photon.MonoBehaviour {
 		c2 = Color.blue;
 		c3 = Color.magenta;
 		c4 = Color.yellow;
+		//initial array needs to be in reverse order, since the scoreArray gets reverse after sorting
+		playerColors = new Color[] {c4, c3, c2, c1};
 
 		StartCoroutine ("WelcomePlayer", 1f);
 	}
@@ -44,31 +46,38 @@ public class PlayerStats : Photon.MonoBehaviour {
 		AddLoot (0);
 	}
 
-	public void AddLoot(int l) {
-		lootTotal += l;
-		//make list of scores
+	public void fillScoreArray() {
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
+		numPlayers = allPlayers.Length;
 		foreach (GameObject player in allPlayers) {
 			PlayerStats ps = player.GetComponent<PlayerStats>();
 			int thisLootTotal = ps.lootTotal;
 			int thisID = ps.ID;
 			scoreArray[thisID-1] = thisLootTotal;
-			numPlayers++;
 		}
+		for (int i=numPlayers; i<4; i++) {
+			scoreArray [i] = 0;
+		}
+	}
+
+	public void AddLoot(int l) {
+		lootTotal += l;
+		//make list of scores
+		fillScoreArray ();
 		foreach (GameObject player in allPlayers) {
 			PhotonView pvp = player.GetComponent<PhotonView>();
-			pvp.RPC ("UpdateRankings", PhotonTargets.All);
+			pvp.RPC ("UpdateRankings", PhotonTargets.All, numPlayers);
 		}
 	}
 
 	[RPC]
-	public void UpdateRankings() {
-		//reset playerColors to the initial ordered list so the sorting aligns with
-		//	scoreList order
-		playerColors = new Color[] {c1, c2, c3, c4};
-
-		//now we sort playerColors according to the score array
+	public void UpdateRankings(int nump) {
+		//now we sort scoreArray & playerColors as if they're a key-value pair
 		Array.Sort (scoreArray, playerColors);
+		Array.Reverse (playerColors); //set the rank in decreasing order (highest score -> lowest score)
+		//then we restore the correct order of scoreArray so we can use it again later
+		fillScoreArray ();
+
 
 		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
@@ -83,11 +92,14 @@ public class PlayerStats : Photon.MonoBehaviour {
 		for (int i=numPlayers; i<4; i++) {
 			rankings[i].GetComponent<Image>().color = new Color(0f,0f,0f,0f);
 		}
+		Debug.Log (scoreArray [0] + ", " + scoreArray [1] + ", " + scoreArray [2] + ", " + scoreArray [3]);
 		//pass the first-place player to PlayerPrefs so the win-screen can adapt
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
 		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
 
-		numPlayers = 0;
+		//reset playerColors to the initial ordered list so the sorting aligns with
+		//	scoreList order
+		playerColors = new Color[] {c1, c2, c3, c4};
 	}
 }

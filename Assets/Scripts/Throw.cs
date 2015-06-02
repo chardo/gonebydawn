@@ -40,8 +40,7 @@ public class Throw : MonoBehaviour {
 			pv.RPC("ThrowProjectile", PhotonTargets.AllBuffered, transform.position+d, transform.rotation, dir);
 			
 			//decrement lootTotal
-			pv.RPC ("AddLoot", PhotonTargets.AllBuffered, -1, ps.ID);
-			//ps.AddLoot(-1);
+			ps.AddLoot (-1);
 		}
 	}
 	
@@ -56,6 +55,5 @@ public class Throw : MonoBehaviour {
 		r.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 		r.AddForce (r.transform.right * throwForce);
 		lootHitSound.Play ();
-		ps.UpdateRankings ();
 	}
 }
