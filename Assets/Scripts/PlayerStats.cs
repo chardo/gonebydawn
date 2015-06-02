@@ -64,12 +64,12 @@ public class PlayerStats : Photon.MonoBehaviour {
 		fillScoreArray ();
 		foreach (GameObject player in allPlayers) {
 			PhotonView pvp = player.GetComponent<PhotonView>();
-			pvp.RPC ("UpdateRankings", PhotonTargets.All);
+			pvp.RPC ("UpdateRankings", PhotonTargets.All, numPlayers);
 		}
 	}
 
 	[RPC]
-	public void UpdateRankings() {
+	public void UpdateRankings(int nump) {
 		//initial array needs to be in reverse order, since the scoreArray gets reverse after sorting
 		playerColors = new Color[] {c1, c2, c3, c4};
 
@@ -87,11 +87,11 @@ public class PlayerStats : Photon.MonoBehaviour {
 		Array.Reverse (rankings);
 		
 		//color the boxes in order of winning players
-		for (int i=0; i<numPlayers; i++) {
+		for (int i=0; i<nump; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];
 		}
 		//make remaining boxes transparent
-		for (int i=numPlayers; i<4; i++) {
+		for (int i=nump; i<4; i++) {
 			rankings[i].GetComponent<Image>().color = new Color(0f,0f,0f,0f);
 		}
 		Debug.Log (scoreArray [0] + ", " + scoreArray [1] + ", " + scoreArray [2] + ", " + scoreArray [3]);
