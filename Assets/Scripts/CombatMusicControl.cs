@@ -17,6 +17,7 @@ public class CombatMusicControl : MonoBehaviour {
 	private float m_TransitionOut;
 	private float m_QuarterNote;
 	private bool transition;
+	private bool guardShout;
 
 	// Use this for initialization
 	void Start () {
@@ -24,13 +25,13 @@ public class CombatMusicControl : MonoBehaviour {
 		m_TransitionIn = m_QuarterNote;
 		m_TransitionOut = m_QuarterNote * 32;
 		transition = true;
+		guardShout = true;
 	}
 
 	[RPC]
 	public void IntenseMusic(){
 		if (transition) {
 			inCombat.TransitionTo (m_TransitionIn);
-			PlaySting ();
 			transition = false;
 		}
 	}
@@ -40,13 +41,17 @@ public class CombatMusicControl : MonoBehaviour {
 		if (!transition) { 
 			outOfCombat.TransitionTo (m_TransitionOut);
 			transition = true;
+			guardShout = true;
 		}
 	}
 
-	/*[RPC]
+	[RPC]
 	public void GuardYell(){
-		if (transition) {  }
-	}*/
+		if (guardShout) { 
+			PlaySting (); 
+			guardShout = false; 
+		}
+	}
 
 	void PlaySting(){
 		int randClip = Random.Range (0, stings.Length);

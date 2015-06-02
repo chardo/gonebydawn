@@ -37,7 +37,7 @@ public class Move : MonoBehaviour{
 	{	
 		rb = GetComponent<Rigidbody2D> ();
 		//anim_player = GetComponent<Animator> ();
-		Debug.Log ("init animator");
+		//Debug.Log ("init animator");
 		cam.orthographicSize = normalCamSize;
 		soundTrigger.radius = normalSoundRadius;
 		//anim_player.SetBool ("run", false);
@@ -93,7 +93,7 @@ public class Move : MonoBehaviour{
 			rb.velocity = move * speed;
 
 
-			//well, this was ONE way to do rotation based on movement...
+			/*//well, this was ONE way to do rotation based on movement...
 			if (rb.velocity.y > 0 && rb.velocity.x >0) {
 				rb.rotation = -45;
 			}
@@ -117,7 +117,7 @@ public class Move : MonoBehaviour{
 			}
 			else if (rb.velocity.y > 0 && rb.velocity.x == 0) {
 				rb.rotation = 0;
-			}
+			}*/
 
 
 			//vary the sound radius based on movement speed or digging
@@ -127,7 +127,7 @@ public class Move : MonoBehaviour{
 					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, sneakSoundRadius, 8 * (Time.time - startTime));
 					//anim_player.SetBool("run",false);
 					//anim_player.SetBool("walk", true);
-					Debug.Log ("set walk to true");
+					//Debug.Log ("set walk to true");
 
 				} 
 				else {
@@ -135,7 +135,7 @@ public class Move : MonoBehaviour{
 					soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, normalSoundRadius, 8 * (Time.time - startTime));
 					//anim_player.SetBool("dig",false);
 					//anim_player.SetBool("run", true);
-					Debug.Log ("set run to true");				
+					//Debug.Log ("set run to true");				
 				}
 			} 
 			else if (Input.GetKey (KeyCode.Space)) { //digging:
@@ -143,7 +143,7 @@ public class Move : MonoBehaviour{
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
 				//anim_player.SetBool("run",false);
 				//anim_player.SetBool("dig",true);
-				Debug.Log ("set run to false");
+				//Debug.Log ("set run to false");
 
 			} 
 			else {
@@ -174,16 +174,16 @@ public class Move : MonoBehaviour{
 	//check if guard runs into us
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "guard") {
-			float l = Mathf.Ceil (GetComponent<PlayerStats>().lootTotal*0.1f);
-			int il = (int) l;
-			gameObject.GetComponent<PlayerStats>().AddLoot (-1*il);
+			//float l = Mathf.Ceil (GetComponent<PlayerStats>().lootTotal*0.1f);
+			//int il = (int) l;
+			//gameObject.GetComponent<PlayerStats>().AddLoot (-1*il);
 			
 			int r = Random.Range (0, spawnPoints.Length);
 			GameObject mySpawnPoint = spawnPoints [r];
 			
 			transform.position = mySpawnPoint.transform.position;
 			
-			gameObject.GetComponent<CombatMusicControl>().switchMusic = false;
+			gameObject.GetComponent<CombatMusicControl>().CalmMusic();
 			other.gameObject.GetComponent<GuardAI>().loseTarget = true;
 
 			StartCoroutine(WaitForPeriod (1));

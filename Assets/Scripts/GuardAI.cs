@@ -116,7 +116,7 @@ public class GuardAI : MonoBehaviour {
 
 					PhotonView objectPV = PhotonView.Get (playerTarget);
 					objectPV.RPC ("IntenseMusic", PhotonTargets.AllBuffered);
-					//objectPV.RPC ("GuardYell", PhotonTargets.AllBuffered);
+					objectPV.RPC ("GuardYell", PhotonTargets.AllBuffered);
 
 					float playerDist = Vector2.Distance(transform.position, playerTarget.transform.position);
 					if (playerDist < 7){
@@ -222,9 +222,9 @@ public class GuardAI : MonoBehaviour {
 			currentSpeed = investigateSpeed;
 			waitToPatrol = true;
 			if (other.tag == "Player") {
-				PhotonView objectPV = PhotonView.Get (playerTarget);
+				PhotonView objectPV = PhotonView.Get (other.gameObject);
 				objectPV.RPC ("IntenseMusic", PhotonTargets.AllBuffered);
-				//objectPV.RPC ("GuardYell", PhotonTargets.AllBuffered);
+				objectPV.RPC ("GuardYell", PhotonTargets.AllBuffered);
 				playerTarget = other.gameObject;
 			}
 		}
