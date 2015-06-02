@@ -61,7 +61,6 @@ public class Move : MonoBehaviour{
 
 	void Update()
 	{
-		Debug.Log ("ingrave = " + GetComponent<Dig> ().inGrave);
 		anim_player = GetComponent<Animator> ();
 		//first check if a guard has frozen us by being within the catch radius
 		if (!freeze && anim_control) {	
