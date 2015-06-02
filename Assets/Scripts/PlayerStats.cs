@@ -24,12 +24,8 @@ public class PlayerStats : MonoBehaviour {
 		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
-		for (int i=0; i<allPlayers.Length; i++) {
-			scoreList.Add (0);
-			Debug.Log("Added a scoreList");
-			Debug.Log("initial size: " + scoreList.Count);
-		}
 
+		scoreList.Add (0);
 		playerList.Add (gameObject); // add ourselves
 		foreach (GameObject player in allPlayers) {
 			if (player != gameObject) {
@@ -58,11 +54,11 @@ public class PlayerStats : MonoBehaviour {
 	
 	[RPC]
 	public void AddToPlayerList(GameObject player) {
-		Debug.Log ("Hi!" + playerList.Count);
 		playerList.Add (player);
 		numPlayers = playerList.Count;
 		scoreList.Add (0);
-		Debug.Log (playerList.Count);
+		Debug.Log ("player count: " + numPlayers);
+		Debug.Log ("score count: " + scoreList.Count);
 	}
 
 	[RPC]
