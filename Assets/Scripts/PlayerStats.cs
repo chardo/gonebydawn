@@ -35,8 +35,8 @@ public class PlayerStats : MonoBehaviour {
 				AddToPlayerList (gameObject);
 				PhotonView playerPV = player.GetComponent<PhotonView>();
 				Debug.Log("Added a player!");
-				playerPV.RPC ("AddToPlayerList", PhotonTargets.AllBuffered, gameObject);
-				playerPV.RPC ("GetInfo", PhotonTargets.AllBuffered, gameObject);
+				playerPV.RPC ("AddToPlayerList", PhotonTargets.All, gameObject);
+				playerPV.RPC ("GetInfo", PhotonTargets.All, gameObject);
 			}
 			else {
 				playerList.Add (player);
@@ -54,7 +54,7 @@ public class PlayerStats : MonoBehaviour {
 		//set initial colors of rankings
 		foreach (GameObject player in playerList) {
 			PhotonView pv = player.GetComponent<PhotonView>();
-			pv.RPC ("UpdateRankings", PhotonTargets.AllBuffered);
+			pv.RPC ("UpdateRankings", PhotonTargets.All);
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class PlayerStats : MonoBehaviour {
 	[RPC]
 	public void GetInfo(GameObject g) {
 		PhotonView pv = g.GetComponent<PhotonView> ();
-		pv.RPC ("SetInfo", PhotonTargets.AllBuffered, lootTotal, ID);
+		pv.RPC ("SetInfo", PhotonTargets.All, lootTotal, ID);
 	}
 
 	[RPC]
@@ -80,7 +80,7 @@ public class PlayerStats : MonoBehaviour {
 		lootTotal += lootAdd;
 		foreach (GameObject player in playerList) {
 			PhotonView playerPV = player.GetComponent<PhotonView>();
-			playerPV.RPC ("AddLoot", PhotonTargets.AllBuffered, lootTotal, ID);
+			playerPV.RPC ("AddLoot", PhotonTargets.All, lootTotal, ID);
 		}
 	}
 	
