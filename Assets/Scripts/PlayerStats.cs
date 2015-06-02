@@ -64,14 +64,14 @@ public class PlayerStats : MonoBehaviour {
 	public void AddMyLoot(int lootAdd) {
 		Debug.Log ("AddMyLoot");
 		lootTotal += lootAdd;
-		scoreList [ID - 1] = lootTotal;
-		UpdateRankings ();
-		foreach (GameObject player in playerList) {
-			if (player != gameObject) {
-				PhotonView playerPV = PhotonView.Get(player);
+		//scoreList [ID - 1] = lootTotal;
+		//UpdateRankings ();
+		//foreach (GameObject player in playerList) {
+			//if (player != gameObject) {
+				PhotonView playerPV = PhotonView.Get(gameObject);
 				playerPV.RPC ("AddLoot", PhotonTargets.All, lootTotal, ID);
-			}
-		}
+			//}
+		//}
 	}
 
 	[RPC]
