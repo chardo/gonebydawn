@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 
-public class PlayerStats : MonoBehaviour {
+public class PlayerStats : Photon.MonoBehaviour {
 	
 	public int lootTotal = 0;
 	public int ID;
@@ -24,7 +24,7 @@ public class PlayerStats : MonoBehaviour {
 		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
-
+		
 		scoreList.Add (0);
 		playerList.Add (gameObject); // add ourselves
 		foreach (GameObject player in allPlayers) {
@@ -32,6 +32,7 @@ public class PlayerStats : MonoBehaviour {
 				AddToPlayerList (player); // add other player to us
 				PhotonView playerPV = PhotonView.Get(player);
 				Debug.Log("Added a player!");
+				Debug.Log(playerPV);
 				playerPV.RPC ("AddToPlayerList", PhotonTargets.All, gameObject); // add us to other player - broken
 				playerPV.RPC ("GetInfo", PhotonTargets.All, gameObject);
 			}
@@ -65,11 +66,13 @@ public class PlayerStats : MonoBehaviour {
 	public void GetInfo(GameObject g) {
 		PhotonView pv = PhotonView.Get(g);
 		pv.RPC ("SetInfo", PhotonTargets.All, lootTotal, ID);
+		Debug.Log ("In GetInfo");
 	}
 
 	[RPC]
 	public void SetInfo(int loot, int id) {
 		scoreList[id-1] = loot;
+		Debug.Log ("In SetInfo");
 	}
 
 	[RPC]
