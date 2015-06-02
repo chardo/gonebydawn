@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 
-public class PlayerStats : MonoBehaviour {
+public class PlayerStats : Photon.MonoBehaviour {
 	
 	public int lootTotal = 0;
 	public int ID;
@@ -29,7 +29,7 @@ public class PlayerStats : MonoBehaviour {
 		playerList.Add (gameObject); // add ourselves
 	}
 
-	void OnConnectedToServer() {
+	void OnConnectedToMaster() {
 		foreach (GameObject player in allPlayers) {
 			if (player != gameObject) {
 				AddToPlayerList (player); // add other player to us
