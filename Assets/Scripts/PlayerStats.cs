@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour {
 		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
 		numPlayers = GameObject.FindGameObjectsWithTag ("Player").Length;
-		pv.RPC ("newPlayer", PhotonTargets.AllBuffered, 0);
+		pv.RPC ("newPlayer", PhotonTargets.AllBuffered);
 		
 		//make array of colors representing players
 		c1 = Color.green;
