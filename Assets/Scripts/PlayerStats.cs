@@ -27,9 +27,12 @@ public class PlayerStats : Photon.MonoBehaviour {
 		
 		scoreList.Add (0);
 		playerList.Add (gameObject); // add ourselves
+		StartCoroutine (WaitForPeriod (1f));
 	}
 
-	void OnConnectedToMaster() {
+	IEnumerator WaitForPeriod(float waitTime) {
+		yield return new WaitForSeconds(waitTime);
+		Debug.Log ("Hi");
 		foreach (GameObject player in allPlayers) {
 			if (player != gameObject) {
 				AddToPlayerList (player); // add other player to us
