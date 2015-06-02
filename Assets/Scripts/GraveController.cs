@@ -71,8 +71,7 @@ public class GraveController : MonoBehaviour {
 			if (hasLoot) {
 				//update alert text to reflect gained loot
 				looter.alertLoot(lootContained);
-				PhotonView pvp = looter.GetComponent<PhotonView>();
-				pvp.RPC ("AddLoot", PhotonTargets.AllBuffered, lootContained, looterStats.ID);
+				looterStats.AddMyLoot(lootContained);
 				//looterStats.AddLoot(lootContained);
 				hasLoot = false;
 			}

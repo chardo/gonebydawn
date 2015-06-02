@@ -44,4 +44,6 @@ MonoBehaviour:
   - IntenseMusic
   - UpdateScoreArray
   - UpdateRankings
+  - AddLoot
+  - newPlayer
   DisableAutoOpenWizard: 0

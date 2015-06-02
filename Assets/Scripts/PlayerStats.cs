@@ -9,24 +9,33 @@ public class PlayerStats : MonoBehaviour {
 	
 	public int lootTotal = 0;
 	public int ID;
-	private List<int> scoreArray = new List<int>();
+	private List<int> scoreList = new List<int>();
 	private Color[] playerColors;
 	private GameObject[] rankings;
 	
 	Color c1, c2, c3, c4;
 	
-	private PhotonView pv;
-	
+	private GameObject[] allPlayers;
+	private List<GameObject> playerList = new List<GameObject>();
 	private int numPlayers;
 	
 	// Use this for initialization
 	void Start () {
-		pv = GetComponent<PhotonView> ();
-		
 		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
-		numPlayers = GameObject.FindGameObjectsWithTag ("Player").Length;
-		pv.RPC ("newPlayer", PhotonTargets.AllBuffered);
+		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
+		for (int i=0; i<allPlayers.Length; i++) {
+			scoreList.Add (0);
+		}
+		
+		foreach (GameObject player in allPlayers) {
+			AddToPlayerList (gameObject);
+			if (player != gameObject) {
+				PhotonView playerPV = player.GetComponent<PhotonView>();
+				playerPV.RPC ("AddToPlayerList", PhotonTargets.AllBuffered, gameObject);
+				playerPV.RPC ("GetInfo", PhotonTargets.AllBuffered, gameObject);
+			}
+		}
 		
 		//make array of colors representing players
 		c1 = Color.green;
@@ -35,56 +44,53 @@ public class PlayerStats : MonoBehaviour {
 		c4 = Color.yellow;
 		playerColors = new Color[] {c1, c2, c3, c4};
 		
-		//array of boxes to be filled with colors (in top to bottom order)
-		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
-		Array.Sort (rankings, (GameObject a, GameObject b) => a.transform.position.y.CompareTo(b.transform.position.y));
-		Array.Reverse (rankings);
-		
 		//set initial colors of rankings
-		pv.RPC ("UpdateRankings", PhotonTargets.AllBuffered);
+		foreach (GameObject player in playerList) {
+			PhotonView pv = player.GetComponent<PhotonView>();
+			pv.RPC ("UpdateRankings", PhotonTargets.AllBuffered);
+		}
 	}
 	
 	[RPC]
-	public void newPlayer() {
-		scoreArray.Add (0);
+	public void AddToPlayerList(GameObject player) {
+		playerList.Add (player);
+		numPlayers = playerList.Count;
+		scoreList.Add (0);
+	}
+
+	[RPC]
+	public void GetInfo(GameObject g) {
+		PhotonView pv = g.GetComponent<PhotonView> ();
+		pv.RPC ("SetInfo", PhotonTargets.AllBuffered, lootTotal, ID);
+	}
+
+	[RPC]
+	public void SetInfo(int loot, int id) {
+		scoreList[id-1] = loot;
+	}
+
+	public void AddMyLoot(int lootAdd) {
+		lootTotal += lootAdd;
+		foreach (GameObject player in playerList) {
+			PhotonView playerPV = player.GetComponent<PhotonView>();
+			playerPV.RPC ("AddLoot", PhotonTargets.AllBuffered, lootTotal, ID);
+		}
 	}
 	
 	[RPC]
 	public void AddLoot (int l, int id) {
-		//first add to the loot total
-		lootTotal += l;
-		
-		//update gui score
-		if (pv) {
-			if (pv.isMine) {
-				ScoreDisplay.currentscore = lootTotal;
-			}
-		}
-		
-		//update that player's lootTotal
-		scoreArray [id - 1] = lootTotal;
-		
-		//get list of scores in order of player ID's
-		//ie, after this loop, player1's score is at scoreArray[0], player2's score is at scoreArray[1], etc.
-		//		GameObject[] allPlayers = GameObject.FindGameObjectsWithTag ("Player");
-		//		foreach (GameObject player in allPlayers) {
-		//			PlayerStats stats = player.GetComponent<PlayerStats>();
-		//			int pid = stats.ID;
-		//			int score = stats.lootTotal;
-		//			scoreArray[pid-1] = score;
-		//		}
+		scoreList [id - 1] = l;
+
+		UpdateRankings ();
+	}
+
+	public void UpdateRankings() {
 		//reset playerColors to the initial ordered list so the sorting aligns with
-		//	scoreArray order
+		//	scoreList order
 		playerColors = new Color[] {c1, c2, c3, c4};
 		//now we sort playerColors according to the score array
-		Array.Sort (scoreArray.ToArray(), playerColors);
-		
-		//finally, fill each of the boxes in rankings[] with those colors
-		pv.RPC ("UpdateRankings", PhotonTargets.AllBuffered);
-	}
-	
-	[RPC]
-	public void UpdateRankings() {
+		Array.Sort (scoreList.ToArray(), playerColors);
+
 		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
 		Array.Sort (rankings, (GameObject a, GameObject b) => a.transform.position.y.CompareTo(b.transform.position.y));

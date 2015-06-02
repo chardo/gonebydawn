@@ -848,7 +848,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 154322}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 16fb22c4a88534d0b94c88b1bb691c4d, type: 2}
   m_CullingMode: 0
@@ -897,8 +897,6 @@ MonoBehaviour:
   normalCamSize: 15
   sneakCamSize: 10
   zoomCamSize: 50
-  claywalk2: {fileID: 0}
-  anim_player: {fileID: 0}
   soundTrigger: {fileID: 5820330}
   normalSoundRadius: 20
   sneakSoundRadius: 10
@@ -980,7 +978,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootTotal: 0
   ID: 0
-  pv: {fileID: 0}
 --- !u!114 &11499442
 MonoBehaviour:
   m_ObjectHideFlags: 1
