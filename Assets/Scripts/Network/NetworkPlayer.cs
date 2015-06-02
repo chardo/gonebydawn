@@ -8,7 +8,6 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	Vector3 position;
 	//protected Animation player_animation;
 	Quaternion rotation;
-	int receive_anim;
 	// lerping smooths the cross-network display of other characters' movements the value can be changed. 
 	// higher float (10f means float 10) means more accurate position/movement representation
 	float lerpSmoothing  = 10f;
@@ -54,6 +53,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			stream.SendNext(transform.rotation);
 			stream.SendNext(sound.radius);
 			stream.SendNext(PhotonNetwork.player.ID);
+			stream.SendNext(ps.lootTotal);
 			stream.SendNext(GetComponent<Move> ().mc_status);
 		} 
 		else {
@@ -61,7 +61,14 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			rotation = (Quaternion)stream.ReceiveNext();
 			sound.radius = (float)stream.ReceiveNext();
 			ps.ID = (int)stream.ReceiveNext ();
-			receive_anim = (int)stream.ReceiveNext ();
+			ps.lootTotal = (int)stream.ReceiveNext ();
+			int receive_test = 4;
+			int receive_anim = (int)stream.ReceiveNext ();
+//			if (receive_test != receive_anim) {
+//				Debug.Log ("anim change:");
+//				Debug.Log (receive_anim);
+//			}
+//			receive_test = receive_anim;
 			network_anim_player.SetInteger("mc_state", receive_anim);
 		}
 	}

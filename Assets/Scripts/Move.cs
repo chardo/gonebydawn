@@ -182,7 +182,7 @@ public class Move : MonoBehaviour{
 				//anim_player.SetBool("run",false);
 				anim_player.SetInteger("mc_state",0);
 				mc_status = 0;
-				Debug.Log ("idle");
+//				Debug.Log ("idle");
 //				Debug.Log ("mc status: " + mc_status);
 
 

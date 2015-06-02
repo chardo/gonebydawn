@@ -5,90 +5,60 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
 
-public class PlayerStats : MonoBehaviour {
+public class PlayerStats : Photon.MonoBehaviour {
 	
 	public int lootTotal = 0;
 	public int ID;
-	private List<int> scoreList = new List<int>();
+	private int[] scoreArray = new int[4];
 	private Color[] playerColors;
 	private GameObject[] rankings;
+	private GameObject[] allPlayers;
 	
 	Color c1, c2, c3, c4;
-	
-	private GameObject[] allPlayers;
-	private List<GameObject> playerList = new List<GameObject>();
-	private int numPlayers;
+
+	private int numPlayers = 0;
+
+	private PhotonView pv;
 	
 	// Use this for initialization
 	void Start () {
 		//set this player's ID and count total number of players
 		ID = PhotonNetwork.player.ID;
 
+		//get photonview
+		pv = GetComponent<PhotonView> ();
+
 		//make array of colors representing players
 		c1 = Color.green;
 		c2 = Color.blue;
 		c3 = Color.magenta;
 		c4 = Color.yellow;
-		playerColors = new Color[] {c1, c2, c3, c4};
 
-		UpdatePlayers ();
-
-		foreach (GameObject player in allPlayers) {
-			if (player != gameObject) {
-				PhotonView playerPV = PhotonView.Get(player);
-				Debug.Log("Added a player!");
-				Debug.Log(playerPV);
-				playerPV.RPC ("UpdatePlayers", PhotonTargets.All); // add us to other player - broken
-			}
-		}
-	}
-	
-	[RPC]
-	public void UpdatePlayers() {
-		scoreList.Clear();
-		playerList.Clear();
-		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
-		int len = allPlayers.Length;
-		Debug.Log ("Size of allPlayers: " + len);
-
-		foreach (GameObject o in allPlayers) {
-			scoreList.Add (0);
-			playerList.Add (o);
-		}
-		numPlayers = playerList.Count;
-		Debug.Log ("player count: " + numPlayers);
-		Debug.Log ("score count: " + scoreList.Count);
-		UpdateRankings ();
+		AddLoot (0);
 	}
 
-	public void AddMyLoot(int lootAdd) {
-		Debug.Log ("AddMyLoot");
-		lootTotal += lootAdd;
-		//scoreList [ID - 1] = lootTotal;
-		//UpdateRankings ();
-		//foreach (GameObject player in playerList) {
-			//if (player != gameObject) {
-				PhotonView playerPV = PhotonView.Get(gameObject);
-				playerPV.RPC ("AddLoot", PhotonTargets.All, lootTotal, ID);
-			//}
-		//}
+	public void AddLoot(int l) {
+		lootTotal += l;
+		pv.RPC ("UpdateRankings", PhotonTargets.All);
 	}
 
 	[RPC]
-	public void AddLoot (int l, int id) {
-		Debug.Log ("AddLoot " + scoreList.Count + " " + id);
-		scoreList [id - 1] = l;
-
-		UpdateRankings ();
-	}
-
-
 	public void UpdateRankings() {
 		//reset playerColors to the initial ordered list so the sorting aligns with
 		//	scoreList order
 		playerColors = new Color[] {c1, c2, c3, c4};
+
+		//make list of scores
+		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
+		foreach (GameObject player in allPlayers) {
+			int thisLootTotal = player.GetComponent<PlayerStats>().lootTotal;
+			int thisID = player.GetComponent<PlayerStats>().ID;
+			scoreArray[thisID-1] = thisLootTotal;
+			numPlayers++;
+		}
+
 		//now we sort playerColors according to the score array
-		Array.Sort (scoreList.ToArray(), playerColors);
+		Array.Sort (scoreArray, playerColors);
 
 		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
@@ -107,7 +77,5 @@ public class PlayerStats : MonoBehaviour {
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
 		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
-
-		Debug.Log ("Final score size: " + scoreList.Count);
 	}
 }
