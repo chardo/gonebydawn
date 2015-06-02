@@ -56,11 +56,12 @@ public class PlayerStats : Photon.MonoBehaviour {
 			numPlayers++;
 		}
 		foreach (GameObject player in allPlayers) {
-			PlayerStats ps = player.GetComponent<PlayerStats>();
-			ps.UpdateRankings ();
+			PhotonView pvp = player.GetComponent<PhotonView>();
+			pvp.RPC ("UpdateRankings", PhotonTargets.All);
 		}
 	}
-	
+
+	[RPC]
 	public void UpdateRankings() {
 		//reset playerColors to the initial ordered list so the sorting aligns with
 		//	scoreList order
