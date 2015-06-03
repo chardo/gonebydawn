@@ -130,7 +130,7 @@ public class GuardAI : MonoBehaviour {
 		// raycasting for sight; sets target if the player is detected
 		// rays strike walls & player, sets target only if player was hit first
 		for (int i = -sightAngle; i <= sightAngle; i += 5) {
-			Vector2 dir = Quaternion.AngleAxis(i, Vector3.forward) * -transform.up;
+			Vector2 dir = Quaternion.AngleAxis(i, Vector3.forward) * transform.up;
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
 				if (objectSighted.collider.tag == "Player") {
@@ -186,7 +186,7 @@ public class GuardAI : MonoBehaviour {
 					// rotate to face direction of travel
 					Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
 					Quaternion rotation = Quaternion.LookRotation
-						(path3D - transform.position, transform.TransformDirection(Vector3.forward));
+						(path3D - transform.position, -transform.TransformDirection(Vector3.forward));
 					transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 					guard_status = 2;
 					anim_guard.SetInteger("guard_state", guard_status);
