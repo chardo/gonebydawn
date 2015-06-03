@@ -97,8 +97,13 @@ public class GuardAI : MonoBehaviour {
 
 			// pick a random remaining adjacent waypoint and set as the new target
 			int numAdjoining = adjoiningWaypoints.Count;
-			int randWaypoint = Random.Range (0, numAdjoining);
-			pathingTarget = adjoiningWaypoints[randWaypoint];
+			if (numAdjoining == 0){
+				pathingTarget = prevWaypoint;
+			}
+			else {
+				int randWaypoint = Random.Range (0, numAdjoining);
+				pathingTarget = adjoiningWaypoints[randWaypoint];
+			}
 
 			// update waypoint & speed variables
 			prevWaypoint = curWaypoint;
