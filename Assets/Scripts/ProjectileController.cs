@@ -9,9 +9,11 @@ public class ProjectileController : MonoBehaviour {
 	private Rigidbody2D rb;
 	private SpriteRenderer sprite;
 	private Vector3 startPoint;
+	public Animator anim_loot;
 
 	// Use this for initialization
 	void Start () {
+		anim_loot = GetComponent<Animator> ();
 		thisCollider = GetComponent<CircleCollider2D> ();
 		rb = GetComponent<Rigidbody2D> ();
 		sprite = GetComponent<SpriteRenderer> ();

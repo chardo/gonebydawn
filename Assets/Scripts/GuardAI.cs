@@ -47,6 +47,11 @@ public class GuardAI : MonoBehaviour {
 	public AudioSource guardLose;
 	public AudioClip[] guardLosses;
 
+	//animation
+	public Animator anim_guard;
+	public int guard_status;
+
+	
 	void Start () {
 		// initialize timing and angle variables
 		newTargetTimer = 0;
@@ -54,6 +59,10 @@ public class GuardAI : MonoBehaviour {
 		// gather all waypoints
 		waypoints = GameObject.FindGameObjectsWithTag("waypoint");
 		myWaypoints = new List<GameObject> ();
+
+		//animation
+		anim_guard = GetComponent<Animator> ();
+
 		// add all the waypoints of the proper number to myWaypoints
 		for (int i = 0; i < waypoints.Length; i++) {
 			WaypointHandler waypointScript = waypoints[i].GetComponent<WaypointHandler>();
@@ -78,6 +87,9 @@ public class GuardAI : MonoBehaviour {
 	 * - update rotation to always face the direction of travel
 	 */
 	void Update () {
+
+		anim_guard = GetComponent<Animator> ();
+		guard_status = 0;
 		// Count down timer until new target can be set
 		if (newTargetTimer > 0)
 			newTargetTimer--;
@@ -87,6 +99,10 @@ public class GuardAI : MonoBehaviour {
 			// retrieve the script from the waypoint to determine adjacent waypoints
 			WaypointHandler otherScript = curWaypoint.GetComponent<WaypointHandler>();
 			List<Transform> getAdjoining = otherScript.RequestAdjoining();
+
+			//animation
+			guard_status = 1;
+			anim_guard.SetInteger("guard_state", guard_status);
 
 			// collect adjacent waypoints, and remove the one from which we came
 			adjoiningWaypoints = new List<Transform>();
@@ -118,6 +134,11 @@ public class GuardAI : MonoBehaviour {
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
 				if (objectSighted.collider.tag == "Player") {
+
+					guard_status = 2;
+					anim_guard.SetInteger("guard_state", guard_status);
+					Debug.Log ("player sighted. running now.");
+
 					playerTarget = objectSighted.collider.gameObject;
 					pathingTarget = objectSighted.transform;
 					currentSpeed = chaseSpeed;
@@ -147,13 +168,18 @@ public class GuardAI : MonoBehaviour {
 					path = null;
 					pathingTarget = null;
 					StartCoroutine(WaitForPeriod(waitForPatrol));
-				}
-				else {
+					guard_status = 1;
+					anim_guard.SetInteger("guard_state", guard_status);
+					Debug.Log ("no more player.");
+			}
+			else {
 				// move along the path to target
 				transform.position = Vector2.MoveTowards(transform.position, path[0], currentSpeed*Time.deltaTime);
 				if(Vector2.Distance(transform.position,path[0]) < 0.01f)
 				{
 					path.RemoveAt(0);
+					guard_status = 2;
+					anim_guard.SetInteger("guard_state", guard_status);
 				}
 
 				if (path != null && path.Count != 0){
@@ -162,6 +188,8 @@ public class GuardAI : MonoBehaviour {
 					Quaternion rotation = Quaternion.LookRotation
 						(path3D - transform.position, transform.TransformDirection(Vector3.forward));
 					transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+					guard_status = 2;
+					anim_guard.SetInteger("guard_state", guard_status);
 				}
 				// when the target is reached
 				else { 
@@ -200,6 +228,9 @@ public class GuardAI : MonoBehaviour {
 			else
 				newTargetTimer = 70;
 
+			guard_status = 2;
+			anim_guard.SetInteger("guard_state", guard_status);
+			
 			transform.position = Vector2.MoveTowards(transform.position, path[0], currentSpeed*Time.deltaTime);
 			if(Vector2.Distance(transform.position,path[0]) < 0.01f)
 			{
