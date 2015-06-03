@@ -167,7 +167,8 @@ public class GuardAI : MonoBehaviour {
 					if (playerTarget != null) {
 						PhotonView objectPV = PhotonView.Get (playerTarget);
 						objectPV.RPC ("CalmMusic", PhotonTargets.AllBuffered);
-
+					}
+					if (currentSpeed != patrolSpeed) {
 						int randClip = Random.Range (0, guardLosses.Length);
 						guardLose.clip = guardLosses [randClip];
 						guardLose.Play ();
