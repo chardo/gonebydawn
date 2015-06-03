@@ -20,8 +20,6 @@ public class PlayerStats : Photon.MonoBehaviour {
 	private Color c4 = Color.yellow;
 
 	private int numPlayers = 0;
-
-	private PhotonView pv;
 	
 	// Use this for initialization
 	void Start () {
@@ -29,9 +27,6 @@ public class PlayerStats : Photon.MonoBehaviour {
 		if (photonView.isMine) {
 			ID = PhotonNetwork.player.ID;
 		}
-
-		//get photonview
-		pv = GetComponent<PhotonView> ();
 
 		StartCoroutine ("WelcomePlayer", 1f);
 	}

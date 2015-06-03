@@ -13,6 +13,6 @@ public class ScoreDisplay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		text.text = "Loot: " + currentscore;
+		text.text = currentscore.ToString ();
 	}
 }
