@@ -57,7 +57,9 @@ public class PlayerStats : Photon.MonoBehaviour {
 	}
 
 	public void AddLoot(int l) {
+		//increase your lootTotal and update the scoredisplay's currentloot value
 		lootTotal += l;
+		ScoreDisplay.currentscore = lootTotal;
 		//make list of scores
 		fillScoreArray ();
 		//UpdateRankings (numPlayers);
@@ -83,7 +85,6 @@ public class PlayerStats : Photon.MonoBehaviour {
 		Array.Sort (rankings, (GameObject a, GameObject b) => a.transform.position.y.CompareTo(b.transform.position.y));
 		Array.Reverse (rankings);
 
-		Debug.Log (nump + " players");
 		//color the boxes in order of winning players
 		for (int i=0; i<nump; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];
