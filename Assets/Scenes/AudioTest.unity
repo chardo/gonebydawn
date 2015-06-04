@@ -42980,8 +42980,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -53.9000015, y: -78.0999985}
-  m_SizeDelta: {x: 60, y: 60}
+  m_AnchoredPosition: {x: -53.9000015, y: -68.0999985}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &634266454
 MonoBehaviour:
@@ -73187,7 +73187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 19
 --- !u!114 &1885529474
 MonoBehaviour:
   m_ObjectHideFlags: 1
