@@ -137,7 +137,6 @@ public class GuardAI : MonoBehaviour {
 
 					guard_status = 2;
 					anim_guard.SetInteger("guard_state", guard_status);
-					Debug.Log ("player sighted. running now.");
 
 					playerTarget = objectSighted.collider.gameObject;
 					pathingTarget = objectSighted.transform;
@@ -170,7 +169,6 @@ public class GuardAI : MonoBehaviour {
 					StartCoroutine(WaitForPeriod(waitForPatrol));
 					guard_status = 1;
 					anim_guard.SetInteger("guard_state", guard_status);
-					Debug.Log ("no more player.");
 			}
 			else {
 				// move along the path to target
@@ -186,7 +184,7 @@ public class GuardAI : MonoBehaviour {
 					// rotate to face direction of travel
 					Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
 					Quaternion rotation = Quaternion.LookRotation
-						(path3D - transform.position, transform.TransformDirection(Vector3.forward));
+						(path3D - transform.position, -transform.TransformDirection(Vector3.forward));
 					transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 					guard_status = 2;
 					anim_guard.SetInteger("guard_state", guard_status);
