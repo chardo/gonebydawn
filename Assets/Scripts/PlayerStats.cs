@@ -18,7 +18,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 	private Color c2 = Color.blue;
 	private Color c3 = Color.magenta;
 	private Color c4 = Color.yellow;
-
+	
 	private int numPlayers = 0;
 	
 	// Use this for initialization
@@ -27,15 +27,15 @@ public class PlayerStats : Photon.MonoBehaviour {
 		if (photonView.isMine) {
 			ID = PhotonNetwork.player.ID;
 		}
-
+		
 		StartCoroutine ("WelcomePlayer", 1f);
 	}
-
+	
 	IEnumerator WelcomePlayer(float t) {
 		yield return new WaitForSeconds(t);
 		AddLoot (0);
 	}
-
+	
 	public void fillScoreArray() {
 		//creates an accurate score array based on everyone's current scores
 		allPlayers = GameObject.FindGameObjectsWithTag ("Player");
@@ -50,7 +50,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 			scoreArray [i] = 0;
 		}
 	}
-
+	
 	public void AddLoot(int l) {
 		//increase your lootTotal and update the scoredisplay's currentloot value
 		lootTotal += l;
@@ -60,12 +60,12 @@ public class PlayerStats : Photon.MonoBehaviour {
 		//UpdateRankings (numPlayers);
 		photonView.RPC ("UpdateRankings", PhotonTargets.All, numPlayers);
 	}
-
+	
 	[RPC]
 	public void UpdateRankings(int nump) {
 		//initial array needs to be in reverse order, since the scoreArray gets reverse after sorting
 		playerColors = new Color[] {c1, c2, c3, c4};
-
+		
 		//create an inverse score array to represent top-down ranking
 		int[] inverseScore = new int[4];
 		for (int i=0; i<4; i++) {
@@ -74,12 +74,12 @@ public class PlayerStats : Photon.MonoBehaviour {
 		}
 		//sort playerColors according to the inverse score array
 		Array.Sort (inverseScore, playerColors);
-
+		
 		//array of boxes to be filled with colors (in top to bottom order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
 		Array.Sort (rankings, (GameObject a, GameObject b) => a.transform.position.y.CompareTo(b.transform.position.y));
 		Array.Reverse (rankings);
-
+		
 		//color the boxes in order of winning players
 		for (int i=0; i<nump; i++) {
 			rankings[i].GetComponent<Image>().color = playerColors[i];
@@ -92,5 +92,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
 		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
+		PlayerPrefs.SetInt ("WinningScore", 1/inverseScore[0]);
+		PlayerPrefs.SetInt ("MyScore", lootTotal);
 	}
 }
