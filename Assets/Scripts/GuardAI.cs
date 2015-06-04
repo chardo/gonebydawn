@@ -186,7 +186,7 @@ public class GuardAI : MonoBehaviour {
 					// rotate to face direction of travel
 					Vector3 path3D = new Vector3(path[0].x, path[0].y, transform.position.z);
 					Quaternion rotation = Quaternion.LookRotation
-						(path3D - transform.position, -transform.TransformDirection(Vector3.forward));
+						(path3D - transform.position, transform.TransformDirection(Vector3.forward));
 					transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 					guard_status = 2;
 					anim_guard.SetInteger("guard_state", guard_status);
