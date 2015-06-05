@@ -91,11 +91,16 @@ public class PlayerStats : Photon.MonoBehaviour {
 		for (int i=nump; i<4; i++) {
 			rankings[i].GetComponent<Image>().color = new Color(0f,0f,0f,0f);
 		}
-		//pass the first-place player to PlayerPrefs so the win-screen can adapt
-		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
-		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
-		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
-		PlayerPrefs.SetInt ("WinningScore", -1*inverseScore[0]);
-		PlayerPrefs.SetInt ("MyScore", lootTotal);
+	}
+
+	public void Goodbye() {
+		PlayerPrefs.SetInt ("Score0", scoreArray[0]);
+		PlayerPrefs.SetInt ("Score1", scoreArray[1]);
+		PlayerPrefs.SetInt ("Score2", scoreArray[2]);
+		PlayerPrefs.SetInt ("Score3", scoreArray[3]);
+
+		PlayerPrefs.SetInt ("ID", ID);
+
+
 	}
 }

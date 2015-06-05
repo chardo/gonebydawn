@@ -12,6 +12,8 @@ TagManager:
   - guard
   - ScoreSquare
   - respawn
+  - ScoreLabel
+  - RankLabel
   layers:
   - Default
   - TransparentFX
