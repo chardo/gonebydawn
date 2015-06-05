@@ -238,6 +238,7 @@ public class Move : MonoBehaviour{
 
 		// for updating the escape arrow
 		if (arrowExists) {
+			if (transform.position.y >= -155){
 			if (increaseAlpha) {
 				arrowAlpha += 0.02f;
 				if (arrowAlpha >= 0.8f)
@@ -261,6 +262,13 @@ public class Move : MonoBehaviour{
 			Vector3 newPosition = transform.position + 5 * escapeArrow.transform.up;
 			newPosition.z = -0.1f;
 			escapeArrow.transform.position = newPosition;
+			}
+			else {
+				Color invisible = new Color(1f, 1f, 1f, 0f);
+				escapeArrow.GetComponent<SpriteRenderer>().color = invisible;
+				arrowExists = false;
+			}
+
 		}
 	}
 
