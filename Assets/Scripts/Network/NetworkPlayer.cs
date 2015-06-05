@@ -39,15 +39,6 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			network_anim_player = GetComponent<Animator> ();
 		}
 		sound = GetComponent<CircleCollider2D> ();
-		int ID = PhotonNetwork.player.ID;
-		if (ID == 1)
-			GetComponent<PlayerHalo> ().myHalo = Instantiate (Resources.Load ("Player1Halo"));
-		else if (ID == 2)
-			GetComponent<PlayerHalo> ().myHalo = Instantiate (Resources.Load ("Player2Halo"));
-		else if (ID == 3)
-			GetComponent<PlayerHalo> ().myHalo = Instantiate (Resources.Load ("Player3Halo"));
-		else
-			GetComponent<PlayerHalo> ().myHalo = Instantiate (Resources.Load ("Player4Halo"));
 	}
 
 	[RPC]
