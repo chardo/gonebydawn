@@ -12,7 +12,7 @@ TagManager:
   - guard
   - ScoreSquare
   - respawn
-  - ScoreLabel
+  - ShadowLayer
   - RankLabel
   layers:
   - Default
