@@ -90,10 +90,16 @@ public class Move : MonoBehaviour{
 
 
 
-				if (zoomedCam)
+				if (zoomedCam) {
 					cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, zoomCamSize, 4 * (Time.time - startTime));
-				else
+					anim_player.SetInteger("mc_state",3);
+					mc_status = 3;
+				}
+				else {
 					cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, normalCamSize, 4 * (Time.time - startTime));
+					anim_player.SetInteger("mc_state",1);
+					mc_status = 1;
+				}
 			}
 
 			//create move vector based on input
