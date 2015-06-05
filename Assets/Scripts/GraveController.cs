@@ -110,6 +110,7 @@ public class GraveController : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
 			occupied = true;
+			other.GetComponent<Move>().ShovelAppear();
 			//add player to list of players in this grave, check if they're the only one
 			if (!LooterList.Contains(other)) LooterList.Add (other);
 			if (LooterList.Count == 1) {
@@ -128,6 +129,7 @@ public class GraveController : MonoBehaviour {
 	
 	void OnTriggerExit2D (Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
+			other.GetComponent<Move>().ShovelDisappear();
 			//when player leaves, unassign those reference vars and remove them from list of looters in this grave
 			looter = other.GetComponent<Dig>();
 			looter.inGrave = false;

@@ -239,6 +239,10 @@ public class Move : MonoBehaviour{
 				zoomedCam = true;
 		}
 
+		Vector3 digIconPosition = transform.position;
+		digIconPosition.y += 3;
+		digIcon.transform.position = digIconPosition;
+
 		// for updating the escape arrow
 		if (arrowExists) {
 			if (transform.position.y >= -155){
@@ -286,6 +290,18 @@ public class Move : MonoBehaviour{
 		escapeArrow.GetComponent<SpriteRenderer> ().color = newOpacity;
 		
 		arrowExists = true;
+	}
+
+	public void ShovelAppear() {
+		Color newColor = new Color (255f, 255f, 255f, 1f);
+		digIcon.GetComponent<SpriteRenderer> ().color = newColor;
+		Debug.Log ("Appear");
+	}
+
+	public void ShovelDisappear() {
+		Color newColor2 = new Color (255f, 255f, 255f, 0f);
+		digIcon.GetComponent<SpriteRenderer> ().color = newColor2;
+		Debug.Log ("Disappear");
 	}
 
 	//check if guard runs into us
