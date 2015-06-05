@@ -46,6 +46,8 @@ public class Move : MonoBehaviour{
 	private GameObject escapeArrow;
 	private Transform escapePoint;
 	private float arrowAlpha = 0f;
+	// dig icon
+	private GameObject digIcon;
 	
 
 	void External_Anim(int anim_status) {
@@ -70,6 +72,7 @@ public class Move : MonoBehaviour{
 		freeze = false;
 
 		escapePoint = GameObject.Find ("EscapePoint").transform;
+		digIcon = Instantiate (Resources.Load ("DigIcon")) as GameObject;
 	}
 
 	void Update()
