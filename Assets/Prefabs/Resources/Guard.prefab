@@ -200,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolSpeed: 7
   investigateSpeed: 12
-  chaseSpeed: 20.5
+  chaseSpeed: 17
   normalAngle: 45
   cornerAngle: 90
   loseTarget: 0
