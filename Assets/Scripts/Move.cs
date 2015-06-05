@@ -35,6 +35,13 @@ public class Move : MonoBehaviour{
 	// audio
 	public AudioSource guardCatch;
 	public AudioClip[] guardCatches;
+	//arrow
+	private bool arrowExists = false;
+	private bool increaseAlpha = true;
+	private Object arrow;
+	private GameObject escapeArrow;
+	private Transform escapePoint;
+	private float arrowAlpha = 0f;
 
 
 	void External_Anim(int anim_status) {
@@ -57,6 +64,8 @@ public class Move : MonoBehaviour{
 		// gather spawn points, tell the player not to freeze
 		spawnPoints = GameObject.FindGameObjectsWithTag("spawn");
 		freeze = false;
+
+		escapePoint = GameObject.Find ("EscapePoint").transform;
 	}
 
 	void Update()
@@ -211,6 +220,47 @@ public class Move : MonoBehaviour{
 			else 
 				zoomedCam = true;
 		}
+
+		// for updating the escape arrow
+		if (arrowExists) {
+			if (increaseAlpha) {
+				arrowAlpha += 0.02f;
+				if (arrowAlpha >= 0.8f)
+					increaseAlpha = false;
+			}
+			else {
+				arrowAlpha -= 0.02f;
+				if (arrowAlpha <= 0.2f)
+					increaseAlpha = true;
+			}
+			
+			Color newColor = escapeArrow.GetComponent<SpriteRenderer>().color;
+			newColor.a = arrowAlpha;
+			escapeArrow.GetComponent<SpriteRenderer>().color = newColor;
+			
+			escapeArrow.transform.position = transform.position;
+			
+			Vector3 arrowDir = new Vector3(escapePoint.position.x, escapePoint.position.y, transform.position.z);
+			Quaternion rotation = Quaternion.LookRotation
+				(arrowDir - transform.position, -transform.TransformDirection(Vector3.forward));
+			escapeArrow.transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
+			
+			Vector2 newPosition = escapeArrow.transform.position + 5 * escapeArrow.transform.up;
+			escapeArrow.transform.position = newPosition;
+		}
+	}
+
+	// create the arrow that points to the exit (called by TimeDisplay.cs)
+	public void CreateArrow() {
+		arrow = Instantiate (Resources.Load ("EscapeArrow"));
+		escapeArrow = arrow as GameObject;
+		escapeArrow.GetComponent<SpriteRenderer> ().color = Color.yellow;
+		
+		Color newOpacity = escapeArrow.GetComponent<SpriteRenderer> ().color;
+		newOpacity.a = 0;
+		escapeArrow.GetComponent<SpriteRenderer> ().color = newOpacity;
+		
+		arrowExists = true;
 	}
 
 	//check if guard runs into us

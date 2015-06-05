@@ -6,6 +6,7 @@ public class PlayerHalo : Photon.MonoBehaviour {
 	public Object myHalo;
 	public bool haloExists;
 	private GameObject halo;
+	private float zPosition = 0.25f; //this is below character but above dug graves
 
 	void Start () {
 		haloExists = false;
@@ -37,7 +38,9 @@ public class PlayerHalo : Photon.MonoBehaviour {
 	void Update () {
 
 		if (haloExists) {
-			halo.transform.position = transform.position;
+			Vector3 pos = transform.position;
+			pos.z = zPosition;
+			halo.transform.position = pos;
 		}
 	}
 
