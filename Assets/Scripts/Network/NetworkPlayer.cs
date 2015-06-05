@@ -15,9 +15,12 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 	PlayerStats ps;
 	public Animator network_anim_player;
 
+	PlayerHalo halo;
+
 	// Use this for initialization
 	void Start () {
 		ps = GetComponent<PlayerStats> ();
+		halo = GetComponent<PlayerHalo> ();
 		if (photonView.isMine) {
 			// Tells us which Digger is us
 			gameObject.name = "Me";
@@ -54,6 +57,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			stream.SendNext(PhotonNetwork.player.ID);
 			stream.SendNext(ps.lootTotal);
 			stream.SendNext(GetComponent<Move> ().mc_status);
+			stream.SendNext(halo);
 		} 
 		else {
 			position = (Vector3)stream.ReceiveNext();
@@ -69,6 +73,8 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 //			}
 //			receive_test = receive_anim;
 			network_anim_player.SetInteger("mc_state", receive_anim);
+			halo = (PlayerHalo)stream.ReceiveNext();
+			
 		}
 	}
 
