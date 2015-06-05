@@ -11,11 +11,13 @@ public class TimeDisplay : MonoBehaviour {
 	DateTime timeCounter = new DateTime(2011, 6, 10, 01, 00, 00);
 	DateTime warningTime = new DateTime(2011, 6, 10, 05, 30, 00);
 	DateTime endingTime = new DateTime(2011, 6, 10, 06, 00, 00);
+
 	GameObject[] allPlayers;
 
 	public GameObject message;
 	Text warningText;
 
+	private float beginTime;
 	public bool startTimer = false;
 
 	// Use this for initialization
@@ -26,23 +28,28 @@ public class TimeDisplay : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
-		if (PhotonNetwork.room.playerCount == 3) {
+		if (PhotonNetwork.room.playerCount == 1) {
 			startTimer = true;
+			beginTime = Time.time;
 		}
 	}
 
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
-		if (PhotonNetwork.room.playerCount == 3) {
+		if (PhotonNetwork.room.playerCount == 1) {
 			startTimer = true;
+			beginTime = Time.time;
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (startTimer == true) {
-			timeCounter = timeCounter.AddSeconds (1);
+			if (Time.time - beginTime >= 1f) {
+				timeCounter = timeCounter.AddMinutes (1);
+				beginTime = Time.time;
+			}
 		}
-		timeText.text = timeCounter.ToString ("H:mm") + " a.m.";
+		timeText.text = timeCounter.ToString ("H:mm") + " am";
 		if (!haveBeenWarned && timeCounter >= warningTime) {
 			haveBeenWarned = true;
 			warningText.text = "The sun's almost up!\nEscape by 6:00!";
