@@ -48,6 +48,9 @@ public class Move : MonoBehaviour{
 	private float arrowAlpha = 0f;
 	// dig icon
 	private GameObject digIcon;
+	// respawn
+	private Vector3 respawn1;
+	private Vector3 respawn2;
 	
 
 	void External_Anim(int anim_status) {
@@ -72,7 +75,10 @@ public class Move : MonoBehaviour{
 		freeze = false;
 
 		escapePoint = GameObject.Find ("EscapePoint").transform;
+		respawn1 = GameObject.Find ("Respawn1").transform.position;
+		respawn2 = GameObject.Find ("Respawn2").transform.position;
 		digIcon = Instantiate (Resources.Load ("DigIcon")) as GameObject;
+
 	}
 
 	void Update()
@@ -320,7 +326,12 @@ public class Move : MonoBehaviour{
 			guardCatch.clip = guardCatches [randClip];
 			guardCatch.Play ();
 			
-			transform.position = mySpawnPoint.transform.position;
+			//transform.position = mySpawnPoint.transform.position;
+			Vector2 curPos = transform.position;
+			if (curPos.y > -85)
+				transform.position = respawn2;
+			else
+				transform.position = respawn1;
 			
 			gameObject.GetComponent<CombatMusicControl>().CalmMusic();
 			other.gameObject.GetComponent<GuardAI>().loseTarget = true;

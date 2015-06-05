@@ -30,7 +30,9 @@ public class GuardAI : MonoBehaviour {
 	public float sightDistance;
 	private RaycastHit2D objectSighted;
 	private int playerMask = (1 << 10) + (1 << 9);
-	private float minY = -155; //very hard-codey way of keeping the guard from seeing the player in the spawn
+	private float minY = -155f; //very hard-codey way of keeping the guard from seeing the player in the spawn
+	private float minX = -300f;
+	private float maxX = -100f;
 
 	// patrolling
 	public int patrolRoute;
@@ -264,7 +266,8 @@ public class GuardAI : MonoBehaviour {
 	// sets the target to investigate
 	void OnTriggerEnter2D (Collider2D other) {
 		//if player sound bubble runs into the guard
-		if ((other.tag == "Player" || other.tag == "Rock") && other.transform.position.y > minY) {
+		Vector2 otherPos = other.transform.position;
+		if ((other.tag == "Player" || other.tag == "Rock") && otherPos.y > minY && otherPos.x > minX && otherPos.x < maxX) {
 			pathingTarget = other.transform;
 			currentSpeed = investigateSpeed;
 			waitToPatrol = true;
