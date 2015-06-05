@@ -56,7 +56,8 @@ public class PlayerStats : Photon.MonoBehaviour {
 	public void AddLoot(int l) {
 		//increase your lootTotal and update the scoredisplay's currentloot value
 		lootTotal += l;
-		ScoreDisplay.currentscore = lootTotal;
+		if (photonView.isMine)
+			ScoreDisplay.currentscore = lootTotal;
 		//make list of scores
 		fillScoreArray ();
 		//UpdateRankings (numPlayers);
