@@ -55,6 +55,7 @@ public class GuardAI : MonoBehaviour {
 	public int guard_status;
 
 	private bool noNewTarget = false;
+	private bool freezeTarget = false;
 
 	
 	void Start () {
@@ -157,7 +158,7 @@ public class GuardAI : MonoBehaviour {
 					if (playerDist < 7 && pathingTarget.position.y > minY && pathingTarget.position.x > minX && pathingTarget.position.x < maxX){
 						objectPV.RPC ("FreezePlayer", PhotonTargets.AllBuffered);
 						currentSpeed = patrolSpeed;
-						noNewTarget = true;
+						freezeTarget = true;
 					}
 				}
 			}
@@ -246,6 +247,12 @@ public class GuardAI : MonoBehaviour {
 				path.RemoveAt(0);
 			}
 
+			if (freezeTarget) {
+				noNewTarget = true;
+				freezeTarget = false;
+			}
+
+		
 			pathingTarget = null;
 		}
 	}

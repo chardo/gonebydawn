@@ -239,7 +239,7 @@ public class Move : MonoBehaviour{
 		}
 
 		// camera zooming for testing purposes
-		if (Input.GetKeyDown (KeyCode.E)){
+		if (Input.GetKeyDown (KeyCode.K)){
 			KillMyself ();
 		}
 
