@@ -8,7 +8,7 @@ public class TimeDisplay : MonoBehaviour {
 
 	Text timeText;
 	bool haveBeenWarned = false;
-	DateTime timeCounter = new DateTime(2011, 6, 10, 01, 00, 00);
+	DateTime timeCounter = new DateTime(2011, 6, 10, 5, 30, 00);
 	DateTime warningTime = new DateTime(2011, 6, 10, 05, 30, 00);
 	DateTime endingTime = new DateTime(2011, 6, 10, 06, 00, 00);
 
@@ -63,14 +63,14 @@ public class TimeDisplay : MonoBehaviour {
 		if (timeCounter >= endingTime) {
 			GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 			GameObject thisPlayer;
-			PlayerStats thisPS;
 			foreach (GameObject player in allPlayers) {
 				if (player.GetComponent<PlayerStats>().enabled) {
-					thisPlayer = player;
-					thisPS = thisPlayer.GetComponent<PlayerStats>();
+					if (player.transform.position.y < -155f) player.GetComponent<PlayerStats>().safe = 1;
+					else player.GetComponent<PlayerStats>().safe = 0;
+					player.GetComponent<PlayerStats>().AddLoot(0);
+					player.GetComponent<PlayerStats>().Goodbye ();
 					break;
 				}
-
 			}
 			Application.LoadLevel (2);
 		}
