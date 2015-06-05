@@ -65,8 +65,7 @@ public class TimeDisplay : MonoBehaviour {
 			GameObject thisPlayer;
 			foreach (GameObject player in allPlayers) {
 				if (player.GetComponent<PlayerStats>().enabled) {
-					if (player.transform.position.y < -155f) player.GetComponent<PlayerStats>().safe = 1;
-					else player.GetComponent<PlayerStats>().safe = 0;
+					if (player.transform.position.y < -155f) player.GetComponent<PlayerStats>().lootTotal = 0;
 					player.GetComponent<PlayerStats>().AddLoot(0);
 					player.GetComponent<PlayerStats>().Goodbye ();
 					break;
