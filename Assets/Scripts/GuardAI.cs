@@ -30,6 +30,7 @@ public class GuardAI : MonoBehaviour {
 	public float sightDistance;
 	private RaycastHit2D objectSighted;
 	private int playerMask = (1 << 10) + (1 << 9);
+	private float minY = -155; //very hard-codey way of keeping the guard from seeing the player in the spawn
 
 	// patrolling
 	public int patrolRoute;
@@ -133,7 +134,7 @@ public class GuardAI : MonoBehaviour {
 			Vector2 dir = Quaternion.AngleAxis(i, Vector3.forward) * transform.up;
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
-				if (objectSighted.collider.tag == "Player") {
+				if (objectSighted.collider.tag == "Player" && objectSighted.transform.position.y > minY) {
 
 					guard_status = 2;
 					anim_guard.SetInteger("guard_state", guard_status);
@@ -260,7 +261,7 @@ public class GuardAI : MonoBehaviour {
 	// sets the target to investigate
 	void OnTriggerEnter2D (Collider2D other) {
 		//if player sound bubble runs into the guard
-		if (other.tag == "Player" || other.tag == "Rock") {
+		if ((other.tag == "Player" || other.tag == "Rock") && other.transform.position.y > minY) {
 			pathingTarget = other.transform;
 			currentSpeed = investigateSpeed;
 			waitToPatrol = true;
