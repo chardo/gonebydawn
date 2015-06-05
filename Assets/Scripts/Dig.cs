@@ -64,7 +64,6 @@ public class Dig : MonoBehaviour {
 	//update the attached GUI to display the amount of loot gained
 	public void alertLoot(int lootGained) {
 		//get the child alertText of the child playerGUI, then get its text component
-		Debug.Log ("showing alert! in theory");
 		GameObject alert = Instantiate (alertGUI, this.transform.position, Quaternion.identity) as GameObject;
 		alertDisplay a = alert.transform.GetChild(0).gameObject.GetComponent<alertDisplay> ();
 		a.updateLoot (lootGained);

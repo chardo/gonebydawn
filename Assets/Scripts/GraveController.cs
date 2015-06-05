@@ -12,7 +12,8 @@ public class GraveController : MonoBehaviour {
 	public float dirtcount; //between 0 and 3
 	private float maxdirtcount;
 	private SpriteRenderer sprite;
-	public int lootContained;
+	public int lootLevel;
+	private int lootContained;
 	private PlayerStats looterStats;
 	private Dig looter;
 	
@@ -24,6 +25,25 @@ public class GraveController : MonoBehaviour {
 		//		sprite = GetComponent<SpriteRenderer> ();
 		gameObject.GetComponent<SpriteRenderer>().sprite = grave_array[0];
 		maxdirtcount = dirtcount;
+
+		//assign lootcount based on lootlevel (1=low, 2=medium, 3=high, 4=regal)
+		switch (lootLevel) {
+		case 1:
+			lootContained = Random.Range (1, 3);
+			break;
+		case 2:
+			lootContained = Random.Range (3, 8);
+			break;
+		case 3:
+			lootContained = Random.Range (8, 13);
+			break;
+		case 4:
+			lootContained = Random.Range (13, 15);
+			break;
+		default:
+			lootContained = 0;
+			break;
+		}
 	}
 	
 	//rpc for updating grave sprites in all clients' scenes
