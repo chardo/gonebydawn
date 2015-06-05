@@ -91,15 +91,24 @@ public class PlayerStats : Photon.MonoBehaviour {
 		for (int i=nump; i<4; i++) {
 			rankings[i].GetComponent<Image>().color = new Color(0f,0f,0f,0f);
 		}
-	}
 
-	public void Goodbye() {
+		
 		PlayerPrefs.SetInt ("Score0", scoreArray[0]);
 		PlayerPrefs.SetInt ("Score1", scoreArray[1]);
 		PlayerPrefs.SetInt ("Score2", scoreArray[2]);
 		PlayerPrefs.SetInt ("Score3", scoreArray[3]);
-
+		
 		PlayerPrefs.SetInt ("ID", ID);
+
+	}
+
+	public void Goodbye() {
+//		PlayerPrefs.SetInt ("Score0", scoreArray[0]);
+//		PlayerPrefs.SetInt ("Score1", scoreArray[1]);
+//		PlayerPrefs.SetInt ("Score2", scoreArray[2]);
+//		PlayerPrefs.SetInt ("Score3", scoreArray[3]);
+//
+//		PlayerPrefs.SetInt ("ID", ID);
 
 
 	}
