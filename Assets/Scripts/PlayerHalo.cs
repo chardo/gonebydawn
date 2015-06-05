@@ -12,7 +12,7 @@ public class PlayerHalo : Photon.MonoBehaviour {
 	}
 
 	public void DisplayHalo(){
-		photonView.RPC ("CreateHalo", PhotonTargets.All, null);
+		photonView.RPC ("CreateHalo", PhotonTargets.AllBuffered, null);
 	}
 
 	[RPC]
