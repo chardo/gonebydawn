@@ -61,6 +61,17 @@ public class TimeDisplay : MonoBehaviour {
 		}
 
 		if (timeCounter >= endingTime) {
+			GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+			GameObject thisPlayer;
+			PlayerStats thisPS;
+			foreach (GameObject player in allPlayers) {
+				if (player.GetComponent<PlayerStats>().enabled) {
+					thisPlayer = player;
+					thisPS = thisPlayer.GetComponent<PlayerStats>();
+					break;
+				}
+
+			}
 			Application.LoadLevel (2);
 		}
 	}

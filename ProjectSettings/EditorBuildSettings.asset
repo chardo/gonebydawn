@@ -7,7 +7,9 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/StartScreen.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AudioTest.unity
+  - enabled: 1
+    path: Assets/Scenes/final_prototype.unity
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
