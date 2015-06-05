@@ -47788,6 +47788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: {fileID: 1247117998}
+  startTimer: 0
 --- !u!114 &878118836
 MonoBehaviour:
   m_ObjectHideFlags: 0
