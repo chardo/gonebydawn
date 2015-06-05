@@ -19,7 +19,6 @@ public class OneWay : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D other) {
 		if (other.tag == "Player" && !other.isTrigger) {
 			oneway = true;
-			Debug.Log ("oneway = true");
 		}
 	}
 	
@@ -27,7 +26,6 @@ public class OneWay : MonoBehaviour {
 		//Just to make sure that the platform's Box Collider does not get permantly disabled and it should be enabeled once the player get its through
 		if (other.tag == "Player" && !other.isTrigger) {
 			oneway = false;
-			Debug.Log ("oneway = false");
 		}
 	}
 

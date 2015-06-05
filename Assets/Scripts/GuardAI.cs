@@ -136,7 +136,8 @@ public class GuardAI : MonoBehaviour {
 			Vector2 dir = Quaternion.AngleAxis(i, Vector3.forward) * transform.up;
 			objectSighted = Physics2D.Raycast (transform.position, dir, sightDistance, playerMask);
 			if (objectSighted) {
-				if (objectSighted.collider.tag == "Player" && objectSighted.transform.position.y > minY) {
+				Vector2 objectPos = objectSighted.transform.position;
+				if (objectSighted.collider.tag == "Player" && objectPos.y > minY && objectPos.x > minX && objectPos.x < maxX) {
 
 					guard_status = 2;
 					anim_guard.SetInteger("guard_state", guard_status);
@@ -151,7 +152,7 @@ public class GuardAI : MonoBehaviour {
 					objectPV.RPC ("GuardYell", PhotonTargets.AllBuffered);
 
 					float playerDist = Vector2.Distance(transform.position, playerTarget.transform.position);
-					if (playerDist < 7){
+					if (playerDist < 7 && pathingTarget.position.y > minY && pathingTarget.position.x > minX && pathingTarget.position.x < maxX){
 						objectPV.RPC ("FreezePlayer", PhotonTargets.AllBuffered);
 						currentSpeed = patrolSpeed;
 					}

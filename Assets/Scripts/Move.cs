@@ -51,6 +51,7 @@ public class Move : MonoBehaviour{
 	// respawn
 	private Vector3 respawn1;
 	private Vector3 respawn2;
+	private PhotonView myView;
 	
 
 	void External_Anim(int anim_status) {
@@ -78,7 +79,6 @@ public class Move : MonoBehaviour{
 		respawn1 = GameObject.Find ("Respawn1").transform.position;
 		respawn2 = GameObject.Find ("Respawn2").transform.position;
 		digIcon = Instantiate (Resources.Load ("DigIcon")) as GameObject;
-
 	}
 
 	void Update()
@@ -300,15 +300,19 @@ public class Move : MonoBehaviour{
 	}
 
 	public void ShovelAppear() {
-		Color newColor = new Color (255f, 255f, 255f, 1f);
-		digIcon.GetComponent<SpriteRenderer> ().color = newColor;
-		Debug.Log ("Appear");
+		myView = GetComponent<PhotonView>();
+		if (myView.isMine) {
+			Color newColor = new Color (255f, 255f, 255f, 1f);
+			digIcon.GetComponent<SpriteRenderer> ().color = newColor;
+		}
 	}
 
 	public void ShovelDisappear() {
-		Color newColor2 = new Color (255f, 255f, 255f, 0f);
-		digIcon.GetComponent<SpriteRenderer> ().color = newColor2;
-		Debug.Log ("Disappear");
+		myView = GetComponent<PhotonView>();
+		if (myView.isMine) {
+			Color newColor2 = new Color (255f, 255f, 255f, 0f);
+			digIcon.GetComponent<SpriteRenderer> ().color = newColor2;
+		}
 	}
 
 	//check if guard runs into us
