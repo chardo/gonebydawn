@@ -11,7 +11,7 @@ public class PlayerHalo : Photon.MonoBehaviour {
 		haloExists = false;
 	}
 
-	void displayHalo(){
+	public void DisplayHalo(){
 		photonView.RPC ("CreateHalo", PhotonTargets.All, null);
 	}
 
