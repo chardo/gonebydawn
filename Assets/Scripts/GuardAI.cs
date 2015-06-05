@@ -54,6 +54,8 @@ public class GuardAI : MonoBehaviour {
 	public Animator anim_guard;
 	public int guard_status;
 
+	private bool noNewTarget = false;
+
 	
 	void Start () {
 		// initialize timing and angle variables
@@ -155,6 +157,7 @@ public class GuardAI : MonoBehaviour {
 					if (playerDist < 7 && pathingTarget.position.y > minY && pathingTarget.position.x > minX && pathingTarget.position.x < maxX){
 						objectPV.RPC ("FreezePlayer", PhotonTargets.AllBuffered);
 						currentSpeed = patrolSpeed;
+						noNewTarget = true;
 					}
 				}
 			}
@@ -166,13 +169,14 @@ public class GuardAI : MonoBehaviour {
 		// If there is currently a target
 		if(path != null && path.Count != 0)
 		{
-				if (loseTarget) {
-					loseTarget = false;
-					path = null;
-					pathingTarget = null;
-					StartCoroutine(WaitForPeriod(waitForPatrol));
-					guard_status = 1;
-					anim_guard.SetInteger("guard_state", guard_status);
+			if (loseTarget) {
+				loseTarget = false;
+				path = null;
+				pathingTarget = null;
+				StartCoroutine(WaitForPeriod(waitForPatrol));
+				guard_status = 1;
+				anim_guard.SetInteger("guard_state", guard_status);
+				noNewTarget= false;
 			}
 			else {
 				// move along the path to target; make sure to render on top of light
@@ -218,7 +222,7 @@ public class GuardAI : MonoBehaviour {
 
 	// this function gets the path to a new target and starts the new target timer
 	void SetNewTarget() {
-		if ( pathingTarget != null && newTargetTimer == 0) {
+		if ( pathingTarget != null && newTargetTimer == 0 && !noNewTarget) {
 			distToTarget = Vector2.Distance (transform.position, pathingTarget.position);
 
 			path = NavMesh2D.GetSmoothedPath (transform.position, pathingTarget.position);

@@ -240,10 +240,7 @@ public class Move : MonoBehaviour{
 
 		// camera zooming for testing purposes
 		if (Input.GetKeyDown (KeyCode.E)){
-			if (zoomedCam)
-				zoomedCam = false;
-			else 
-				zoomedCam = true;
+			KillMyself ();
 		}
 
 		Vector3 digIconPosition = transform.position;
@@ -342,6 +339,18 @@ public class Move : MonoBehaviour{
 
 			StartCoroutine(WaitForPeriod (1));
 		}
+	}
+
+	void KillMyself(){
+		float l = Mathf.Ceil (GetComponent<PlayerStats>().lootTotal*0.2f);
+		int il = (int) l;
+		gameObject.GetComponent<PlayerStats>().AddLoot (-1*il);
+		Vector2 curPos = transform.position;
+		if (curPos.y > -85)
+			transform.position = respawn2;
+		else
+			transform.position = respawn1;
+		StartCoroutine(WaitForPeriod (1));
 	}
 
 	IEnumerator WaitForPeriod(float waitTime) {
