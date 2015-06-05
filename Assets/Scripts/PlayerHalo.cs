@@ -11,6 +11,11 @@ public class PlayerHalo : Photon.MonoBehaviour {
 		haloExists = false;
 	}
 
+	void displayHalo(){
+		photonView.RPC ("CreateHalo", PhotonTargets.All, null);
+	}
+
+	[RPC]
 	public void CreateHalo(){
 		int myID = GetComponent<PlayerStats> ().ID;
 		if (myID == 1)
