@@ -32,7 +32,7 @@ public class TimeDisplay : MonoBehaviour {
 			warningText.text = "The sun's almost up!\nEscape by 6:00!";
 			allPlayers = GameObject.FindGameObjectsWithTag ("Player");
 			foreach (GameObject player in allPlayers) {
-				player.GetComponent<Move>().CreateArrow();
+				//player.GetComponent<Move>().CreateArrow();
 			}
 			warningText.CrossFadeAlpha (1f, 2f, true);
 			StartCoroutine (setBlankAfter(7f));
