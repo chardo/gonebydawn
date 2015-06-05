@@ -329,10 +329,20 @@ public class Move : MonoBehaviour{
 			
 			//transform.position = mySpawnPoint.transform.position;
 			Vector2 curPos = transform.position;
-			if (curPos.y > -85)
-				transform.position = respawn2;
-			else
-				transform.position = respawn1;
+			if (curPos.y > -85) {
+				float spawnDist = Vector2.Distance(transform.position, respawn2);
+				if (spawnDist < 60)
+					transform.position = respawn1;
+				else
+					transform.position = respawn2;
+			}
+			else {
+				float spawnDist = Vector2.Distance(transform.position, respawn1);
+				if (spawnDist < 60)
+					transform.position = respawn2;
+				else
+					transform.position = respawn1;
+			}
 			
 			gameObject.GetComponent<CombatMusicControl>().CalmMusic();
 			other.gameObject.GetComponent<GuardAI>().loseTarget = true;

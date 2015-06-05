@@ -36,13 +36,13 @@ public class TimeDisplay : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
-		if (PhotonNetwork.room.playerCount >= 4) {
+		if (PhotonNetwork.room.playerCount >= 1) {
 			StartCoroutine ("Intro1");
 		}
 	}
 
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
-		if (PhotonNetwork.room.playerCount >= 4) {
+		if (PhotonNetwork.room.playerCount >= 1) {
 			StartCoroutine ("Intro1");
 		}
 	}
