@@ -16,16 +16,39 @@ public class EndScreenController : MonoBehaviour {
 	
 	public GameObject bg;
 	public GameObject congrats;
-	string t1;
+	string t1 = "";
 	string t2;
 	
 	// Use this for initialization
 	void Start () {
+
+		int wscore = PlayerPrefs.GetInt ("WinningScore");
+		int myscore = PlayerPrefs.GetInt ("myScore");
+		float wr = PlayerPrefs.GetFloat ("wR");
+		float wg = PlayerPrefs.GetFloat ("wG");
+		float wb = PlayerPrefs.GetFloat ("wB");
+
+		Color c = new Color (wr, wg, wb, 1.0f);
+
+		if (c == Color.blue)
+			t1 = "Blue player wins!";
+		else if (c == Color.green)
+			t1 = "Green player wins!";
+		else if (c == Color.magenta)
+			t1 = "Pink player wins!";
+		else if (c == Color.yellow)
+			t1 = "Yellow player wins!";
+
+
+		congrats.GetComponent<Text> ().text = t1;
+
+
+
+		/*
 		scoreArray [0] = PlayerPrefs.GetInt ("Score0");
 		scoreArray [1] = PlayerPrefs.GetInt ("Score1");
 		scoreArray [2] = PlayerPrefs.GetInt ("Score2");
 		scoreArray [3] = PlayerPrefs.GetInt ("Score3");
-		Debug.Log (scoreArray [0]);
 		
 		//array of boxes to be filled with colors (in left to right order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
@@ -69,8 +92,8 @@ public class EndScreenController : MonoBehaviour {
 				max = array[i];
 			}
 		}
-		
 		return max;
+	}*/
 	}
 	
 	// Update is called once per frame

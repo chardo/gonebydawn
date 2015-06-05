@@ -11,9 +11,6 @@ public class TimeDisplay : MonoBehaviour {
 	DateTime timeCounter = new DateTime(2011, 6, 10, 1, 00, 00);
 	DateTime warningTime = new DateTime(2011, 6, 10, 05, 30, 00);
 	DateTime endingTime = new DateTime(2011, 6, 10, 06, 00, 00);
-	GameObject startWall;
-	Vector2 wallLocation;
-	Vector2 otherLocation;
 
 	GameObject[] allPlayers;
 
@@ -29,9 +26,6 @@ public class TimeDisplay : MonoBehaviour {
 		timeText.text = timeCounter.ToString ("H:mm") + " a.m.";
 		warningText = message.GetComponent<Text> ();
 		warningText.text = "Waiting for other players...";
-		startWall = GameObject.Find ("StartWall");
-		wallLocation = startWall.transform.position;
-		otherLocation = new Vector2 (-200f, -300f);
 	}
 
 	void OnJoinedRoom(){
@@ -62,7 +56,6 @@ public class TimeDisplay : MonoBehaviour {
 			foreach (GameObject player in allPlayers) {
 				player.GetComponent<Move>().CreateArrow();
 			}
-			startWall.transform.position = wallLocation;
 			warningText.CrossFadeAlpha (1f, 2f, true);
 			StartCoroutine (setBlankAfter(7f));
 		}
@@ -71,12 +64,9 @@ public class TimeDisplay : MonoBehaviour {
 			GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
 			GameObject thisPlayer;
 			foreach (GameObject player in allPlayers) {
-				if (player.GetComponent<PlayerStats>().enabled) {
-					if (player.transform.position.y < -155f) player.GetComponent<PlayerStats>().lootTotal = 0;
-					player.GetComponent<PlayerStats>().AddLoot(0);
-					player.GetComponent<PlayerStats>().Goodbye ();
-					break;
-				}
+				if (player.transform.position.y > -155f) player.GetComponent<PlayerStats>().lootTotal = 0;
+				player.GetComponent<PlayerStats>().AddLoot(0);
+				player.GetComponent<PlayerStats>().Goodbye ();
 			}
 			Application.LoadLevel (2);
 		}
@@ -127,7 +117,6 @@ public class TimeDisplay : MonoBehaviour {
 
 	IEnumerator Intro4() {
 		//set new text and fade it in
-		startWall.transform.position = otherLocation;
 		warningText.text = "Start!";
 		warningText.CrossFadeAlpha (1f, 0.2f, false);
 		//start the timer!

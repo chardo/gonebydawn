@@ -93,10 +93,11 @@ public class PlayerStats : Photon.MonoBehaviour {
 		}
 
 		
-		PlayerPrefs.SetInt ("Score0", scoreArray[0]);
-		PlayerPrefs.SetInt ("Score1", scoreArray[1]);
-		PlayerPrefs.SetInt ("Score2", scoreArray[2]);
-		PlayerPrefs.SetInt ("Score3", scoreArray[3]);
+		PlayerPrefs.SetInt ("WinningScore", scoreArray[0]);
+		PlayerPrefs.SetInt ("myScore", lootTotal);
+		PlayerPrefs.SetFloat ("wR", playerColors [0].r);
+		PlayerPrefs.SetFloat ("wG", playerColors [0].g);
+		PlayerPrefs.SetFloat ("wB", playerColors [0].b);
 		
 		PlayerPrefs.SetInt ("ID", ID);
 
