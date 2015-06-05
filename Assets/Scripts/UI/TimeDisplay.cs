@@ -30,6 +30,7 @@ public class TimeDisplay : MonoBehaviour {
 		warningText = message.GetComponent<Text> ();
 		warningText.text = "Waiting for other players...";
 		startWall = GameObject.Find ("StartWall");
+		moveLocation = new Vector2 (-200f, -300f);
 		wallLocation = startWall.transform.position;
 	}
 
@@ -61,7 +62,7 @@ public class TimeDisplay : MonoBehaviour {
 			foreach (GameObject player in allPlayers) {
 				player.GetComponent<Move>().CreateArrow();
 			}
-			startWall.transform.location = wallLocation;
+			startWall.transform.position = wallLocation;
 			warningText.CrossFadeAlpha (1f, 2f, true);
 			StartCoroutine (setBlankAfter(7f));
 		}
