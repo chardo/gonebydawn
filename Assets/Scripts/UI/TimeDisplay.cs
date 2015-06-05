@@ -51,7 +51,7 @@ public class TimeDisplay : MonoBehaviour {
 		timeText.text = timeCounter.ToString ("H:mm") + " am";
 		if (!haveBeenWarned && timeCounter >= warningTime) {
 			haveBeenWarned = true;
-			warningText.text = "The sun's almost up!\nEscape by 6:00!";
+			warningText.text = "The sun's almost up! Escape by 6:00!";
 			allPlayers = GameObject.FindGameObjectsWithTag ("Player");
 			foreach (GameObject player in allPlayers) {
 				player.GetComponent<Move>().CreateArrow();
@@ -88,7 +88,7 @@ public class TimeDisplay : MonoBehaviour {
 
 	IEnumerator Intro2() {
 		//set new text and fade it in
-		warningText.text = "...don't be seen or heard...";
+		warningText.text = "...move quietly and stay out of sight...";
 		warningText.CrossFadeAlpha (1f, 0.5f, false);
 		yield return new WaitForSeconds(2.5f);
 		//fade it out and call next intro
@@ -99,7 +99,7 @@ public class TimeDisplay : MonoBehaviour {
 
 	IEnumerator Intro3() {
 		//set new text and fade it in
-		warningText.text = ".. and get out by 6am!";
+		warningText.text = "...and get out by 6am!";
 		warningText.CrossFadeAlpha (1f, 0.5f, false);
 		yield return new WaitForSeconds(2.5f);
 		//fade it out and call next intro
