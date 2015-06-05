@@ -12,7 +12,7 @@ public class PlayerHalo : Photon.MonoBehaviour {
 	}
 
 	public void DisplayHalo(){
-		photonView.RPC ("CreateHalo", PhotonTargets.All, null);
+		photonView.RPC ("CreateHalo", PhotonTargets.AllBuffered, null);
 	}
 
 	[RPC]
@@ -44,6 +44,7 @@ public class PlayerHalo : Photon.MonoBehaviour {
 	IEnumerator waitForHalo(float t) {
 		yield return new WaitForSeconds(t);
 		Debug.Log ("Waiting to create halo");
+		haloExists = true;
 		CreateHalo ();
 	}
 }
