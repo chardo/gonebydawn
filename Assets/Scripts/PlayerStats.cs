@@ -33,6 +33,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 	
 	IEnumerator WelcomePlayer(float t) {
 		yield return new WaitForSeconds(t);
+		GetComponent<PlayerHalo> ().haloExists = true;
 		GetComponent<PlayerHalo> ().DisplayHalo ();
 		AddLoot (0);
 	}
