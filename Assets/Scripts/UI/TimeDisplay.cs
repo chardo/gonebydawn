@@ -25,19 +25,18 @@ public class TimeDisplay : MonoBehaviour {
 		timeText = GetComponent<Text> ();
 		timeText.text = timeCounter.ToString ("H:mm") + " a.m.";
 		warningText = message.GetComponent<Text> ();
+		warningText.text = "Waiting for other players...";
 	}
 
 	void OnJoinedRoom(){
 		if (PhotonNetwork.room.playerCount == 1) {
-			startTimer = true;
-			beginTime = Time.time;
+			StartCoroutine ("Intro1");
 		}
 	}
 
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
 		if (PhotonNetwork.room.playerCount == 1) {
-			startTimer = true;
-			beginTime = Time.time;
+			StartCoroutine ("Intro1");
 		}
 	}
 	
@@ -72,4 +71,55 @@ public class TimeDisplay : MonoBehaviour {
 		yield return new WaitForSeconds (1f);
 		warningText.text = "";
 	}
+
+	IEnumerator Intro1() {
+		//fade out the waiting for players text
+		warningText.CrossFadeAlpha (0f, 0.5f, false);
+		yield return new WaitForSeconds (1.5f);
+		//set new text and fade it in
+		warningText.text = "Steal as much loot as you can...";
+		warningText.CrossFadeAlpha (1f, 0.5f, false);
+		yield return new WaitForSeconds(2.5f);
+		//fade it out and call next intro
+		warningText.CrossFadeAlpha(0f, 1f, false);
+		yield return new WaitForSeconds (1.5f);
+		StartCoroutine ("Intro2");
+	}
+
+	IEnumerator Intro2() {
+		//set new text and fade it in
+		warningText.text = "...don't be seen or heard...";
+		warningText.CrossFadeAlpha (1f, 0.5f, false);
+		yield return new WaitForSeconds(2.5f);
+		//fade it out and call next intro
+		warningText.CrossFadeAlpha(0f, 1f, false);
+		yield return new WaitForSeconds (1.5f);
+		StartCoroutine ("Intro3");
+	}
+
+	IEnumerator Intro3() {
+		//set new text and fade it in
+		warningText.text = ".. and get out by 6am!";
+		warningText.CrossFadeAlpha (1f, 0.5f, false);
+		yield return new WaitForSeconds(2.5f);
+		//fade it out and call next intro
+		warningText.CrossFadeAlpha(0f, 1f, false);
+		yield return new WaitForSeconds (1.5f);
+		StartCoroutine ("Intro4");
+	}
+
+	IEnumerator Intro4() {
+		//set new text and fade it in
+		warningText.text = "Start!";
+		warningText.CrossFadeAlpha (1f, 0.2f, false);
+		//start the timer!
+		startTimer = true;
+		beginTime = Time.time;
+		yield return new WaitForSeconds(2.5f);
+		//fade it out and call next intro
+		warningText.CrossFadeAlpha(0f, 1f, false);
+		yield return new WaitForSeconds (1.5f);
+	}
+
+
 }
