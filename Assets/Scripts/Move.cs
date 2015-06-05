@@ -238,14 +238,13 @@ public class Move : MonoBehaviour{
 			newColor.a = arrowAlpha;
 			escapeArrow.GetComponent<SpriteRenderer>().color = newColor;
 			
-			escapeArrow.transform.position = transform.position;
-			
 			Vector3 arrowDir = new Vector3(escapePoint.position.x, escapePoint.position.y, transform.position.z);
 			Quaternion rotation = Quaternion.LookRotation
 				(arrowDir - transform.position, -transform.TransformDirection(Vector3.forward));
 			escapeArrow.transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w);
 			
-			Vector2 newPosition = escapeArrow.transform.position + 5 * escapeArrow.transform.up;
+			Vector3 newPosition = transform.position + 5 * escapeArrow.transform.up;
+			newPosition.z = -0.1f;
 			escapeArrow.transform.position = newPosition;
 		}
 	}
