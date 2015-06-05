@@ -324,7 +324,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg: {fileID: 733097604}
   congrats: {fileID: 1305518000}
-  details: {fileID: 0}
 --- !u!114 &305790977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
