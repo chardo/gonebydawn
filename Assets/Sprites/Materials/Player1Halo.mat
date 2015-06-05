@@ -37,15 +37,15 @@ Material:
       data:
         first:
           name: _UVXScale
-        second: 6
+        second: 9
       data:
         first:
           name: _UVYScale
-        second: 6
+        second: 9
       data:
         first:
           name: _Offset
-        second: -12
+        second: -18
     m_Colors:
       data:
         first:
