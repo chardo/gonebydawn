@@ -35,6 +35,10 @@ public class Move : MonoBehaviour{
 	// audio
 	public AudioSource guardCatch;
 	public AudioClip[] guardCatches;
+	public AudioSource moveSounds;
+	public AudioClip[] runSneak;
+	private bool sneakPlayed;
+	private bool runPlayed;
 	//arrow
 	private bool arrowExists = false;
 	private bool increaseAlpha = true;
@@ -42,7 +46,7 @@ public class Move : MonoBehaviour{
 	private GameObject escapeArrow;
 	private Transform escapePoint;
 	private float arrowAlpha = 0f;
-
+	
 
 	void External_Anim(int anim_status) {
 		anim_player.SetInteger("mc_state",anim_status);
@@ -86,6 +90,11 @@ public class Move : MonoBehaviour{
 				cam.orthographicSize = Mathf.Lerp (cam.orthographicSize, sneakCamSize, 4 * (Time.time - startTime));
 				anim_player.SetInteger("mc_state",3);
 				mc_status = 3;
+				if (!sneakPlayed){
+					moveSounds.clip = runSneak[1];
+					moveSounds.Play ();
+					sneakPlayed = true;
+				}
 //				Debug.Log ("mc status: " + mc_status);
 
 				//anim_player.SetBool("run",false);
@@ -97,6 +106,11 @@ public class Move : MonoBehaviour{
 				anim_player.SetInteger("mc_state",1);
 				mc_status = 1;
 
+				if (!runPlayed){
+					moveSounds.clip = runSneak[0];
+					moveSounds.Play ();
+					runPlayed = true;
+				}
 
 
 				if (zoomedCam) {
@@ -197,6 +211,8 @@ public class Move : MonoBehaviour{
 				//anim_player.SetBool("run",false);
 				anim_player.SetInteger("mc_state",0);
 				mc_status = 0;
+				sneakPlayed = false;
+				runPlayed = false;
 //				Debug.Log ("idle");
 //				Debug.Log ("mc status: " + mc_status);
 
