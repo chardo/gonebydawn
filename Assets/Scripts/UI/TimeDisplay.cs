@@ -8,7 +8,7 @@ public class TimeDisplay : MonoBehaviour {
 
 	Text timeText;
 	bool haveBeenWarned = false;
-	DateTime timeCounter = new DateTime(2011, 6, 10, 05, 20, 00);
+	DateTime timeCounter = new DateTime(2011, 6, 10, 01, 00, 00);
 	DateTime warningTime = new DateTime(2011, 6, 10, 05, 30, 00);
 	DateTime endingTime = new DateTime(2011, 6, 10, 06, 00, 00);
 	GameObject[] allPlayers;

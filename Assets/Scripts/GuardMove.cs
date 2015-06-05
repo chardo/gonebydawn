@@ -14,6 +14,8 @@ public class GuardMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		myLight.transform.position = transform.position;
+		Vector3 pos = transform.position;
+		pos.z = 0f;
+		myLight.transform.position = pos;
 	}
 }

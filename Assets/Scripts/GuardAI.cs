@@ -172,8 +172,11 @@ public class GuardAI : MonoBehaviour {
 					anim_guard.SetInteger("guard_state", guard_status);
 			}
 			else {
-				// move along the path to target
+				// move along the path to target; make sure to render on top of light
 				transform.position = Vector2.MoveTowards(transform.position, path[0], currentSpeed*Time.deltaTime);
+				Vector3 newPosition = transform.position;
+				newPosition.z = -0.1f;
+				transform.position = newPosition;
 				if(Vector2.Distance(transform.position,path[0]) < 0.01f)
 				{
 					path.RemoveAt(0);
