@@ -25,6 +25,7 @@ public class EndScreenController : MonoBehaviour {
 		scoreArray [1] = PlayerPrefs.GetInt ("Score1");
 		scoreArray [2] = PlayerPrefs.GetInt ("Score2");
 		scoreArray [3] = PlayerPrefs.GetInt ("Score3");
+		Debug.Log (scoreArray [0]);
 		
 		//array of boxes to be filled with colors (in left to right order)
 		rankings = GameObject.FindGameObjectsWithTag ("ScoreSquare");
@@ -35,8 +36,9 @@ public class EndScreenController : MonoBehaviour {
 		Array.Sort (labels, (GameObject a, GameObject b) => a.transform.position.x.CompareTo (b.transform.position.x));
 		
 		//array of boxes to be filled with colors (in left to right order)
-		labels2 = GameObject.FindGameObjectsWithTag ("ScoreLabel");
+		labels2 = GameObject.FindGameObjectsWithTag ("RankLabel");
 		Array.Sort (labels2, (GameObject a, GameObject b) => a.transform.position.x.CompareTo (b.transform.position.x));
+		Array.Reverse (labels2);
 		
 		for (int i=0; i<4; i++) {
 			rankings [i].GetComponent<Image> ().color = colors [i];
