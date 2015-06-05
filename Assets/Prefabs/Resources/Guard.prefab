@@ -209,7 +209,7 @@ MonoBehaviour:
   waitForPatrol: 2
   guardLose: {fileID: 8254668}
   guardLosses:
-  - {fileID: 8300000, guid: 5054c52ccdc6a4b9e8a625fabb87fd38, type: 3}
+  - {fileID: 8300000, guid: fc306fdee92f14dd9bfa4ed1b18e8074, type: 3}
   - {fileID: 8300000, guid: d2fd45c786dfe4dd1b574f6a9b6ae635, type: 3}
   - {fileID: 8300000, guid: ff0f84da1812c4be5b0fdab5533d5419, type: 3}
   - {fileID: 8300000, guid: eea2d2a209b2d483998e813b6fe3a891, type: 3}
@@ -217,7 +217,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4b20ade9d871c4a999f73d7a27ec192c, type: 3}
   - {fileID: 8300000, guid: 84cd67935dc44466eb52979e221f08af, type: 3}
   - {fileID: 8300000, guid: d2aa327fb6eac42f5b7c7fabf2cfb303, type: 3}
-  - {fileID: 8300000, guid: fc306fdee92f14dd9bfa4ed1b18e8074, type: 3}
   anim_guard: {fileID: 0}
   guard_status: 0
 --- !u!114 &11482174
