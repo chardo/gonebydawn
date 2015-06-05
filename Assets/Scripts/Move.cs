@@ -35,10 +35,6 @@ public class Move : MonoBehaviour{
 	// audio
 	public AudioSource guardCatch;
 	public AudioClip[] guardCatches;
-	public AudioSource MovementAudio;
-	public AudioClip[] RunSneak;
-	private bool runSoundPlayed = false;
-	private bool sneakSoundPlayed = false;
 
 
 	void External_Anim(int anim_status) {
@@ -150,11 +146,6 @@ public class Move : MonoBehaviour{
 					//Debug.Log ("set walk to true");
 					anim_player.SetInteger("mc_state",3);
 					mc_status = 3;
-					if(!sneakSoundPlayed){
-						MovementAudio.clip = RunSneak[1];
-						MovementAudio.Play ();
-						sneakSoundPlayed = true;
-					}
 //					Debug.Log ("mc status: " + mc_status);
 
 				} 
@@ -164,11 +155,6 @@ public class Move : MonoBehaviour{
 					//anim_player.SetBool("dig",false);
 					anim_player.SetInteger("mc_state",1);
 					mc_status = 1;
-					if (!runSoundPlayed){
-						MovementAudio.clip = RunSneak[0];
-						MovementAudio.Play ();
-						runSoundPlayed = true;
-					}
 //					Debug.Log ("mc status: " + mc_status);
 
 					//anim_player.SetBool("run", true);
@@ -196,9 +182,6 @@ public class Move : MonoBehaviour{
 				//anim_player.SetBool("run",false);
 				anim_player.SetInteger("mc_state",0);
 				mc_status = 0;
-				MovementAudio.Stop ();
-				runSoundPlayed = false;
-				sneakSoundPlayed = false;
 //				Debug.Log ("idle");
 //				Debug.Log ("mc status: " + mc_status);
 

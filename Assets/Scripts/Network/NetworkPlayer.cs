@@ -61,7 +61,7 @@ public class NetworkPlayer : Photon.MonoBehaviour {
 			sound.radius = (float)stream.ReceiveNext();
 			ps.ID = (int)stream.ReceiveNext ();
 			ps.lootTotal = (int)stream.ReceiveNext ();
-			int receive_test = 4;
+//			int receive_test = 4;
 			int receive_anim = (int)stream.ReceiveNext ();
 //			if (receive_test != receive_anim) {
 //				Debug.Log ("anim change:");
