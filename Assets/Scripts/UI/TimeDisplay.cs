@@ -8,9 +8,12 @@ public class TimeDisplay : MonoBehaviour {
 
 	Text timeText;
 	bool haveBeenWarned = false;
-	DateTime timeCounter = new DateTime(2011, 6, 10, 5, 30, 00);
+	DateTime timeCounter = new DateTime(2011, 6, 10, 5, 45, 00);
 	DateTime warningTime = new DateTime(2011, 6, 10, 05, 30, 00);
 	DateTime endingTime = new DateTime(2011, 6, 10, 06, 00, 00);
+	GameObject startWall;
+	Vector2 moveLocation;
+	Vector2 wallLocation;
 
 	GameObject[] allPlayers;
 
@@ -26,6 +29,8 @@ public class TimeDisplay : MonoBehaviour {
 		timeText.text = timeCounter.ToString ("H:mm") + " a.m.";
 		warningText = message.GetComponent<Text> ();
 		warningText.text = "Waiting for other players...";
+		startWall = GameObject.Find ("StartWall");
+		wallLocation = startWall.transform.position;
 	}
 
 	void OnJoinedRoom(){
@@ -56,6 +61,7 @@ public class TimeDisplay : MonoBehaviour {
 			foreach (GameObject player in allPlayers) {
 				player.GetComponent<Move>().CreateArrow();
 			}
+			startWall.transform.location = wallLocation;
 			warningText.CrossFadeAlpha (1f, 2f, true);
 			StartCoroutine (setBlankAfter(7f));
 		}
@@ -119,6 +125,7 @@ public class TimeDisplay : MonoBehaviour {
 	}
 
 	IEnumerator Intro4() {
+		startWall.transform.position = moveLocation;
 		//set new text and fade it in
 		warningText.text = "Start!";
 		warningText.CrossFadeAlpha (1f, 0.2f, false);
