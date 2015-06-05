@@ -92,7 +92,7 @@ public class PlayerStats : Photon.MonoBehaviour {
 		PlayerPrefs.SetFloat ("WinningR", playerColors[0].r);
 		PlayerPrefs.SetFloat ("WinningG", playerColors[0].g);
 		PlayerPrefs.SetFloat ("WinningB", playerColors[0].b);
-		PlayerPrefs.SetInt ("WinningScore", 1/inverseScore[0]);
+		PlayerPrefs.SetInt ("WinningScore", -1*inverseScore[0]);
 		PlayerPrefs.SetInt ("MyScore", lootTotal);
 	}
 }
