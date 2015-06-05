@@ -27,7 +27,7 @@ public class Dig : MonoBehaviour {
 
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		if (Input.GetKey (KeyCode.Space)) {
 			if (gc != null && canDig && inGrave) {

@@ -195,7 +195,6 @@ public class Move : MonoBehaviour{
 				soundTrigger.radius = Mathf.Lerp (soundTrigger.radius, digSoundRadius, 8 * (Time.time - startTime));
 				anim_player.SetInteger("mc_state",2);
 				mc_status = 2;
-				Debug.Log ("dig in grave");
 
 				//anim_player.SetBool("run",false);
 				//anim_player.SetBool("dig",true);
