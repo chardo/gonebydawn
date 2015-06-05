@@ -360,7 +360,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: .730000019
+  m_Volume: .800000012
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d9f302aa8c25a49e8ad700b4b7004795, type: 3}
   moveSounds: {fileID: 8235762}
   runSneak:
-  - {fileID: 8300000, guid: 7c7dec2590f824ab2aa2cd635ea48014, type: 3}
+  - {fileID: 8300000, guid: 65ee7c9b599e1470b990ffbd0086e89b, type: 3}
   - {fileID: 8300000, guid: 60cc01a5515bc409488eb499ae4d6c6c, type: 3}
 --- !u!114 &11454758
 MonoBehaviour:

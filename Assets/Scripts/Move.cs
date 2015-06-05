@@ -134,6 +134,7 @@ public class Move : MonoBehaviour{
 			//no move if digging
 			if (Input.GetKey (KeyCode.Space)) {
 				move = Vector2.zero;
+				moveSounds.Stop ();
 			}
 
 			//normalize it and multiply by the conditional speed calculated above
