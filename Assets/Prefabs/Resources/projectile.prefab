@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwDistance: 20
-  soundRadius: 60
+  soundRadius: 100
   anim_loot: {fileID: 0}
 --- !u!212 &21230896
 SpriteRenderer:
